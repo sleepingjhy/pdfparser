@@ -1,0 +1,882 @@
+2026-02-09 20:20:52 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:20:58 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:20:58 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 20:21:02 [INFO] pipeline.scanner - 扫描完成: 发现 17824 个新PDF, 跳过 0 个已注册, 跳过 0 个超大文件
+2026-02-09 20:21:03 [INFO] pipeline.checkpoint - 注册 17824 个文件，新增约 158788603 个
+2026-02-09 20:21:03 [INFO] pipeline.processor - 新注册 17824 个PDF文件
+2026-02-09 20:21:11 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:21:11 [INFO] pipeline.processor - 已重置 0 个失败文件为待处理
+2026-02-09 20:31:20 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:32:06 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:32:06 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 20:32:08 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17824 个已注册, 跳过 0 个超大文件
+2026-02-09 20:32:08 [INFO] pipeline.processor - 检查点状态: 总计=17813, 待处理=17813, 已完成=0, 失败=0
+2026-02-09 20:32:08 [INFO] pipeline.processor - 开始处理 100 个文件...
+2026-02-09 20:32:08 [INFO] pipeline.processor - 处理批次 1/10 (10 个文件)
+2026-02-09 20:32:11 [WARNING] pipeline.api_client - 上传失败 JLSC201800004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/4077ae69-a850-489f-ac4c-731268905009.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=bnngozNMUFjM8TzUh%2Bz4k7Bdkyk%3D', 2秒后重试
+2026-02-09 20:32:11 [WARNING] pipeline.api_client - 上传失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/cbc71a7c-4dbb-45f3-b9ed-b9c208e5a2c2.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=XSHIGZkDHd9DAMbUB55iqZx9FpQ%3D', 2秒后重试
+2026-02-09 20:32:12 [WARNING] pipeline.api_client - 上传失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/be32ab07-de23-4117-9048-02d18a6ebefc.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5SE1tH3%2B0mNOw1LjqC08Ajql6vY%3D', 2秒后重试
+2026-02-09 20:32:15 [ERROR] pipeline.processor - 上传失败 (JLSC201800004): I/O operation on closed file
+2026-02-09 20:32:15 [ERROR] pipeline.processor - 批次 1 处理失败: I/O operation on closed file
+2026-02-09 20:32:15 [INFO] pipeline.processor - 处理批次 2/10 (10 个文件)
+2026-02-09 20:32:17 [WARNING] pipeline.api_client - 上传失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/cbc71a7c-4dbb-45f3-b9ed-b9c208e5a2c2.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=XSHIGZkDHd9DAMbUB55iqZx9FpQ%3D', 4秒后重试
+2026-02-09 20:32:17 [WARNING] pipeline.api_client - 上传失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/ee19c5b4-7793-49be-a712-d5bd24596a27.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=V9M66lig/sdk7VRlFGPSEuMOnVI%3D', 2秒后重试
+2026-02-09 20:32:18 [WARNING] pipeline.api_client - 上传失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/be32ab07-de23-4117-9048-02d18a6ebefc.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5SE1tH3%2B0mNOw1LjqC08Ajql6vY%3D', 4秒后重试
+2026-02-09 20:32:23 [ERROR] pipeline.processor - 上传失败 (JLSC201800005): 上传文件失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/cbc71a7c-4dbb-45f3-b9ed-b9c208e5a2c2.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=XSHIGZkDHd9DAMbUB55iqZx9FpQ%3D'
+2026-02-09 20:32:27 [ERROR] pipeline.processor - 上传失败 (JLSC201800002): 上传文件失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/be32ab07-de23-4117-9048-02d18a6ebefc.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5SE1tH3%2B0mNOw1LjqC08Ajql6vY%3D'
+2026-02-09 20:32:29 [WARNING] pipeline.api_client - 上传失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/367bdd5f-126f-4f73-aa39-de1d138c6fab.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=AvsxHX8tzTzQGjLXw4QgO4ozL44%3D', 2秒后重试
+2026-02-09 20:32:31 [ERROR] pipeline.processor - 上传失败 (JLSC201800003): I/O operation on closed file
+2026-02-09 20:32:33 [WARNING] pipeline.api_client - 上传失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/50f8ddf8-7821-471e-b3d3-ab384de8126a.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ES7GVVYqdGGzKUd9yEjY4LN9EkM%3D', 2秒后重试
+2026-02-09 20:32:38 [ERROR] pipeline.processor - 上传失败 (JLSC201800008): I/O operation on closed file
+2026-02-09 20:32:39 [WARNING] pipeline.api_client - 上传失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/31a4ff02-460d-45bd-b16d-3f444bd85248/50f8ddf8-7821-471e-b3d3-ab384de8126a.pdf?Expires=1770726729&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ES7GVVYqdGGzKUd9yEjY4LN9EkM%3D', 4秒后重试
+2026-02-09 20:32:40 [ERROR] pipeline.processor - 上传失败 (JLSC201800010): I/O operation on closed file
+2026-02-09 20:32:41 [ERROR] pipeline.processor - 上传失败 (JLSC201800006): I/O operation on closed file
+2026-02-09 20:32:44 [ERROR] pipeline.processor - 上传失败 (JLSC201800012): I/O operation on closed file
+2026-02-09 20:32:44 [ERROR] pipeline.processor - 批次 2 处理失败: I/O operation on closed file
+2026-02-09 20:32:44 [INFO] pipeline.processor - 处理批次 3/10 (10 个文件)
+2026-02-09 20:32:45 [ERROR] pipeline.processor - 上传失败 (JLSC201800001): Connection lost
+2026-02-09 20:32:47 [WARNING] pipeline.api_client - 上传失败 JLSC201800013.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/230cb5fd-13be-4852-a59e-0f5d98ef5210.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=o5JSROg/bgbxIbyjsv57S/FRNCw%3D', 2秒后重试
+2026-02-09 20:32:48 [WARNING] pipeline.api_client - 上传失败 JLSC201800014.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/2e7e0fb0-ec4c-4a5b-999f-c7ff5cc531ff.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=P1WZj2Nfcfjn8AZN84v6WqMfweU%3D', 2秒后重试
+2026-02-09 20:32:51 [WARNING] pipeline.api_client - 上传失败 JLSC201800013.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/230cb5fd-13be-4852-a59e-0f5d98ef5210.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=o5JSROg/bgbxIbyjsv57S/FRNCw%3D', 4秒后重试
+2026-02-09 20:32:52 [WARNING] pipeline.api_client - 上传失败 JLSC201800014.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/2e7e0fb0-ec4c-4a5b-999f-c7ff5cc531ff.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=P1WZj2Nfcfjn8AZN84v6WqMfweU%3D', 4秒后重试
+2026-02-09 20:32:58 [ERROR] pipeline.processor - 上传失败 (JLSC201800007): Connection lost
+2026-02-09 20:33:00 [ERROR] pipeline.processor - 上传失败 (JLSC201800014): 上传文件失败 JLSC201800014.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/2e7e0fb0-ec4c-4a5b-999f-c7ff5cc531ff.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=P1WZj2Nfcfjn8AZN84v6WqMfweU%3D'
+2026-02-09 20:33:02 [WARNING] pipeline.api_client - 上传失败 JLSC201800016.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/1a368510-5d36-4c3e-9f9d-282c077b90a7.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=dP/WedbBC36S0Adr63EAiPfaMCE%3D', 2秒后重试
+2026-02-09 20:33:03 [ERROR] pipeline.processor - 上传失败 (JLSC201800011): I/O operation on closed file
+2026-02-09 20:33:05 [ERROR] pipeline.processor - 上传失败 (JLSC201800009): I/O operation on closed file
+2026-02-09 20:33:05 [ERROR] pipeline.processor - 上传失败 (JLSC201800017): I/O operation on closed file
+2026-02-09 20:33:06 [WARNING] pipeline.api_client - 上传失败 JLSC201800018.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/36fe66c7-96b2-475f-85fb-1533e37d1e22.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=vtuvaDRP8leGiL37jR%2B4vOJ6dC4%3D', 2秒后重试
+2026-02-09 20:33:07 [WARNING] pipeline.api_client - 上传失败 JLSC201800019.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/aacaf1f3-9beb-4b3c-bdd1-55ed1b21e5d8.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=NjbDtZDRQ5RaV6tT4PLYdXg/VWY%3D', 2秒后重试
+2026-02-09 20:33:10 [WARNING] pipeline.api_client - 上传失败 JLSC201800018.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/36fe66c7-96b2-475f-85fb-1533e37d1e22.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=vtuvaDRP8leGiL37jR%2B4vOJ6dC4%3D', 4秒后重试
+2026-02-09 20:33:11 [WARNING] pipeline.api_client - 上传失败 JLSC201800019.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/aacaf1f3-9beb-4b3c-bdd1-55ed1b21e5d8.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=NjbDtZDRQ5RaV6tT4PLYdXg/VWY%3D', 4秒后重试
+2026-02-09 20:33:16 [ERROR] pipeline.processor - 上传失败 (JLSC201800018): 上传文件失败 JLSC201800018.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/36fe66c7-96b2-475f-85fb-1533e37d1e22.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=vtuvaDRP8leGiL37jR%2B4vOJ6dC4%3D'
+2026-02-09 20:33:17 [ERROR] pipeline.processor - 上传失败 (JLSC201800013): I/O operation on closed file
+2026-02-09 20:33:17 [WARNING] pipeline.api_client - 上传失败 JLSC201800020.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/6f315d93-fcfb-4bec-8379-f568817a9a18.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=9IM2h7b3FdPL/75bbBAOLl2RhGs%3D', 2秒后重试
+2026-02-09 20:33:17 [ERROR] pipeline.processor - 上传失败 (JLSC201800019): 上传文件失败 JLSC201800019.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/aacaf1f3-9beb-4b3c-bdd1-55ed1b21e5d8.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=NjbDtZDRQ5RaV6tT4PLYdXg/VWY%3D'
+2026-02-09 20:33:19 [ERROR] pipeline.processor - 上传失败 (JLSC201800015): I/O operation on closed file
+2026-02-09 20:33:19 [WARNING] pipeline.api_client - 上传失败 JLSC201800021.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/4bc3bee5-4b10-4bb2-b524-bf5742af6204.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=gY369MI3Vo5n8prijVG2Ok8s/t8%3D', 2秒后重试
+2026-02-09 20:33:20 [WARNING] pipeline.api_client - 上传失败 JLSC201800022.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/b0ddc066-43a5-47e9-9095-7ce63f1b230e.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=D/b4EiHUxwgw/XwKNd9FgPl4mIc%3D', 2秒后重试
+2026-02-09 20:33:21 [WARNING] pipeline.api_client - 上传失败 JLSC201800020.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/6f315d93-fcfb-4bec-8379-f568817a9a18.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=9IM2h7b3FdPL/75bbBAOLl2RhGs%3D', 4秒后重试
+2026-02-09 20:33:22 [ERROR] pipeline.processor - 上传失败 (JLSC201800023): I/O operation on closed file
+2026-02-09 20:33:22 [ERROR] pipeline.processor - 批次 3 处理失败: I/O operation on closed file
+2026-02-09 20:33:22 [INFO] pipeline.processor - 处理批次 4/10 (10 个文件)
+2026-02-09 20:33:22 [WARNING] pipeline.api_client - 上传失败 JLSC201800021.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/4bc3bee5-4b10-4bb2-b524-bf5742af6204.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=gY369MI3Vo5n8prijVG2Ok8s/t8%3D', 4秒后重试
+2026-02-09 20:33:24 [WARNING] pipeline.api_client - 上传失败 JLSC201800024.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/5f985373-5d1b-4531-ad6a-59ed818a4392.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=53o1ugtdoBjMI8ycbZkdQbhgd8Y%3D', 2秒后重试
+2026-02-09 20:33:25 [WARNING] pipeline.api_client - 上传失败 JLSC201800022.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/b0ddc066-43a5-47e9-9095-7ce63f1b230e.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=D/b4EiHUxwgw/XwKNd9FgPl4mIc%3D', 4秒后重试
+2026-02-09 20:33:25 [ERROR] pipeline.processor - 上传失败 (JLSC201800016): I/O operation on closed file
+2026-02-09 20:33:28 [ERROR] pipeline.processor - 上传失败 (JLSC201800020): 上传文件失败 JLSC201800020.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/77304966-0ffe-4da4-930b-4080cfd522b0/6f315d93-fcfb-4bec-8379-f568817a9a18.pdf?Expires=1770726735&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=9IM2h7b3FdPL/75bbBAOLl2RhGs%3D'
+2026-02-09 20:33:30 [WARNING] pipeline.api_client - 上传失败 JLSC201800025.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/bc20c67f-74a0-4e20-9ee0-7e9ab74eb5e6.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=D%2BatNhu6Gesj9DAHfZwvMKXy%2Bco%3D', 2秒后重试
+2026-02-09 20:33:31 [WARNING] pipeline.api_client - 上传失败 JLSC201800026.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/fcc3dff2-b17e-4ead-b04e-b6bb6ea4c531.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=/oqFRSw/niBMJE/GMQ0mt6NgApA%3D', 2秒后重试
+2026-02-09 20:33:32 [ERROR] pipeline.processor - 上传失败 (JLSC201800022): 上传文件失败 JLSC201800022.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/b0ddc066-43a5-47e9-9095-7ce63f1b230e.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=D/b4EiHUxwgw/XwKNd9FgPl4mIc%3D'
+2026-02-09 20:33:35 [WARNING] pipeline.api_client - 上传失败 JLSC201800026.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/fcc3dff2-b17e-4ead-b04e-b6bb6ea4c531.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=/oqFRSw/niBMJE/GMQ0mt6NgApA%3D', 4秒后重试
+2026-02-09 20:33:42 [ERROR] pipeline.processor - 上传失败 (JLSC201800026): 上传文件失败 JLSC201800026.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/fcc3dff2-b17e-4ead-b04e-b6bb6ea4c531.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=/oqFRSw/niBMJE/GMQ0mt6NgApA%3D'
+2026-02-09 20:33:43 [WARNING] pipeline.api_client - 上传失败 JLSC201800028.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/328c282f-e292-42a2-87d7-d566e196c59f.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=%2B1Co6BhgQRo94NSH8esj/JHaSlg%3D', 2秒后重试
+2026-02-09 20:33:47 [ERROR] pipeline.processor - 上传失败 (JLSC201800024): I/O operation on closed file
+2026-02-09 20:33:48 [WARNING] pipeline.api_client - 上传失败 JLSC201800028.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/328c282f-e292-42a2-87d7-d566e196c59f.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=%2B1Co6BhgQRo94NSH8esj/JHaSlg%3D', 4秒后重试
+2026-02-09 20:33:48 [ERROR] pipeline.processor - 上传失败 (JLSC201800021): I/O operation on closed file
+2026-02-09 20:33:50 [WARNING] pipeline.api_client - 上传失败 JLSC201800029.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/dbdd9fcf-bf47-4186-b8a4-21caf7cc42ef.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uu71DjrT5DsvBkMJKcprpMvN4Wo%3D', 2秒后重试
+2026-02-09 20:33:50 [WARNING] pipeline.api_client - 上传失败 JLSC201800030.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/a0430720-853d-4075-a42e-7559186b1886.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=fH0055XMjoztd0r%2B/IgZCKHdboE%3D', 2秒后重试
+2026-02-09 20:33:54 [ERROR] pipeline.processor - 上传失败 (JLSC201800027): I/O operation on closed file
+2026-02-09 20:33:54 [ERROR] pipeline.processor - 上传失败 (JLSC201800025): I/O operation on closed file
+2026-02-09 20:33:54 [WARNING] pipeline.api_client - 上传失败 JLSC201800030.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/a0430720-853d-4075-a42e-7559186b1886.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=fH0055XMjoztd0r%2B/IgZCKHdboE%3D', 4秒后重试
+2026-02-09 20:33:54 [WARNING] pipeline.api_client - 上传失败 JLSC201800029.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/dbdd9fcf-bf47-4186-b8a4-21caf7cc42ef.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uu71DjrT5DsvBkMJKcprpMvN4Wo%3D', 4秒后重试
+2026-02-09 20:33:56 [WARNING] pipeline.api_client - 上传失败 JLSC201800031.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/94bbce4b-a748-45c9-878a-e2c2d86afb80.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kVgxAz/ltv6vXzFcImXsWz2N6z4%3D', 2秒后重试
+2026-02-09 20:33:58 [ERROR] pipeline.processor - 上传失败 (JLSC201800028): 上传文件失败 JLSC201800028.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None]
+2026-02-09 20:33:58 [WARNING] pipeline.api_client - 上传失败 JLSC201800032.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/796b55d6-08b9-4311-861d-8594733ec644.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Ot81veRjBWqAagWV47QOs0u6MPs%3D', 2秒后重试
+2026-02-09 20:34:00 [ERROR] pipeline.processor - 上传失败 (JLSC201800030): 上传文件失败 JLSC201800030.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/a0430720-853d-4075-a42e-7559186b1886.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=fH0055XMjoztd0r%2B/IgZCKHdboE%3D'
+2026-02-09 20:34:00 [WARNING] pipeline.api_client - 上传失败 JLSC201800033.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/f168bcda-510f-4c1b-b5f1-5a8fb022619d.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kuwgGPxgeEBx6v43BTatEapILJ8%3D', 2秒后重试
+2026-02-09 20:34:00 [ERROR] pipeline.processor - 上传失败 (JLSC201800029): 上传文件失败 JLSC201800029.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/ff0372c5-af32-4279-8e29-40157db22fc0/dbdd9fcf-bf47-4186-b8a4-21caf7cc42ef.pdf?Expires=1770726764&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uu71DjrT5DsvBkMJKcprpMvN4Wo%3D'
+2026-02-09 20:34:01 [WARNING] pipeline.api_client - 上传失败 JLSC201800031.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/94bbce4b-a748-45c9-878a-e2c2d86afb80.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kVgxAz/ltv6vXzFcImXsWz2N6z4%3D', 4秒后重试
+2026-02-09 20:34:02 [WARNING] pipeline.api_client - 上传失败 JLSC201800035.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/a7c591fa-d81d-4386-9efa-54dc05b5864c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=awSLrc0FxY8QBdkpJIBp6FZxdaY%3D', 2秒后重试
+2026-02-09 20:34:03 [WARNING] pipeline.api_client - 上传失败 JLSC201800032.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/796b55d6-08b9-4311-861d-8594733ec644.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Ot81veRjBWqAagWV47QOs0u6MPs%3D', 4秒后重试
+2026-02-09 20:34:03 [WARNING] pipeline.api_client - 上传失败 JLSC201800034.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/1ca1216d-c3d1-4b58-ad15-94ba8fa0d39a.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UOoL/gR2mFItktgYv99DmIEOFQQ%3D', 2秒后重试
+2026-02-09 20:34:06 [WARNING] pipeline.api_client - 上传失败 JLSC201800035.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/a7c591fa-d81d-4386-9efa-54dc05b5864c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=awSLrc0FxY8QBdkpJIBp6FZxdaY%3D', 4秒后重试
+2026-02-09 20:34:07 [WARNING] pipeline.api_client - 上传失败 JLSC201800034.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/1ca1216d-c3d1-4b58-ad15-94ba8fa0d39a.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UOoL/gR2mFItktgYv99DmIEOFQQ%3D', 4秒后重试
+2026-02-09 20:34:07 [ERROR] pipeline.processor - 上传失败 (JLSC201800031): 上传文件失败 JLSC201800031.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/94bbce4b-a748-45c9-878a-e2c2d86afb80.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kVgxAz/ltv6vXzFcImXsWz2N6z4%3D'
+2026-02-09 20:34:07 [ERROR] pipeline.processor - 批次 4 处理失败: 上传文件失败 JLSC201800031.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/94bbce4b-a748-45c9-878a-e2c2d86afb80.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kVgxAz/ltv6vXzFcImXsWz2N6z4%3D'
+2026-02-09 20:34:08 [INFO] pipeline.processor - 处理批次 5/10 (10 个文件)
+2026-02-09 20:34:08 [WARNING] pipeline.api_client - 上传失败 JLSC201800033.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/f168bcda-510f-4c1b-b5f1-5a8fb022619d.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kuwgGPxgeEBx6v43BTatEapILJ8%3D', 4秒后重试
+2026-02-09 20:34:10 [WARNING] pipeline.api_client - 上传失败 JLSC201800036.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3ad30245-5916-4c82-8013-68ac5fda351c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=gXelozY9cjd4dagmuOYWpAyBflk%3D', 2秒后重试
+2026-02-09 20:34:12 [ERROR] pipeline.processor - 上传失败 (JLSC201800035): 上传文件失败 JLSC201800035.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/a7c591fa-d81d-4386-9efa-54dc05b5864c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=awSLrc0FxY8QBdkpJIBp6FZxdaY%3D'
+2026-02-09 20:34:13 [ERROR] pipeline.processor - 上传失败 (JLSC201800034): 上传文件失败 JLSC201800034.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/1ca1216d-c3d1-4b58-ad15-94ba8fa0d39a.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UOoL/gR2mFItktgYv99DmIEOFQQ%3D'
+2026-02-09 20:34:14 [WARNING] pipeline.api_client - 上传失败 JLSC201800037.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/9fddc956-ebcc-4327-b782-e7ecde455fe1.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=S4hqIFqF3V1DEEx7wFYIdAsz4Og%3D', 2秒后重试
+2026-02-09 20:34:14 [ERROR] pipeline.processor - 上传失败 (JLSC201800033): 上传文件失败 JLSC201800033.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/f168bcda-510f-4c1b-b5f1-5a8fb022619d.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=kuwgGPxgeEBx6v43BTatEapILJ8%3D'
+2026-02-09 20:34:15 [WARNING] pipeline.api_client - 上传失败 JLSC201800038.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/2aa99080-9728-4a31-9cd6-b980bb5b468e.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=EMYx6TkutgdTV9idPNg9EVRsnVI%3D', 2秒后重试
+2026-02-09 20:34:15 [WARNING] pipeline.api_client - 上传失败 JLSC201800036.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3ad30245-5916-4c82-8013-68ac5fda351c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=gXelozY9cjd4dagmuOYWpAyBflk%3D', 4秒后重试
+2026-02-09 20:34:17 [WARNING] pipeline.api_client - 上传失败 JLSC201800039.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/509acfd1-d540-4dc0-9a3b-0f24a0845606.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=QrnOVNaEBymD8ngsu1L1vyZJiUw%3D', 2秒后重试
+2026-02-09 20:34:19 [WARNING] pipeline.api_client - 上传失败 JLSC201800037.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/9fddc956-ebcc-4327-b782-e7ecde455fe1.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=S4hqIFqF3V1DEEx7wFYIdAsz4Og%3D', 4秒后重试
+2026-02-09 20:34:20 [WARNING] pipeline.api_client - 上传失败 JLSC201800038.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/2aa99080-9728-4a31-9cd6-b980bb5b468e.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=EMYx6TkutgdTV9idPNg9EVRsnVI%3D', 4秒后重试
+2026-02-09 20:34:22 [ERROR] pipeline.processor - 上传失败 (JLSC201800036): 上传文件失败 JLSC201800036.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3ad30245-5916-4c82-8013-68ac5fda351c.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=gXelozY9cjd4dagmuOYWpAyBflk%3D'
+2026-02-09 20:34:24 [WARNING] pipeline.api_client - 上传失败 JLSC201800039.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/509acfd1-d540-4dc0-9a3b-0f24a0845606.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=QrnOVNaEBymD8ngsu1L1vyZJiUw%3D', 4秒后重试
+2026-02-09 20:34:24 [ERROR] pipeline.processor - 上传失败 (JLSC201800037): 上传文件失败 JLSC201800037.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/9fddc956-ebcc-4327-b782-e7ecde455fe1.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=S4hqIFqF3V1DEEx7wFYIdAsz4Og%3D'
+2026-02-09 20:34:25 [WARNING] pipeline.api_client - 上传失败 JLSC201800040.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3990807d-86ce-4024-b286-141e0c3f28ae.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=1Q%2B%2B4zNYINAdTsO91GVXVGOUYBA%3D', 2秒后重试
+2026-02-09 20:34:27 [WARNING] pipeline.api_client - 上传失败 JLSC201800041.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/83d30ae9-f88a-411b-947f-52c7ec33fb0c.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=VQ5aO6Jcn2KYIyo8guKjm4tNNUc%3D', 2秒后重试
+2026-02-09 20:34:27 [ERROR] pipeline.processor - 上传失败 (JLSC201800032): I/O operation on closed file
+2026-02-09 20:34:28 [ERROR] pipeline.processor - 上传失败 (JLSC201800038): 上传文件失败 JLSC201800038.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/2aa99080-9728-4a31-9cd6-b980bb5b468e.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=EMYx6TkutgdTV9idPNg9EVRsnVI%3D'
+2026-02-09 20:34:29 [WARNING] pipeline.api_client - 上传失败 JLSC201800043.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/9434bdb0-c226-4187-b435-b9c74616bea9.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=3LA5BHmU5Rdf3gyOPv0IuTs8ULI%3D', 2秒后重试
+2026-02-09 20:34:30 [WARNING] pipeline.api_client - 上传失败 JLSC201800040.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3990807d-86ce-4024-b286-141e0c3f28ae.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=1Q%2B%2B4zNYINAdTsO91GVXVGOUYBA%3D', 4秒后重试
+2026-02-09 20:34:30 [ERROR] pipeline.processor - 上传失败 (JLSC201800039): 上传文件失败 JLSC201800039.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/509acfd1-d540-4dc0-9a3b-0f24a0845606.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=QrnOVNaEBymD8ngsu1L1vyZJiUw%3D'
+2026-02-09 20:34:31 [WARNING] pipeline.api_client - 上传失败 JLSC201800044.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/53c0f6b6-9ed9-45ae-b455-856c6abbd925.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=OYiHOosNxB/hfcTbG/JY9vtD4wc%3D', 2秒后重试
+2026-02-09 20:34:33 [WARNING] pipeline.api_client - 上传失败 JLSC201800043.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/9434bdb0-c226-4187-b435-b9c74616bea9.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=3LA5BHmU5Rdf3gyOPv0IuTs8ULI%3D', 4秒后重试
+2026-02-09 20:34:35 [WARNING] pipeline.api_client - 上传失败 JLSC201800041.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/83d30ae9-f88a-411b-947f-52c7ec33fb0c.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=VQ5aO6Jcn2KYIyo8guKjm4tNNUc%3D', 4秒后重试
+2026-02-09 20:34:35 [WARNING] pipeline.api_client - 上传失败 JLSC201800044.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/53c0f6b6-9ed9-45ae-b455-856c6abbd925.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=OYiHOosNxB/hfcTbG/JY9vtD4wc%3D', 4秒后重试
+2026-02-09 20:34:36 [ERROR] pipeline.processor - 上传失败 (JLSC201800040): 上传文件失败 JLSC201800040.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/18f1e79f-1e8a-4f6b-abe4-b6506b10a6cd/3990807d-86ce-4024-b286-141e0c3f28ae.pdf?Expires=1770726802&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=1Q%2B%2B4zNYINAdTsO91GVXVGOUYBA%3D'
+2026-02-09 20:34:38 [ERROR] pipeline.processor - 上传失败 (JLSC201800045): I/O operation on closed file
+2026-02-09 20:34:38 [ERROR] pipeline.processor - 批次 5 处理失败: I/O operation on closed file
+2026-02-09 20:34:38 [INFO] pipeline.processor - 处理批次 6/10 (10 个文件)
+2026-02-09 20:34:39 [ERROR] pipeline.processor - 上传失败 (JLSC201800043): 上传文件失败 JLSC201800043.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/9434bdb0-c226-4187-b435-b9c74616bea9.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=3LA5BHmU5Rdf3gyOPv0IuTs8ULI%3D'
+2026-02-09 20:34:40 [WARNING] pipeline.api_client - 上传失败 JLSC201800046.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/afb3b5ef-5597-4307-b7fd-587fe60bbcd3.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=U%2BIDN6OwTuMa9eFfNy4SLu/GW94%3D', 2秒后重试
+2026-02-09 20:34:40 [WARNING] pipeline.api_client - 上传失败 JLSC201800047.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/5395a6fe-e81b-4b4e-96eb-110a35127156.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UYAP/d0Loa8gAjuX1szyJWP/e/o%3D', 2秒后重试
+2026-02-09 20:34:42 [ERROR] pipeline.processor - 上传失败 (JLSC201800041): 上传文件失败 JLSC201800041.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/83d30ae9-f88a-411b-947f-52c7ec33fb0c.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=VQ5aO6Jcn2KYIyo8guKjm4tNNUc%3D'
+2026-02-09 20:34:42 [ERROR] pipeline.processor - 上传失败 (JLSC201800044): 上传文件失败 JLSC201800044.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/53c0f6b6-9ed9-45ae-b455-856c6abbd925.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=OYiHOosNxB/hfcTbG/JY9vtD4wc%3D'
+2026-02-09 20:34:44 [WARNING] pipeline.api_client - 上传失败 JLSC201800046.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/afb3b5ef-5597-4307-b7fd-587fe60bbcd3.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=U%2BIDN6OwTuMa9eFfNy4SLu/GW94%3D', 4秒后重试
+2026-02-09 20:34:44 [WARNING] pipeline.api_client - 上传失败 JLSC201800049.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/857b748b-3178-48e8-a8ac-e2dcd6eecc32.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ivHTGEjID6oKRNDlX2eSkjIf7AY%3D', 2秒后重试
+2026-02-09 20:34:44 [WARNING] pipeline.api_client - 上传失败 JLSC201800048.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/46856b54-ab11-4e44-b769-289e6040c6dd.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=71oAe6HM2/OkMrMWtbxzKK%2BkWlo%3D', 2秒后重试
+2026-02-09 20:34:45 [WARNING] pipeline.api_client - 上传失败 JLSC201800047.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/5395a6fe-e81b-4b4e-96eb-110a35127156.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UYAP/d0Loa8gAjuX1szyJWP/e/o%3D', 4秒后重试
+2026-02-09 20:34:48 [WARNING] pipeline.api_client - 上传失败 JLSC201800049.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/857b748b-3178-48e8-a8ac-e2dcd6eecc32.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ivHTGEjID6oKRNDlX2eSkjIf7AY%3D', 4秒后重试
+2026-02-09 20:34:48 [ERROR] pipeline.processor - 上传失败 (JLSC201800042): I/O operation on closed file
+2026-02-09 20:34:48 [WARNING] pipeline.api_client - 上传失败 JLSC201800048.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/46856b54-ab11-4e44-b769-289e6040c6dd.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=71oAe6HM2/OkMrMWtbxzKK%2BkWlo%3D', 4秒后重试
+2026-02-09 20:34:50 [ERROR] pipeline.processor - 上传失败 (JLSC201800046): 上传文件失败 JLSC201800046.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/afb3b5ef-5597-4307-b7fd-587fe60bbcd3.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=U%2BIDN6OwTuMa9eFfNy4SLu/GW94%3D'
+2026-02-09 20:34:50 [WARNING] pipeline.api_client - 上传失败 JLSC201800050.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/5de566ca-d5c5-4f22-b16a-f0a34d2cd0bb.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=JYgwpWq7VE%2BFb8x/FDi3LDvs3Fw%3D', 2秒后重试
+2026-02-09 20:34:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800047): 上传文件失败 JLSC201800047.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/5395a6fe-e81b-4b4e-96eb-110a35127156.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UYAP/d0Loa8gAjuX1szyJWP/e/o%3D'
+2026-02-09 20:34:54 [WARNING] pipeline.api_client - 上传失败 JLSC201800050.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/5de566ca-d5c5-4f22-b16a-f0a34d2cd0bb.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=JYgwpWq7VE%2BFb8x/FDi3LDvs3Fw%3D', 4秒后重试
+2026-02-09 20:34:55 [ERROR] pipeline.processor - 上传失败 (JLSC201800049): 上传文件失败 JLSC201800049.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/857b748b-3178-48e8-a8ac-e2dcd6eecc32.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ivHTGEjID6oKRNDlX2eSkjIf7AY%3D'
+2026-02-09 20:34:55 [ERROR] pipeline.processor - 上传失败 (JLSC201800048): 上传文件失败 JLSC201800048.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/92ae19e1-fdc9-4e2c-9e35-65f3bc9fa29f/46856b54-ab11-4e44-b769-289e6040c6dd.pdf?Expires=1770726848&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=71oAe6HM2/OkMrMWtbxzKK%2BkWlo%3D'
+2026-02-09 20:34:55 [WARNING] pipeline.api_client - 上传失败 JLSC201800052.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/6a80b9bb-5673-4f02-b462-3d3e2adfacd1.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=wVe9suYZJ40e0/LmqfRYnqP8T5A%3D', 2秒后重试
+2026-02-09 20:34:56 [WARNING] pipeline.api_client - 上传失败 ZGTS201801001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/1a50ca80-72d2-4f97-a2b5-ba5c6fe39c8b.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=7Pahuvby5TCZDDDgfpwlT9SRIpg%3D', 2秒后重试
+2026-02-09 20:35:00 [WARNING] pipeline.api_client - 上传失败 ZGTS201801001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/1a50ca80-72d2-4f97-a2b5-ba5c6fe39c8b.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=7Pahuvby5TCZDDDgfpwlT9SRIpg%3D', 4秒后重试
+2026-02-09 20:35:01 [WARNING] pipeline.api_client - 上传失败 JLSC201800052.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/6a80b9bb-5673-4f02-b462-3d3e2adfacd1.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=wVe9suYZJ40e0/LmqfRYnqP8T5A%3D', 4秒后重试
+2026-02-09 20:35:06 [ERROR] pipeline.processor - 上传失败 (ZGTS201801001): 上传文件失败 ZGTS201801001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/1a50ca80-72d2-4f97-a2b5-ba5c6fe39c8b.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=7Pahuvby5TCZDDDgfpwlT9SRIpg%3D'
+2026-02-09 20:35:06 [ERROR] pipeline.processor - 批次 6 处理失败: 上传文件失败 ZGTS201801001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/1a50ca80-72d2-4f97-a2b5-ba5c6fe39c8b.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=7Pahuvby5TCZDDDgfpwlT9SRIpg%3D'
+2026-02-09 20:35:06 [INFO] pipeline.processor - 处理批次 7/10 (10 个文件)
+2026-02-09 20:35:08 [ERROR] pipeline.processor - 上传失败 (JLSC201800052): 上传文件失败 JLSC201800052.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/6a80b9bb-5673-4f02-b462-3d3e2adfacd1.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=wVe9suYZJ40e0/LmqfRYnqP8T5A%3D'
+2026-02-09 20:35:09 [WARNING] pipeline.api_client - 上传失败 ZGTS201801003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/c68a60e0-6ae7-44f5-956c-50338de47ed1.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DAdI8veGS9zAWBH%2BEqpayHJprIQ%3D', 2秒后重试
+2026-02-09 20:35:10 [ERROR] pipeline.processor - 上传失败 (JLSC201800051): I/O operation on closed file
+2026-02-09 20:35:14 [WARNING] pipeline.api_client - 上传失败 ZGTS201801003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/c68a60e0-6ae7-44f5-956c-50338de47ed1.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DAdI8veGS9zAWBH%2BEqpayHJprIQ%3D', 4秒后重试
+2026-02-09 20:35:18 [WARNING] pipeline.api_client - 上传失败 ZGTS201801002.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [远程主机强迫关闭了一个现有的连接。], 2秒后重试
+2026-02-09 20:35:20 [ERROR] pipeline.processor - 上传失败 (JLSC201800050): I/O operation on closed file
+2026-02-09 20:35:24 [WARNING] pipeline.api_client - 上传失败 ZGTS201801006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/ef792abf-3f13-4640-af92-3da2cb1d3384.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ghOGMIfkZpCRqS9jY7KG2VW94yk%3D', 2秒后重试
+2026-02-09 20:35:28 [WARNING] pipeline.api_client - 上传失败 ZGTS201801006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/ef792abf-3f13-4640-af92-3da2cb1d3384.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ghOGMIfkZpCRqS9jY7KG2VW94yk%3D', 4秒后重试
+2026-02-09 20:35:35 [ERROR] pipeline.processor - 上传失败 (ZGTS201801006): 上传文件失败 ZGTS201801006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/ef792abf-3f13-4640-af92-3da2cb1d3384.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ghOGMIfkZpCRqS9jY7KG2VW94yk%3D'
+2026-02-09 20:35:37 [WARNING] pipeline.api_client - 上传失败 ZGTS201801007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/96ba2a04-7696-4470-95d6-0472abdced91.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=SZ75ztgaHYrdgWbGYnAUhNwevfk%3D', 2秒后重试
+2026-02-09 20:35:41 [WARNING] pipeline.api_client - 上传失败 ZGTS201801007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/96ba2a04-7696-4470-95d6-0472abdced91.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=SZ75ztgaHYrdgWbGYnAUhNwevfk%3D', 4秒后重试
+2026-02-09 20:35:44 [ERROR] pipeline.processor - 上传失败 (ZGTS201801004): Connection lost
+2026-02-09 20:35:45 [ERROR] pipeline.processor - 上传失败 (ZGTS201801005): Connection lost
+2026-02-09 20:35:46 [WARNING] pipeline.api_client - 上传失败 ZGTS201801008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/134e6e6a-07fe-4573-b680-ccf8a8361fa7.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=hAcylI5F3LxQ2YXsMgru3CdzRbE%3D', 2秒后重试
+2026-02-09 20:35:47 [ERROR] pipeline.processor - 上传失败 (ZGTS201801007): 上传文件失败 ZGTS201801007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/96ba2a04-7696-4470-95d6-0472abdced91.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=SZ75ztgaHYrdgWbGYnAUhNwevfk%3D'
+2026-02-09 20:35:48 [WARNING] pipeline.api_client - 上传失败 ZGTS201802001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/81b46390-88c5-490c-af62-aa7c5cb6e805.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=nhKCkomXnZklUC8oEquV1CA/EVA%3D', 2秒后重试
+2026-02-09 20:35:51 [WARNING] pipeline.api_client - 上传失败 ZGTS201801008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/134e6e6a-07fe-4573-b680-ccf8a8361fa7.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=hAcylI5F3LxQ2YXsMgru3CdzRbE%3D', 4秒后重试
+2026-02-09 20:35:53 [ERROR] pipeline.processor - 上传失败 (ZGTS201801003): Connection lost
+2026-02-09 20:35:53 [WARNING] pipeline.api_client - 上传失败 ZGTS201802001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/81b46390-88c5-490c-af62-aa7c5cb6e805.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=nhKCkomXnZklUC8oEquV1CA/EVA%3D', 4秒后重试
+2026-02-09 20:35:56 [ERROR] pipeline.processor - 上传失败 (ZGTS201801002): Connection lost
+2026-02-09 20:35:57 [ERROR] pipeline.processor - 上传失败 (ZGTS201801008): 上传文件失败 ZGTS201801008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/3d6daca7-aa04-46b8-a4d9-7298c3b4eee8/134e6e6a-07fe-4573-b680-ccf8a8361fa7.pdf?Expires=1770726878&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=hAcylI5F3LxQ2YXsMgru3CdzRbE%3D'
+2026-02-09 20:35:59 [ERROR] pipeline.processor - 上传失败 (ZGTS201802004): I/O operation on closed file
+2026-02-09 20:35:59 [ERROR] pipeline.processor - 批次 7 处理失败: I/O operation on closed file
+2026-02-09 20:35:59 [INFO] pipeline.processor - 处理批次 8/10 (10 个文件)
+2026-02-09 20:35:59 [ERROR] pipeline.processor - 上传失败 (ZGTS201802001): 上传文件失败 ZGTS201802001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/81b46390-88c5-490c-af62-aa7c5cb6e805.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=nhKCkomXnZklUC8oEquV1CA/EVA%3D'
+2026-02-09 20:36:00 [WARNING] pipeline.api_client - 上传失败 ZGTS201802005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/56e718b9-e2db-45ee-be16-959fdb5ba6aa.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=HiIZjGDxUtnUGQ%2B0QjGxrgTqq7E%3D', 2秒后重试
+2026-02-09 20:36:04 [WARNING] pipeline.api_client - 上传失败 ZGTS201802005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/56e718b9-e2db-45ee-be16-959fdb5ba6aa.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=HiIZjGDxUtnUGQ%2B0QjGxrgTqq7E%3D', 4秒后重试
+2026-02-09 20:36:10 [ERROR] pipeline.processor - 上传失败 (ZGTS201802005): 上传文件失败 ZGTS201802005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/56e718b9-e2db-45ee-be16-959fdb5ba6aa.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=HiIZjGDxUtnUGQ%2B0QjGxrgTqq7E%3D'
+2026-02-09 20:36:10 [ERROR] pipeline.processor - 上传失败 (ZGTS201802002): I/O operation on closed file
+2026-02-09 20:36:11 [WARNING] pipeline.api_client - 上传失败 ZGTS201802008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/2b3f5602-8461-455c-97fd-86ed6e8999d5.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=G4WwIeGJJNvURckAd74YJFRkTHg%3D', 2秒后重试
+2026-02-09 20:36:16 [WARNING] pipeline.api_client - 上传失败 ZGTS201802008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/2b3f5602-8461-455c-97fd-86ed6e8999d5.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=G4WwIeGJJNvURckAd74YJFRkTHg%3D', 4秒后重试
+2026-02-09 20:36:22 [ERROR] pipeline.processor - 上传失败 (ZGTS201802008): 上传文件失败 ZGTS201802008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/988cd1ee-01e0-4d2e-90b1-75860d281737/2b3f5602-8461-455c-97fd-86ed6e8999d5.pdf?Expires=1770726906&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=G4WwIeGJJNvURckAd74YJFRkTHg%3D'
+2026-02-09 20:36:29 [ERROR] pipeline.processor - 上传失败 (ZGTS201802003): Connection lost
+2026-02-09 20:36:33 [ERROR] pipeline.processor - 上传失败 (ZGTS201802009): I/O operation on closed file
+2026-02-09 20:36:34 [ERROR] pipeline.processor - 上传失败 (ZGTS201802007): Connection lost
+2026-02-09 20:36:35 [ERROR] pipeline.processor - 上传失败 (ZGTS201802006): Connection lost
+2026-02-09 20:36:35 [WARNING] pipeline.api_client - 上传失败 ZGTS201803002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/aca4e5ea-3188-48d5-bcc3-e397df56c4e1.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5QX8zrNVT1aUc2XJ2XYOi9nK2zU%3D', 2秒后重试
+2026-02-09 20:36:36 [WARNING] pipeline.api_client - 上传失败 ZGTS201803003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/6cff7265-c0b9-493b-b2af-555317b4bc55.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ecvZAVpXHZWX/idVXETCtsiOgJk%3D', 2秒后重试
+2026-02-09 20:36:37 [WARNING] pipeline.api_client - 上传失败 ZGTS201803004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/ed4d85c3-0632-43dc-b257-6b355c5276b7.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=W3vF/IzXBKIdC5OY9R2%2BbT126y4%3D', 2秒后重试
+2026-02-09 20:36:39 [WARNING] pipeline.api_client - 上传失败 ZGTS201803002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/aca4e5ea-3188-48d5-bcc3-e397df56c4e1.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5QX8zrNVT1aUc2XJ2XYOi9nK2zU%3D', 4秒后重试
+2026-02-09 20:36:40 [WARNING] pipeline.api_client - 上传失败 ZGTS201803004.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None], 4秒后重试
+2026-02-09 20:36:44 [WARNING] pipeline.api_client - 上传失败 ZGTS201803003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/6cff7265-c0b9-493b-b2af-555317b4bc55.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ecvZAVpXHZWX/idVXETCtsiOgJk%3D', 4秒后重试
+2026-02-09 20:36:45 [ERROR] pipeline.processor - 上传失败 (ZGTS201803002): 上传文件失败 ZGTS201803002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/aca4e5ea-3188-48d5-bcc3-e397df56c4e1.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5QX8zrNVT1aUc2XJ2XYOi9nK2zU%3D'
+2026-02-09 20:36:45 [ERROR] pipeline.processor - 批次 8 处理失败: 上传文件失败 ZGTS201803002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/aca4e5ea-3188-48d5-bcc3-e397df56c4e1.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=5QX8zrNVT1aUc2XJ2XYOi9nK2zU%3D'
+2026-02-09 20:36:45 [INFO] pipeline.processor - 处理批次 9/10 (10 个文件)
+2026-02-09 20:36:45 [ERROR] pipeline.processor - 上传失败 (ZGTS201803004): 上传文件失败 ZGTS201803004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/ed4d85c3-0632-43dc-b257-6b355c5276b7.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=W3vF/IzXBKIdC5OY9R2%2BbT126y4%3D'
+2026-02-09 20:36:47 [WARNING] pipeline.api_client - 上传失败 ZGTS201803005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/92e461d3-cbe9-4f25-baa8-d77fa51bbf6b.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Oom2x6J8UCsmBYX00980Z7qwnsg%3D', 2秒后重试
+2026-02-09 20:36:50 [ERROR] pipeline.processor - 上传失败 (ZGTS201803003): 上传文件失败 ZGTS201803003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/6cff7265-c0b9-493b-b2af-555317b4bc55.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=ecvZAVpXHZWX/idVXETCtsiOgJk%3D'
+2026-02-09 20:36:52 [WARNING] pipeline.api_client - 上传失败 ZGTS201803007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/0f5635dc-db7d-49c9-9b04-ab6dd3684099.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=K2sv4S0lsI2N8oWiAeUfKMwFgug%3D', 2秒后重试
+2026-02-09 20:36:52 [WARNING] pipeline.api_client - 上传失败 ZGTS201803005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/92e461d3-cbe9-4f25-baa8-d77fa51bbf6b.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Oom2x6J8UCsmBYX00980Z7qwnsg%3D', 4秒后重试
+2026-02-09 20:36:58 [ERROR] pipeline.processor - 上传失败 (ZGTS201802010): Connection lost
+2026-02-09 20:36:59 [ERROR] pipeline.processor - 上传失败 (ZGTS201803005): 上传文件失败 ZGTS201803005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/92e461d3-cbe9-4f25-baa8-d77fa51bbf6b.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Oom2x6J8UCsmBYX00980Z7qwnsg%3D'
+2026-02-09 20:37:00 [WARNING] pipeline.api_client - 上传失败 ZGTS201803008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/438b72be-64c1-4fff-8a9d-653ca2197cfe.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=BQPb3/rLil57q2kbsEyPCSagDJQ%3D', 2秒后重试
+2026-02-09 20:37:02 [WARNING] pipeline.api_client - 上传失败 ZGTS201803010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/54e49532-80c0-4f25-8610-071bdfcbcda9.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=PfkyzrL/Ub4lKtQqLg8xi%2BmJTXg%3D', 2秒后重试
+2026-02-09 20:37:03 [ERROR] pipeline.processor - 上传失败 (ZGTS201803001): Connection lost
+2026-02-09 20:37:07 [WARNING] pipeline.api_client - 上传失败 ZGTS201803010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/54e49532-80c0-4f25-8610-071bdfcbcda9.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=PfkyzrL/Ub4lKtQqLg8xi%2BmJTXg%3D', 4秒后重试
+2026-02-09 20:37:16 [ERROR] pipeline.processor - 上传失败 (ZGTS201803007): I/O operation on closed file
+2026-02-09 20:37:16 [ERROR] pipeline.processor - 上传失败 (ZGTS201803010): 上传文件失败 ZGTS201803010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/54e49532-80c0-4f25-8610-071bdfcbcda9.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=PfkyzrL/Ub4lKtQqLg8xi%2BmJTXg%3D'
+2026-02-09 20:37:20 [ERROR] pipeline.processor - 上传失败 (ZGTS201803006): Connection lost
+2026-02-09 20:37:23 [ERROR] pipeline.processor - 上传失败 (ZGTS201803008): I/O operation on closed file
+2026-02-09 20:37:25 [WARNING] pipeline.api_client - 上传失败 ZGTS201804003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/36219d92-1513-4c6a-8a08-3841ce94bdf2.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=RaeO7E2XiwP7NMbu8ZHNG6E0h6Y%3D', 2秒后重试
+2026-02-09 20:37:28 [WARNING] pipeline.api_client - 上传失败 ZGTS201804001.pdf: Failed to send bytes into the underlying connection Connection<ConnectionKey(host='mineru.oss-cn-shanghai.aliyuncs.com', port=443, is_ssl=True, ssl=True, proxy=None, proxy_auth=None, proxy_headers_hash=None)>, 2秒后重试
+2026-02-09 20:37:31 [WARNING] pipeline.api_client - 上传失败 ZGTS201804001.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None], 4秒后重试
+2026-02-09 20:37:37 [ERROR] pipeline.processor - 上传失败 (ZGTS201804001): 上传文件失败 ZGTS201804001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/0c2fa1d7-8384-4574-b465-695a07afb9a0/872be0ef-bd3a-41b2-9ce8-a2ab49a2daa5.pdf?Expires=1770726959&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=n1hbdxGu9zQ%2BuPC4Y2099iPeT9U%3D'
+2026-02-09 20:37:51 [ERROR] pipeline.processor - 上传失败 (ZGTS201804002): Connection lost
+2026-02-09 20:37:51 [ERROR] pipeline.processor - 批次 9 处理失败: Connection lost
+2026-02-09 20:37:51 [INFO] pipeline.processor - 处理批次 10/10 (10 个文件)
+2026-02-09 20:37:57 [ERROR] pipeline.processor - 上传失败 (ZGTS201804004): Connection lost
+2026-02-09 20:37:58 [ERROR] pipeline.processor - 上传失败 (ZGTS201804005): Connection lost
+2026-02-09 20:38:01 [WARNING] pipeline.api_client - 上传失败 ZGTS201804006.pdf: Failed to send bytes into the underlying connection Connection<ConnectionKey(host='mineru.oss-cn-shanghai.aliyuncs.com', port=443, is_ssl=True, ssl=True, proxy=None, proxy_auth=None, proxy_headers_hash=None)>, 2秒后重试
+2026-02-09 20:38:01 [ERROR] pipeline.processor - 上传失败 (ZGTS201805001): Connection lost
+2026-02-09 20:38:04 [ERROR] pipeline.processor - 上传失败 (ZGTS201804003): Connection lost
+2026-02-09 20:38:05 [WARNING] pipeline.api_client - 上传失败 ZGTS201804008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/f90c9ae5-9942-4642-b2b7-28bb21a89257.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=YGyZyAJompm1PKNvfFQHfmldmGQ%3D', 2秒后重试
+2026-02-09 20:38:06 [WARNING] pipeline.api_client - 上传失败 ZGTS201805002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/456f6636-bd34-4518-9c17-202dc1a54d11.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=CbJkhIvgSCybDt3LUbl0MQozZ4o%3D', 2秒后重试
+2026-02-09 20:38:12 [WARNING] pipeline.api_client - 上传失败 ZGTS201805002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/456f6636-bd34-4518-9c17-202dc1a54d11.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=CbJkhIvgSCybDt3LUbl0MQozZ4o%3D', 4秒后重试
+2026-02-09 20:38:15 [WARNING] pipeline.api_client - 上传失败 ZGTS201804007.pdf: Failed to send bytes into the underlying connection Connection<ConnectionKey(host='mineru.oss-cn-shanghai.aliyuncs.com', port=443, is_ssl=True, ssl=True, proxy=None, proxy_auth=None, proxy_headers_hash=None)>, 2秒后重试
+2026-02-09 20:38:19 [ERROR] pipeline.processor - 上传失败 (ZGTS201805002): 上传文件失败 ZGTS201805002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/456f6636-bd34-4518-9c17-202dc1a54d11.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=CbJkhIvgSCybDt3LUbl0MQozZ4o%3D'
+2026-02-09 20:38:37 [ERROR] pipeline.processor - 上传失败 (ZGTS201804006): Connection lost
+2026-02-09 20:38:38 [ERROR] pipeline.processor - 上传失败 (ZGTS201805003): Connection lost
+2026-02-09 20:38:40 [WARNING] pipeline.api_client - 上传失败 ZGTS201804007.pdf: Failed to send bytes into the underlying connection Connection<ConnectionKey(host='mineru.oss-cn-shanghai.aliyuncs.com', port=443, is_ssl=True, ssl=True, proxy=None, proxy_auth=None, proxy_headers_hash=None)>, 4秒后重试
+2026-02-09 20:38:42 [ERROR] pipeline.processor - 上传失败 (ZGTS201804008): Connection lost
+2026-02-09 20:38:42 [WARNING] pipeline.api_client - 上传失败 ZGTS201805005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/691ad918-ea7b-4453-9c16-6376f9d42c9b/f9dcdf7c-aa48-4caf-b23c-58228f2155e5.pdf?Expires=1770727071&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Stv4%2BxQXGkz/dCej5%2B2Vp7KfyDc%3D', 2秒后重试
+2026-02-09 20:38:47 [ERROR] pipeline.processor - 上传失败 (ZGTS201804007): 上传文件失败 ZGTS201804007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/74a15ec1-41a7-46fa-a16d-0def2ba30634/52f6c701-d301-4744-aad5-4b95d50c4f06.pdf?Expires=1770727005&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=UJFXp11usoOalRZ1gedUwxbiNXw%3D'
+2026-02-09 20:38:47 [WARNING] pipeline.api_client - 上传失败 ZGTS201805005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/691ad918-ea7b-4453-9c16-6376f9d42c9b/f9dcdf7c-aa48-4caf-b23c-58228f2155e5.pdf?Expires=1770727071&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=Stv4%2BxQXGkz/dCej5%2B2Vp7KfyDc%3D', 4秒后重试
+2026-02-09 20:38:54 [ERROR] pipeline.processor - 上传失败 (ZGTS201805004): Connection lost
+2026-02-09 20:38:54 [ERROR] pipeline.processor - 批次 10 处理失败: Connection lost
+2026-02-09 20:38:54 [INFO] pipeline.processor - 
+处理完成! 总计=17813, 已完成=0, 失败=100, 待处理=17713
+2026-02-09 20:44:58 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:44:58 [INFO] pipeline.processor - 已重置 100 个失败文件为待处理
+2026-02-09 20:45:04 [DEBUG] asyncio - Using selector: SelectSelector
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing <function connect.<locals>.connector at 0x00000202C7F96340>
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation <function connect.<locals>.connector at 0x00000202C7F96340> completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method executescript of sqlite3.Connection object at 0x00000202C7F07790>, "\nCREATE TABLE IF NOT EXISTS files (\n    data_id      TEXT PRIMARY KEY,\n    pdf_path     TEXT NOT NULL,\n    journal      TEXT DEFAULT '',\n    batch_id     TEXT DEFAULT '',\n    state        TEXT NOT NULL DEFAULT 'pending',\n    error_msg    TEXT DEFAULT '',\n    attempts     INTEGER DEFAULT 0,\n    created_at   TEXT,\n    updated_at   TEXT\n);\n\nCREATE INDEX IF NOT EXISTS idx_files_state ON files(state);\nCREATE INDEX IF NOT EXISTS idx_files_batch ON files(batch_id);\n")
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method executescript of sqlite3.Connection object at 0x00000202C7F07790>, "\nCREATE TABLE IF NOT EXISTS files (\n    data_id      TEXT PRIMARY KEY,\n    pdf_path     TEXT NOT NULL,\n    journal      TEXT DEFAULT '',\n    batch_id     TEXT DEFAULT '',\n    state        TEXT NOT NULL DEFAULT 'pending',\n    error_msg    TEXT DEFAULT '',\n    attempts     INTEGER DEFAULT 0,\n    created_at   TEXT,\n    updated_at   TEXT\n);\n\nCREATE INDEX IF NOT EXISTS idx_files_state ON files(state);\nCREATE INDEX IF NOT EXISTS idx_files_batch ON files(batch_id);\n") completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:45:04 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?)', ('pending', '2026-02-09T20:45:04.016346', 'uploading', 'polling'))
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?)', ('pending', '2026-02-09T20:45:04.016346', 'uploading', 'polling')) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:45:04 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', [])
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', []) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80E40>)
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80E40>) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', [])
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', []) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C7C80D40>)
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C7C80D40>) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT data_id FROM files', [])
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT data_id FROM files', []) completed
+2026-02-09 20:45:04 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>)
+2026-02-09 20:45:04 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>) completed
+2026-02-09 20:45:05 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17824 个已注册, 跳过 0 个超大文件
+2026-02-09 20:45:05 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', [])
+2026-02-09 20:45:05 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', []) completed
+2026-02-09 20:45:05 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>)
+2026-02-09 20:45:05 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>) completed
+2026-02-09 20:45:05 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', [])
+2026-02-09 20:45:05 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', []) completed
+2026-02-09 20:45:05 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C80216C0>)
+2026-02-09 20:45:05 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C80216C0>) completed
+2026-02-09 20:45:05 [INFO] pipeline.processor - 检查点状态: 总计=17813, 待处理=17813, 已完成=0, 失败=0
+2026-02-09 20:45:05 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT * FROM files WHERE state = ? ORDER BY created_at LIMIT ?', ['pending', 10])
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT * FROM files WHERE state = ? ORDER BY created_at LIMIT ?', ['pending', 10]) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>)
+2026-02-09 20:45:06 [INFO] pipeline.processor - 开始处理 10 个文件...
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>) completed
+2026-02-09 20:45:06 [INFO] pipeline.processor - 处理批次 1/1 (10 个文件)
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800001'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800001')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800002'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800002')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800003'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800003')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800004'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800004')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800005'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800005')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800006'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800006')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800007'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800007')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800008'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800008')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800009'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800009')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800010'))
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?', ('uploading', '', '2026-02-09T20:45:06.019120', 'JLSC201800010')) completed
+2026-02-09 20:45:06 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:45:06 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:45:10 [WARNING] pipeline.api_client - 上传失败 JLSC201800003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/6f4c4698-63df-4fac-bba9-e32ade21635a.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DEu6QgJ%2BL9%2B3UFxhoC8wYcO/oNU%3D', 2秒后重试
+2026-02-09 20:45:10 [WARNING] pipeline.api_client - 上传失败 JLSC201800004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/61ea8a4f-ce37-4d7f-b88e-92206cb84042.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=95t6Q9ye3jGf0P8o4wK7OyMf2RU%3D', 2秒后重试
+2026-02-09 20:45:11 [WARNING] pipeline.api_client - 上传失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/07bfd5b7-63e3-4f4c-a1c0-1563c9671250.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=c2qhk%2BHIHHcavSg5SlvzxJSqo7E%3D', 2秒后重试
+2026-02-09 20:45:11 [WARNING] pipeline.api_client - 上传失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/951fea82-fbe0-4d4d-9d44-cd61c7218f78.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=4ocWxSYcN65QZgbbXV1fJ/2EzYs%3D', 2秒后重试
+2026-02-09 20:45:15 [WARNING] pipeline.api_client - 上传失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/951fea82-fbe0-4d4d-9d44-cd61c7218f78.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=4ocWxSYcN65QZgbbXV1fJ/2EzYs%3D', 4秒后重试
+2026-02-09 20:45:16 [WARNING] pipeline.api_client - 上传失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/07bfd5b7-63e3-4f4c-a1c0-1563c9671250.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=c2qhk%2BHIHHcavSg5SlvzxJSqo7E%3D', 4秒后重试
+2026-02-09 20:45:19 [WARNING] pipeline.api_client - 上传失败 JLSC201800001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/d75ee02b-fe6f-4e3e-aed4-cd0ab6eaa28f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=2w86VQw0RR/bh1fZdG4cIxsWYXU%3D', 2秒后重试
+2026-02-09 20:45:20 [WARNING] pipeline.api_client - 上传失败 JLSC201800003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/6f4c4698-63df-4fac-bba9-e32ade21635a.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DEu6QgJ%2BL9%2B3UFxhoC8wYcO/oNU%3D', 4秒后重试
+2026-02-09 20:45:21 [WARNING] pipeline.api_client - 上传失败 JLSC201800004.pdf: [WinError 10054] 远程主机强迫关闭了一个现有的连接。, 4秒后重试
+2026-02-09 20:45:23 [WARNING] pipeline.api_client - 上传失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/940bed11-5c92-4d12-b1d1-f92d6541564e.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=i3bKGoleKYYRlFllLYeAvpdSdnA%3D', 2秒后重试
+2026-02-09 20:45:28 [WARNING] pipeline.api_client - 上传失败 JLSC201800007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/725fae5d-aeaa-460a-ac80-3f53eca7f0d5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uuaWdBUUsrxKKm9dyhYIxXIGgbM%3D', 2秒后重试
+2026-02-09 20:45:28 [WARNING] pipeline.api_client - 上传失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/940bed11-5c92-4d12-b1d1-f92d6541564e.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=i3bKGoleKYYRlFllLYeAvpdSdnA%3D', 4秒后重试
+2026-02-09 20:45:32 [WARNING] pipeline.api_client - 上传失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/7e4578bd-4129-4054-856b-95837a8c400f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=rb6Zs0GHXBXQ1n/hbshCL7fY7t0%3D', 2秒后重试
+2026-02-09 20:45:33 [WARNING] pipeline.api_client - 上传失败 JLSC201800007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/725fae5d-aeaa-460a-ac80-3f53eca7f0d5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uuaWdBUUsrxKKm9dyhYIxXIGgbM%3D', 4秒后重试
+2026-02-09 20:45:34 [WARNING] pipeline.api_client - 上传失败 JLSC201800001.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/d75ee02b-fe6f-4e3e-aed4-cd0ab6eaa28f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=2w86VQw0RR/bh1fZdG4cIxsWYXU%3D', 4秒后重试
+2026-02-09 20:45:36 [WARNING] pipeline.api_client - 上传失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/7e4578bd-4129-4054-856b-95837a8c400f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=rb6Zs0GHXBXQ1n/hbshCL7fY7t0%3D', 4秒后重试
+2026-02-09 20:45:36 [WARNING] pipeline.api_client - 上传失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/bd0dbcf8-97b4-4e79-95ff-6d54d4c5f222.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=aBlA4oimWigMWbJxA6/6KGSMaIE%3D', 2秒后重试
+2026-02-09 20:46:02 [WARNING] pipeline.api_client - 上传失败 JLSC201800009.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [远程主机强迫关闭了一个现有的连接。], 4秒后重试
+2026-02-09 20:46:38 [WARNING] pipeline.api_client - 上传失败 JLSC201800010.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None], 2秒后重试
+2026-02-09 20:46:44 [WARNING] pipeline.api_client - 上传失败 JLSC201800010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/581be30d-81c2-4369-87ac-ab73763a82b5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=e7n69riw%2BnyXL%2Bb/BZNYlM2lt74%3D', 4秒后重试
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800001): 上传文件失败 JLSC201800001.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [远程主机强迫关闭了一个现有的连接。]
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', '上传失败: 上传文件失败 JLSC201800001.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [远程主机强迫关闭了一个现有的连接。]', '2026-02-09T20:46:51.558033', 'JLSC201800001'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', '上传失败: 上传文件失败 JLSC201800001.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [远程主机强迫关闭了一个现有的连接。]', '2026-02-09T20:46:51.558033', 'JLSC201800001')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800002): 上传文件失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/07bfd5b7-63e3-4f4c-a1c0-1563c9671250.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=c2qhk%2BHIHHcavSg5SlvzxJSqo7E%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/07bfd5b7-63e3-4f4c-a1c0-1563c9671250.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=c2qhk%2BHIHHcavSg5SlvzxJSqo7E%3D'", '2026-02-09T20:46:51.572905', 'JLSC201800002'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800002.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/07bfd5b7-63e3-4f4c-a1c0-1563c9671250.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=c2qhk%2BHIHHcavSg5SlvzxJSqo7E%3D'", '2026-02-09T20:46:51.572905', 'JLSC201800002')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800003): 上传文件失败 JLSC201800003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/6f4c4698-63df-4fac-bba9-e32ade21635a.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DEu6QgJ%2BL9%2B3UFxhoC8wYcO/oNU%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/6f4c4698-63df-4fac-bba9-e32ade21635a.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DEu6QgJ%2BL9%2B3UFxhoC8wYcO/oNU%3D'", '2026-02-09T20:46:51.579486', 'JLSC201800003'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800003.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/6f4c4698-63df-4fac-bba9-e32ade21635a.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=DEu6QgJ%2BL9%2B3UFxhoC8wYcO/oNU%3D'", '2026-02-09T20:46:51.579486', 'JLSC201800003')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800004): 上传文件失败 JLSC201800004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/61ea8a4f-ce37-4d7f-b88e-92206cb84042.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=95t6Q9ye3jGf0P8o4wK7OyMf2RU%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/61ea8a4f-ce37-4d7f-b88e-92206cb84042.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=95t6Q9ye3jGf0P8o4wK7OyMf2RU%3D'", '2026-02-09T20:46:51.585486', 'JLSC201800004'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800004.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/61ea8a4f-ce37-4d7f-b88e-92206cb84042.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=95t6Q9ye3jGf0P8o4wK7OyMf2RU%3D'", '2026-02-09T20:46:51.585486', 'JLSC201800004')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800005): 上传文件失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/951fea82-fbe0-4d4d-9d44-cd61c7218f78.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=4ocWxSYcN65QZgbbXV1fJ/2EzYs%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/951fea82-fbe0-4d4d-9d44-cd61c7218f78.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=4ocWxSYcN65QZgbbXV1fJ/2EzYs%3D'", '2026-02-09T20:46:51.590278', 'JLSC201800005'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800005.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/951fea82-fbe0-4d4d-9d44-cd61c7218f78.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=4ocWxSYcN65QZgbbXV1fJ/2EzYs%3D'", '2026-02-09T20:46:51.590278', 'JLSC201800005')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800006): 上传文件失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/940bed11-5c92-4d12-b1d1-f92d6541564e.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=i3bKGoleKYYRlFllLYeAvpdSdnA%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/940bed11-5c92-4d12-b1d1-f92d6541564e.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=i3bKGoleKYYRlFllLYeAvpdSdnA%3D'", '2026-02-09T20:46:51.595281', 'JLSC201800006'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800006.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/940bed11-5c92-4d12-b1d1-f92d6541564e.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=i3bKGoleKYYRlFllLYeAvpdSdnA%3D'", '2026-02-09T20:46:51.595281', 'JLSC201800006')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800007): 上传文件失败 JLSC201800007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/725fae5d-aeaa-460a-ac80-3f53eca7f0d5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uuaWdBUUsrxKKm9dyhYIxXIGgbM%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/725fae5d-aeaa-460a-ac80-3f53eca7f0d5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uuaWdBUUsrxKKm9dyhYIxXIGgbM%3D'", '2026-02-09T20:46:51.600473', 'JLSC201800007'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800007.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/725fae5d-aeaa-460a-ac80-3f53eca7f0d5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=uuaWdBUUsrxKKm9dyhYIxXIGgbM%3D'", '2026-02-09T20:46:51.600473', 'JLSC201800007')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800008): 上传文件失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/7e4578bd-4129-4054-856b-95837a8c400f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=rb6Zs0GHXBXQ1n/hbshCL7fY7t0%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/7e4578bd-4129-4054-856b-95837a8c400f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=rb6Zs0GHXBXQ1n/hbshCL7fY7t0%3D'", '2026-02-09T20:46:51.606472', 'JLSC201800008'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800008.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/7e4578bd-4129-4054-856b-95837a8c400f.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=rb6Zs0GHXBXQ1n/hbshCL7fY7t0%3D'", '2026-02-09T20:46:51.606472', 'JLSC201800008')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800009): 上传文件失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/bd0dbcf8-97b4-4e79-95ff-6d54d4c5f222.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=aBlA4oimWigMWbJxA6/6KGSMaIE%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/bd0dbcf8-97b4-4e79-95ff-6d54d4c5f222.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=aBlA4oimWigMWbJxA6/6KGSMaIE%3D'", '2026-02-09T20:46:51.610472', 'JLSC201800009'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800009.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/bd0dbcf8-97b4-4e79-95ff-6d54d4c5f222.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=aBlA4oimWigMWbJxA6/6KGSMaIE%3D'", '2026-02-09T20:46:51.610472', 'JLSC201800009')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 上传失败 (JLSC201800010): 上传文件失败 JLSC201800010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/581be30d-81c2-4369-87ac-ab73763a82b5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=e7n69riw%2BnyXL%2Bb/BZNYlM2lt74%3D'
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/581be30d-81c2-4369-87ac-ab73763a82b5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=e7n69riw%2BnyXL%2Bb/BZNYlM2lt74%3D'", '2026-02-09T20:46:51.617473', 'JLSC201800010'))
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'UPDATE files SET state=?, batch_id=?, error_msg=?,\n                   attempts=attempts+1, updated_at=? WHERE data_id=?', ('failed', 'c69dacbb-f2c7-4979-b074-f3d0a3a1475e', "上传失败: 上传文件失败 JLSC201800010.pdf: 403, message='Forbidden', url='https://mineru.oss-cn-shanghai.aliyuncs.com/api-upload/extract/2026-02-09/c69dacbb-f2c7-4979-b074-f3d0a3a1475e/581be30d-81c2-4369-87ac-ab73763a82b5.pdf?Expires=1770727507&OSSAccessKeyId=LTAI5t9nGwatk85zetzojXbn&Signature=e7n69riw%2BnyXL%2Bb/BZNYlM2lt74%3D'", '2026-02-09T20:46:51.617473', 'JLSC201800010')) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [ERROR] pipeline.processor - 批次中所有文件上传失败，跳过轮询
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', [])
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT state, COUNT(*) FROM files GROUP BY state', []) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000202C7C80D40>) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', [])
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000202C7F07790>, 'SELECT COUNT(*) FROM files', []) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C7C80E40>)
+2026-02-09 20:46:51 [INFO] pipeline.processor - 
+处理完成! 总计=17813, 已完成=0, 失败=10, 待处理=17803
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000202C7C80E40>) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing functools.partial(<built-in method close of sqlite3.Connection object at 0x00000202C7F07790>)
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation functools.partial(<built-in method close of sqlite3.Connection object at 0x00000202C7F07790>) completed
+2026-02-09 20:46:51 [DEBUG] aiosqlite - executing <function Connection.stop.<locals>.close_and_stop at 0x00000202C7F960C0>
+2026-02-09 20:46:51 [DEBUG] aiosqlite - operation <function Connection.stop.<locals>.close_and_stop at 0x00000202C7F960C0> completed
+2026-02-09 20:49:08 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:49:08 [INFO] pipeline.processor - 已重置 10 个失败文件为待处理
+2026-02-09 20:49:13 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 20:49:13 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 20:49:14 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17824 个已注册, 跳过 0 个超大文件
+2026-02-09 20:49:14 [INFO] pipeline.processor - 检查点状态: 总计=17813, 待处理=17813, 已完成=0, 失败=0
+2026-02-09 20:49:14 [INFO] pipeline.processor - 开始处理 10 个文件...
+2026-02-09 20:49:14 [INFO] pipeline.processor - 处理批次 1/1 (10 个文件)
+2026-02-09 20:49:51 [INFO] pipeline.api_client - 轮询 batch=c40013cf-cdf7-4436-a646-51133156fe86: done=9/10 failed=0
+2026-02-09 20:50:22 [INFO] pipeline.api_client - 轮询 batch=c40013cf-cdf7-4436-a646-51133156fe86: done=10/10 failed=0
+2026-02-09 20:50:27 [INFO] pipeline.processor - 
+处理完成! 总计=17813, 已完成=10, 失败=0, 待处理=17803
+2026-02-09 21:00:53 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 21:00:53 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 21:00:55 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17111 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-09 21:01:10 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 21:01:10 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 21:01:12 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17111 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-09 21:01:12 [INFO] pipeline.processor - 检查点状态: 总计=17100, 待处理=17100, 已完成=0, 失败=0
+2026-02-09 21:01:12 [INFO] pipeline.processor - 开始处理 100 个文件...
+2026-02-09 21:01:12 [INFO] pipeline.processor - 处理批次 1/10 (10 个文件)
+2026-02-09 21:01:40 [INFO] pipeline.api_client - 轮询 batch=eef62175-13cb-4834-98fd-79c9d3483f4b: done=3/10 failed=0
+2026-02-09 21:02:11 [INFO] pipeline.api_client - 轮询 batch=eef62175-13cb-4834-98fd-79c9d3483f4b: done=10/10 failed=0
+2026-02-09 21:02:16 [INFO] pipeline.processor - 处理批次 2/10 (10 个文件)
+2026-02-09 21:02:44 [INFO] pipeline.api_client - 轮询 batch=c7c8a411-9739-4408-acfd-988ee5b8670b: done=9/10 failed=0
+2026-02-09 21:03:15 [INFO] pipeline.api_client - 轮询 batch=c7c8a411-9739-4408-acfd-988ee5b8670b: done=10/10 failed=0
+2026-02-09 21:03:20 [INFO] pipeline.processor - 处理批次 3/10 (10 个文件)
+2026-02-09 21:03:21 [WARNING] pipeline.api_client - 上传失败 ZGTS201803006.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None], 2秒后重试
+2026-02-09 21:04:10 [INFO] pipeline.api_client - 轮询 batch=02dbff1e-4ad9-4dfc-9df1-1671e6bdc2bd: done=9/10 failed=0
+2026-02-09 21:04:41 [INFO] pipeline.api_client - 轮询 batch=02dbff1e-4ad9-4dfc-9df1-1671e6bdc2bd: done=10/10 failed=0
+2026-02-09 21:04:46 [INFO] pipeline.processor - 处理批次 4/10 (10 个文件)
+2026-02-09 21:05:41 [INFO] pipeline.api_client - 轮询 batch=36575567-3650-4f13-82cb-e1879e470564: done=8/10 failed=0
+2026-02-09 21:06:13 [INFO] pipeline.api_client - 轮询 batch=36575567-3650-4f13-82cb-e1879e470564: done=10/10 failed=0
+2026-02-09 21:06:18 [INFO] pipeline.processor - 处理批次 5/10 (10 个文件)
+2026-02-09 21:07:41 [INFO] pipeline.api_client - 轮询 batch=e59110ff-6392-4d23-9c73-c99fd60a53b0: done=9/10 failed=0
+2026-02-09 21:08:12 [INFO] pipeline.api_client - 轮询 batch=e59110ff-6392-4d23-9c73-c99fd60a53b0: done=10/10 failed=0
+2026-02-09 21:08:17 [INFO] pipeline.processor - 处理批次 6/10 (10 个文件)
+2026-02-09 21:09:03 [INFO] pipeline.api_client - 轮询 batch=267b7c7c-3e7e-4c9e-9f14-71c9e67d1c31: done=8/10 failed=0
+2026-02-09 21:09:36 [INFO] pipeline.api_client - 轮询 batch=267b7c7c-3e7e-4c9e-9f14-71c9e67d1c31: done=10/10 failed=0
+2026-02-09 21:09:41 [INFO] pipeline.processor - 处理批次 7/10 (10 个文件)
+2026-02-09 21:10:23 [INFO] pipeline.api_client - 轮询 batch=bde7b03e-7729-4137-8c39-287b63cef1bc: done=9/10 failed=0
+2026-02-09 21:10:54 [INFO] pipeline.api_client - 轮询 batch=bde7b03e-7729-4137-8c39-287b63cef1bc: done=10/10 failed=0
+2026-02-09 21:10:59 [INFO] pipeline.processor - 处理批次 8/10 (10 个文件)
+2026-02-09 21:13:21 [INFO] pipeline.api_client - 轮询 batch=b5d6e70f-f5a8-40c7-b682-6bda728164ef: done=9/10 failed=0
+2026-02-09 21:13:53 [INFO] pipeline.api_client - 轮询 batch=b5d6e70f-f5a8-40c7-b682-6bda728164ef: done=10/10 failed=0
+2026-02-09 21:13:58 [INFO] pipeline.processor - 处理批次 9/10 (10 个文件)
+2026-02-09 21:14:41 [INFO] pipeline.api_client - 轮询 batch=66aefe5f-7b5b-40a1-9c4c-e6c29ff45eb8: done=9/10 failed=0
+2026-02-09 21:15:12 [INFO] pipeline.api_client - 轮询 batch=66aefe5f-7b5b-40a1-9c4c-e6c29ff45eb8: done=10/10 failed=0
+2026-02-09 21:15:16 [INFO] pipeline.processor - 处理批次 10/10 (10 个文件)
+2026-02-09 21:16:21 [INFO] pipeline.api_client - 轮询 batch=efce90de-74c5-4157-b824-43329b0467fa: done=8/10 failed=0
+2026-02-09 21:16:54 [INFO] pipeline.api_client - 轮询 batch=efce90de-74c5-4157-b824-43329b0467fa: done=10/10 failed=0
+2026-02-09 21:16:58 [INFO] pipeline.processor - 
+处理完成! 总计=17100, 已完成=100, 失败=0, 待处理=17000
+2026-02-09 21:20:16 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 21:20:16 [INFO] pipeline.processor - 没有需要转换的文件
+2026-02-09 21:45:59 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-09 21:45:59 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-09 21:46:01 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17111 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-09 21:46:01 [INFO] pipeline.processor - 检查点状态: 总计=17100, 待处理=17000, 已完成=100, 失败=0
+2026-02-09 21:46:01 [INFO] pipeline.processor - 期刊过滤: 仅处理 ['物理学报', '生态学报', '心理学报', '考古学报', '地理科学']
+2026-02-09 21:46:01 [INFO] pipeline.processor - 开始处理 1012 个文件...
+2026-02-09 21:46:01 [INFO] pipeline.processor - 处理批次 1/102 (10 个文件)
+2026-02-09 21:49:35 [INFO] pipeline.api_client - 轮询 batch=819047b1-1de7-407c-a33e-49787de36540: done=9/10 failed=0
+2026-02-09 21:50:07 [INFO] pipeline.api_client - 轮询 batch=819047b1-1de7-407c-a33e-49787de36540: done=10/10 failed=0
+2026-02-09 21:50:16 [INFO] pipeline.processor - 处理批次 2/102 (10 个文件)
+2026-02-09 21:51:30 [INFO] pipeline.api_client - 轮询 batch=4efc6644-49fd-41b7-a279-cf0c2489c07e: done=9/10 failed=0
+2026-02-09 21:52:01 [INFO] pipeline.api_client - 轮询 batch=4efc6644-49fd-41b7-a279-cf0c2489c07e: done=10/10 failed=0
+2026-02-09 21:52:08 [INFO] pipeline.processor - 处理批次 3/102 (10 个文件)
+2026-02-09 21:52:35 [INFO] pipeline.api_client - 轮询 batch=1e9ac364-92a4-425b-bb7b-9b403325c0ca: done=6/10 failed=1
+2026-02-09 21:53:08 [INFO] pipeline.api_client - 轮询 batch=1e9ac364-92a4-425b-bb7b-9b403325c0ca: done=9/10 failed=1
+2026-02-09 21:53:13 [INFO] pipeline.processor - 处理批次 4/102 (10 个文件)
+2026-02-09 21:53:13 [WARNING] pipeline.api_client - 上传失败 DLKX201912011.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [None], 2秒后重试
+2026-02-09 21:53:31 [INFO] pipeline.api_client - 轮询 batch=bd560c07-9c2d-42d8-b9d9-203992581663: done=2/10 failed=0
+2026-02-09 21:54:01 [INFO] pipeline.api_client - 轮询 batch=bd560c07-9c2d-42d8-b9d9-203992581663: done=10/10 failed=0
+2026-02-09 21:54:07 [INFO] pipeline.processor - 处理批次 5/102 (10 个文件)
+2026-02-09 21:54:11 [INFO] pipeline.api_client - 轮询 batch=b956063a-590d-4565-bc64-1155491ad63f: done=0/10 failed=0
+2026-02-09 21:54:41 [INFO] pipeline.api_client - 轮询 batch=b956063a-590d-4565-bc64-1155491ad63f: done=10/10 failed=0
+2026-02-09 21:54:48 [INFO] pipeline.processor - 处理批次 6/102 (10 个文件)
+2026-02-09 21:54:54 [INFO] pipeline.api_client - 轮询 batch=d463fd67-6ade-47ca-9c8a-f9228c080151: done=0/10 failed=0
+2026-02-09 21:55:24 [INFO] pipeline.api_client - 轮询 batch=d463fd67-6ade-47ca-9c8a-f9228c080151: done=10/10 failed=0
+2026-02-09 21:55:31 [INFO] pipeline.processor - 处理批次 7/102 (10 个文件)
+2026-02-09 21:55:35 [INFO] pipeline.api_client - 轮询 batch=0e5610d5-7075-4a70-8a06-a1e551fa9008: done=0/10 failed=0
+2026-02-09 21:56:05 [INFO] pipeline.api_client - 轮询 batch=0e5610d5-7075-4a70-8a06-a1e551fa9008: done=10/10 failed=0
+2026-02-09 21:56:13 [INFO] pipeline.processor - 处理批次 8/102 (10 个文件)
+2026-02-09 21:56:15 [INFO] pipeline.api_client - 轮询 batch=36ceb157-2b0d-4599-9b15-c1fc30a17166: done=0/10 failed=0
+2026-02-09 21:56:45 [INFO] pipeline.api_client - 轮询 batch=36ceb157-2b0d-4599-9b15-c1fc30a17166: done=10/10 failed=0
+2026-02-09 21:56:50 [INFO] pipeline.processor - 处理批次 9/102 (10 个文件)
+2026-02-09 21:56:55 [INFO] pipeline.api_client - 轮询 batch=4cfbd04c-a469-4ac2-93ab-d75e09666e91: done=0/10 failed=0
+2026-02-09 21:57:25 [INFO] pipeline.api_client - 轮询 batch=4cfbd04c-a469-4ac2-93ab-d75e09666e91: done=10/10 failed=0
+2026-02-09 21:57:33 [INFO] pipeline.processor - 处理批次 10/102 (10 个文件)
+2026-02-09 21:57:38 [INFO] pipeline.api_client - 轮询 batch=306c6f26-7038-49bb-9d92-53b712263c2b: done=0/10 failed=0
+2026-02-09 21:58:08 [INFO] pipeline.api_client - 轮询 batch=306c6f26-7038-49bb-9d92-53b712263c2b: done=10/10 failed=0
+2026-02-09 21:58:14 [INFO] pipeline.processor - 处理批次 11/102 (10 个文件)
+2026-02-09 21:58:16 [INFO] pipeline.api_client - 轮询 batch=01952acb-f4ab-4b68-9a25-1e4efdec26c8: done=0/10 failed=0
+2026-02-09 21:58:46 [INFO] pipeline.api_client - 轮询 batch=01952acb-f4ab-4b68-9a25-1e4efdec26c8: done=10/10 failed=0
+2026-02-09 21:58:51 [INFO] pipeline.processor - 处理批次 12/102 (10 个文件)
+2026-02-09 21:58:53 [INFO] pipeline.api_client - 轮询 batch=7666b367-9ba7-4742-9901-8d1d80bab89e: done=0/10 failed=0
+2026-02-09 21:59:23 [INFO] pipeline.api_client - 轮询 batch=7666b367-9ba7-4742-9901-8d1d80bab89e: done=10/10 failed=0
+2026-02-09 21:59:28 [INFO] pipeline.processor - 处理批次 13/102 (10 个文件)
+2026-02-09 21:59:29 [INFO] pipeline.api_client - 轮询 batch=00f52249-69a0-497e-9c7a-85a4a4225b87: done=0/10 failed=0
+2026-02-09 21:59:59 [INFO] pipeline.api_client - 轮询 batch=00f52249-69a0-497e-9c7a-85a4a4225b87: done=10/10 failed=0
+2026-02-09 22:00:04 [INFO] pipeline.processor - 处理批次 14/102 (10 个文件)
+2026-02-09 22:00:05 [INFO] pipeline.api_client - 轮询 batch=7be54e12-6fdd-417e-971c-d072b8144d02: done=0/10 failed=0
+2026-02-09 22:00:35 [INFO] pipeline.api_client - 轮询 batch=7be54e12-6fdd-417e-971c-d072b8144d02: done=10/10 failed=0
+2026-02-09 22:00:39 [INFO] pipeline.processor - 处理批次 15/102 (10 个文件)
+2026-02-09 22:00:40 [INFO] pipeline.api_client - 轮询 batch=7fd5dbe6-7298-41d9-87f4-383f61b0e3f6: done=0/10 failed=0
+2026-02-09 22:01:10 [INFO] pipeline.api_client - 轮询 batch=7fd5dbe6-7298-41d9-87f4-383f61b0e3f6: done=10/10 failed=0
+2026-02-09 22:01:14 [INFO] pipeline.processor - 处理批次 16/102 (10 个文件)
+2026-02-09 22:01:16 [INFO] pipeline.api_client - 轮询 batch=cb7543f1-7937-42d7-aacb-7b074974a57b: done=0/10 failed=0
+2026-02-09 22:01:46 [INFO] pipeline.api_client - 轮询 batch=cb7543f1-7937-42d7-aacb-7b074974a57b: done=10/10 failed=0
+2026-02-09 22:01:50 [INFO] pipeline.processor - 处理批次 17/102 (10 个文件)
+2026-02-09 22:01:53 [INFO] pipeline.api_client - 轮询 batch=8b65da1e-62d2-42f0-ae0e-708fde3b84f7: done=0/10 failed=0
+2026-02-09 22:02:23 [INFO] pipeline.api_client - 轮询 batch=8b65da1e-62d2-42f0-ae0e-708fde3b84f7: done=10/10 failed=0
+2026-02-09 22:02:28 [INFO] pipeline.processor - 处理批次 18/102 (10 个文件)
+2026-02-09 22:02:29 [INFO] pipeline.api_client - 轮询 batch=a688fa39-122b-4a59-b48d-310e42cc1b93: done=0/10 failed=0
+2026-02-09 22:02:59 [INFO] pipeline.api_client - 轮询 batch=a688fa39-122b-4a59-b48d-310e42cc1b93: done=10/10 failed=0
+2026-02-09 22:03:03 [INFO] pipeline.processor - 处理批次 19/102 (10 个文件)
+2026-02-09 22:03:05 [INFO] pipeline.api_client - 轮询 batch=ec2fe7f8-a625-4ecd-bd35-c92197418133: done=0/10 failed=0
+2026-02-09 22:03:35 [INFO] pipeline.api_client - 轮询 batch=ec2fe7f8-a625-4ecd-bd35-c92197418133: done=10/10 failed=0
+2026-02-09 22:03:40 [INFO] pipeline.processor - 处理批次 20/102 (10 个文件)
+2026-02-09 22:03:41 [INFO] pipeline.api_client - 轮询 batch=6f297f2a-7113-4575-a8f8-32f340aefdd5: done=0/10 failed=0
+2026-02-09 22:04:12 [INFO] pipeline.api_client - 轮询 batch=6f297f2a-7113-4575-a8f8-32f340aefdd5: done=10/10 failed=0
+2026-02-09 22:04:16 [INFO] pipeline.processor - 处理批次 21/102 (10 个文件)
+2026-02-09 22:04:17 [INFO] pipeline.api_client - 轮询 batch=df8a1e02-539b-4f9c-8779-40dae16cb091: done=0/10 failed=0
+2026-02-09 22:04:48 [INFO] pipeline.api_client - 轮询 batch=df8a1e02-539b-4f9c-8779-40dae16cb091: done=10/10 failed=0
+2026-02-09 22:04:52 [INFO] pipeline.processor - 处理批次 22/102 (10 个文件)
+2026-02-09 22:04:53 [INFO] pipeline.api_client - 轮询 batch=a2525a6d-aa51-44a5-801c-72d1b3d502d8: done=0/10 failed=0
+2026-02-09 22:05:23 [INFO] pipeline.api_client - 轮询 batch=a2525a6d-aa51-44a5-801c-72d1b3d502d8: done=10/10 failed=0
+2026-02-09 22:05:27 [INFO] pipeline.processor - 处理批次 23/102 (10 个文件)
+2026-02-09 22:05:28 [INFO] pipeline.api_client - 轮询 batch=685fd6fd-8205-450f-af66-16f2a438d373: done=0/10 failed=0
+2026-02-09 22:05:59 [INFO] pipeline.api_client - 轮询 batch=685fd6fd-8205-450f-af66-16f2a438d373: done=10/10 failed=0
+2026-02-09 22:06:03 [INFO] pipeline.processor - 处理批次 24/102 (10 个文件)
+2026-02-09 22:06:04 [INFO] pipeline.api_client - 轮询 batch=90c47882-10dc-45c0-be38-e217bac5fab8: done=0/10 failed=0
+2026-02-09 22:06:35 [INFO] pipeline.api_client - 轮询 batch=90c47882-10dc-45c0-be38-e217bac5fab8: done=10/10 failed=0
+2026-02-09 22:06:39 [INFO] pipeline.processor - 处理批次 25/102 (10 个文件)
+2026-02-09 22:06:42 [INFO] pipeline.api_client - 轮询 batch=de6f3f7b-9691-4965-83eb-d89eb13431be: done=0/10 failed=0
+2026-02-09 22:07:12 [INFO] pipeline.api_client - 轮询 batch=de6f3f7b-9691-4965-83eb-d89eb13431be: done=10/10 failed=0
+2026-02-09 22:07:16 [INFO] pipeline.processor - 处理批次 26/102 (10 个文件)
+2026-02-09 22:07:18 [INFO] pipeline.api_client - 轮询 batch=01cea5c9-9131-4d5f-b922-3abf23b3c507: done=0/10 failed=0
+2026-02-09 22:07:48 [INFO] pipeline.api_client - 轮询 batch=01cea5c9-9131-4d5f-b922-3abf23b3c507: done=10/10 failed=0
+2026-02-09 22:07:51 [INFO] pipeline.processor - 处理批次 27/102 (10 个文件)
+2026-02-09 22:07:52 [INFO] pipeline.api_client - 轮询 batch=af1f6860-ceb0-489a-b232-4ccbf24c9c26: done=0/10 failed=0
+2026-02-09 22:08:23 [INFO] pipeline.api_client - 轮询 batch=af1f6860-ceb0-489a-b232-4ccbf24c9c26: done=10/10 failed=0
+2026-02-09 22:08:27 [INFO] pipeline.processor - 处理批次 28/102 (10 个文件)
+2026-02-09 22:08:48 [WARNING] pipeline.api_client - 上传失败 XLXB201903010.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [Connect call failed ('180.163.123.134', 443)], 2秒后重试
+2026-02-09 22:08:48 [WARNING] pipeline.api_client - 上传失败 XLXB201903009.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [Connect call failed ('180.163.123.134', 443)], 2秒后重试
+2026-02-09 22:08:48 [WARNING] pipeline.api_client - 上传失败 XLXB201903011.pdf: Cannot connect to host mineru.oss-cn-shanghai.aliyuncs.com:443 ssl:default [Connect call failed ('180.163.123.134', 443)], 2秒后重试
+2026-02-09 22:08:51 [INFO] pipeline.api_client - 轮询 batch=01ade4fc-a8ac-450f-9421-3e4805775de6: done=7/10 failed=0
+2026-02-09 22:09:21 [INFO] pipeline.api_client - 轮询 batch=01ade4fc-a8ac-450f-9421-3e4805775de6: done=10/10 failed=0
+2026-02-09 22:09:26 [INFO] pipeline.processor - 处理批次 29/102 (10 个文件)
+2026-02-09 22:09:27 [INFO] pipeline.api_client - 轮询 batch=22a0ecf6-90db-4d0a-93fe-0d94d0000ef6: done=0/10 failed=0
+2026-02-09 22:09:58 [INFO] pipeline.api_client - 轮询 batch=22a0ecf6-90db-4d0a-93fe-0d94d0000ef6: done=10/10 failed=0
+2026-02-09 22:10:03 [INFO] pipeline.processor - 处理批次 30/102 (10 个文件)
+2026-02-09 22:10:04 [INFO] pipeline.api_client - 轮询 batch=b43ab4a4-5c1f-4ae4-8bf4-56e52960b507: done=0/10 failed=0
+2026-02-09 22:10:35 [INFO] pipeline.api_client - 轮询 batch=b43ab4a4-5c1f-4ae4-8bf4-56e52960b507: done=10/10 failed=0
+2026-02-09 22:10:41 [INFO] pipeline.processor - 处理批次 31/102 (10 个文件)
+2026-02-09 22:10:42 [INFO] pipeline.api_client - 轮询 batch=b4d8aa82-fccd-4159-9fe0-c2661cfe05b2: done=0/10 failed=0
+2026-02-09 22:11:12 [INFO] pipeline.api_client - 轮询 batch=b4d8aa82-fccd-4159-9fe0-c2661cfe05b2: done=10/10 failed=0
+2026-02-09 22:11:18 [INFO] pipeline.processor - 处理批次 32/102 (10 个文件)
+2026-02-09 22:11:19 [INFO] pipeline.api_client - 轮询 batch=11d6f7a5-7a25-497b-9838-cd02de3f3b01: done=0/10 failed=0
+2026-02-09 22:11:50 [INFO] pipeline.api_client - 轮询 batch=11d6f7a5-7a25-497b-9838-cd02de3f3b01: done=10/10 failed=0
+2026-02-09 22:11:55 [INFO] pipeline.processor - 处理批次 33/102 (10 个文件)
+2026-02-09 22:11:56 [INFO] pipeline.api_client - 轮询 batch=e9a95048-7531-4fd4-ba58-fe5d71ca3f1c: done=0/10 failed=0
+2026-02-09 22:12:26 [INFO] pipeline.api_client - 轮询 batch=e9a95048-7531-4fd4-ba58-fe5d71ca3f1c: done=10/10 failed=0
+2026-02-09 22:12:32 [INFO] pipeline.processor - 处理批次 34/102 (10 个文件)
+2026-02-09 22:12:34 [INFO] pipeline.api_client - 轮询 batch=9d93b0a0-3fd5-49c0-a14b-15f69568aa67: done=0/10 failed=0
+2026-02-09 22:13:04 [INFO] pipeline.api_client - 轮询 batch=9d93b0a0-3fd5-49c0-a14b-15f69568aa67: done=10/10 failed=0
+2026-02-09 22:13:10 [INFO] pipeline.processor - 处理批次 35/102 (10 个文件)
+2026-02-09 22:13:12 [INFO] pipeline.api_client - 轮询 batch=cef9436c-31de-4419-abcc-eeb1911355f2: done=0/10 failed=0
+2026-02-09 22:13:42 [INFO] pipeline.api_client - 轮询 batch=cef9436c-31de-4419-abcc-eeb1911355f2: done=10/10 failed=0
+2026-02-09 22:13:47 [INFO] pipeline.processor - 处理批次 36/102 (10 个文件)
+2026-02-09 22:13:50 [INFO] pipeline.api_client - 轮询 batch=bc50de47-9470-4937-9abd-2002cb0e0299: done=0/10 failed=0
+2026-02-09 22:14:21 [INFO] pipeline.api_client - 轮询 batch=bc50de47-9470-4937-9abd-2002cb0e0299: done=10/10 failed=0
+2026-02-09 22:14:27 [INFO] pipeline.processor - 处理批次 37/102 (10 个文件)
+2026-02-09 22:14:28 [INFO] pipeline.api_client - 轮询 batch=9d884dcf-5355-4189-bd76-9704bbf94c94: done=0/10 failed=0
+2026-02-09 22:14:58 [INFO] pipeline.api_client - 轮询 batch=9d884dcf-5355-4189-bd76-9704bbf94c94: done=10/10 failed=0
+2026-02-09 22:15:03 [INFO] pipeline.processor - 处理批次 38/102 (10 个文件)
+2026-02-09 22:15:04 [INFO] pipeline.api_client - 轮询 batch=b574588d-37fa-4332-bb59-c5f2eb1fded5: done=0/10 failed=0
+2026-02-09 22:15:35 [INFO] pipeline.api_client - 轮询 batch=b574588d-37fa-4332-bb59-c5f2eb1fded5: done=10/10 failed=0
+2026-02-09 22:15:40 [INFO] pipeline.processor - 处理批次 39/102 (10 个文件)
+2026-02-09 22:15:41 [INFO] pipeline.api_client - 轮询 batch=df8115be-8a58-4b3d-86b1-7555b449013e: done=0/10 failed=0
+2026-02-09 22:16:11 [INFO] pipeline.api_client - 轮询 batch=df8115be-8a58-4b3d-86b1-7555b449013e: done=10/10 failed=0
+2026-02-09 22:16:15 [INFO] pipeline.processor - 处理批次 40/102 (10 个文件)
+2026-02-09 22:16:16 [INFO] pipeline.api_client - 轮询 batch=33693523-1135-4365-a272-ce2aa3650e93: done=0/10 failed=0
+2026-02-09 22:16:46 [INFO] pipeline.api_client - 轮询 batch=33693523-1135-4365-a272-ce2aa3650e93: done=10/10 failed=0
+2026-02-09 22:16:51 [INFO] pipeline.processor - 处理批次 41/102 (10 个文件)
+2026-02-09 22:16:52 [INFO] pipeline.api_client - 轮询 batch=dfe133b5-7854-4f69-9a02-1e6f7cfa1f76: done=0/10 failed=0
+2026-02-09 22:17:22 [INFO] pipeline.api_client - 轮询 batch=dfe133b5-7854-4f69-9a02-1e6f7cfa1f76: done=10/10 failed=0
+2026-02-09 22:17:27 [INFO] pipeline.processor - 处理批次 42/102 (10 个文件)
+2026-02-09 22:17:29 [INFO] pipeline.api_client - 轮询 batch=54a37b68-7494-4034-a3d3-60bc3a8d60ee: done=0/10 failed=0
+2026-02-09 22:17:59 [INFO] pipeline.api_client - 轮询 batch=54a37b68-7494-4034-a3d3-60bc3a8d60ee: done=10/10 failed=0
+2026-02-09 22:18:06 [INFO] pipeline.processor - 处理批次 43/102 (10 个文件)
+2026-02-09 22:18:07 [INFO] pipeline.api_client - 轮询 batch=9756f6f0-ec01-4968-8b34-31226caf19af: done=0/10 failed=0
+2026-02-09 22:18:37 [INFO] pipeline.api_client - 轮询 batch=9756f6f0-ec01-4968-8b34-31226caf19af: done=10/10 failed=0
+2026-02-09 22:18:43 [INFO] pipeline.processor - 处理批次 44/102 (10 个文件)
+2026-02-09 22:18:45 [INFO] pipeline.api_client - 轮询 batch=aafecfa6-6178-4a85-b151-b843e7b94b2a: done=0/10 failed=0
+2026-02-09 22:19:15 [INFO] pipeline.api_client - 轮询 batch=aafecfa6-6178-4a85-b151-b843e7b94b2a: done=10/10 failed=0
+2026-02-09 22:19:21 [INFO] pipeline.processor - 处理批次 45/102 (10 个文件)
+2026-02-09 22:19:23 [INFO] pipeline.api_client - 轮询 batch=343fe550-c7d7-442e-a585-68a7d75e5a07: done=0/10 failed=0
+2026-02-09 22:19:53 [INFO] pipeline.api_client - 轮询 batch=343fe550-c7d7-442e-a585-68a7d75e5a07: done=10/10 failed=0
+2026-02-09 22:19:58 [INFO] pipeline.processor - 处理批次 46/102 (10 个文件)
+2026-02-09 22:19:59 [INFO] pipeline.api_client - 轮询 batch=4339863e-550b-44fb-92b7-19f77101fc65: done=0/10 failed=0
+2026-02-09 22:20:30 [INFO] pipeline.api_client - 轮询 batch=4339863e-550b-44fb-92b7-19f77101fc65: done=10/10 failed=0
+2026-02-09 22:20:34 [INFO] pipeline.processor - 处理批次 47/102 (10 个文件)
+2026-02-09 22:20:36 [INFO] pipeline.api_client - 轮询 batch=d982de22-bb37-48e2-9e18-16b231490c28: done=0/10 failed=0
+2026-02-09 22:21:06 [INFO] pipeline.api_client - 轮询 batch=d982de22-bb37-48e2-9e18-16b231490c28: done=10/10 failed=0
+2026-02-09 22:21:10 [INFO] pipeline.processor - 处理批次 48/102 (10 个文件)
+2026-02-09 22:21:13 [INFO] pipeline.api_client - 轮询 batch=132aeb38-db5d-4517-96f5-3c585804e2b9: done=0/10 failed=0
+2026-02-09 22:21:43 [INFO] pipeline.api_client - 轮询 batch=132aeb38-db5d-4517-96f5-3c585804e2b9: done=10/10 failed=0
+2026-02-09 22:21:48 [INFO] pipeline.processor - 处理批次 49/102 (10 个文件)
+2026-02-09 22:21:51 [INFO] pipeline.api_client - 轮询 batch=b7f49cc7-b60e-421d-a154-2f7ab9e554a9: done=0/10 failed=0
+2026-02-09 22:22:21 [INFO] pipeline.api_client - 轮询 batch=b7f49cc7-b60e-421d-a154-2f7ab9e554a9: done=10/10 failed=0
+2026-02-09 22:22:26 [INFO] pipeline.processor - 处理批次 50/102 (10 个文件)
+2026-02-09 22:22:28 [INFO] pipeline.api_client - 轮询 batch=c6d4ed6e-d5ae-40a6-9231-3500d4e8ae9a: done=0/10 failed=0
+2026-02-09 22:22:58 [INFO] pipeline.api_client - 轮询 batch=c6d4ed6e-d5ae-40a6-9231-3500d4e8ae9a: done=10/10 failed=0
+2026-02-09 22:23:03 [INFO] pipeline.processor - 处理批次 51/102 (10 个文件)
+2026-02-09 22:23:06 [INFO] pipeline.api_client - 轮询 batch=00c74beb-ce7e-4f45-a375-faec41c23200: done=0/10 failed=0
+2026-02-09 22:23:36 [INFO] pipeline.api_client - 轮询 batch=00c74beb-ce7e-4f45-a375-faec41c23200: done=10/10 failed=0
+2026-02-09 22:23:41 [INFO] pipeline.processor - 处理批次 52/102 (10 个文件)
+2026-02-09 22:23:42 [INFO] pipeline.api_client - 轮询 batch=226f72f9-7d6b-4dfb-9fdb-cefaee5d76e4: done=0/10 failed=0
+2026-02-09 22:24:12 [INFO] pipeline.api_client - 轮询 batch=226f72f9-7d6b-4dfb-9fdb-cefaee5d76e4: done=10/10 failed=0
+2026-02-09 22:24:16 [INFO] pipeline.processor - 处理批次 53/102 (10 个文件)
+2026-02-09 22:24:18 [INFO] pipeline.api_client - 轮询 batch=b5eb46f2-9acf-49bd-bb2d-a548b58b8829: done=0/10 failed=0
+2026-02-09 22:24:48 [INFO] pipeline.api_client - 轮询 batch=b5eb46f2-9acf-49bd-bb2d-a548b58b8829: done=9/10 failed=0
+2026-02-09 22:25:18 [INFO] pipeline.api_client - 轮询 batch=b5eb46f2-9acf-49bd-bb2d-a548b58b8829: done=10/10 failed=0
+2026-02-09 22:25:23 [INFO] pipeline.processor - 处理批次 54/102 (10 个文件)
+2026-02-09 22:25:24 [INFO] pipeline.api_client - 轮询 batch=73143769-bf0c-419d-9808-b50f64a5d143: done=0/10 failed=0
+2026-02-09 22:25:54 [INFO] pipeline.api_client - 轮询 batch=73143769-bf0c-419d-9808-b50f64a5d143: done=10/10 failed=0
+2026-02-09 22:25:59 [INFO] pipeline.processor - 处理批次 55/102 (10 个文件)
+2026-02-09 22:26:00 [INFO] pipeline.api_client - 轮询 batch=86e7253f-c1b3-470d-9e1b-4002b2443a31: done=0/10 failed=0
+2026-02-09 22:26:31 [INFO] pipeline.api_client - 轮询 batch=86e7253f-c1b3-470d-9e1b-4002b2443a31: done=10/10 failed=0
+2026-02-09 22:26:36 [INFO] pipeline.processor - 处理批次 56/102 (10 个文件)
+2026-02-09 22:26:37 [INFO] pipeline.api_client - 轮询 batch=d9a93f81-3150-43ff-8a48-4a7c50ac611a: done=0/10 failed=0
+2026-02-09 22:27:08 [INFO] pipeline.api_client - 轮询 batch=d9a93f81-3150-43ff-8a48-4a7c50ac611a: done=10/10 failed=0
+2026-02-09 22:27:12 [INFO] pipeline.processor - 处理批次 57/102 (10 个文件)
+2026-02-09 22:27:14 [INFO] pipeline.api_client - 轮询 batch=75dab1c8-d245-45ae-ac7a-a6092b359cd1: done=0/10 failed=0
+2026-02-09 22:27:45 [INFO] pipeline.api_client - 轮询 batch=75dab1c8-d245-45ae-ac7a-a6092b359cd1: done=10/10 failed=0
+2026-02-09 22:27:49 [INFO] pipeline.processor - 处理批次 58/102 (10 个文件)
+2026-02-09 22:27:51 [INFO] pipeline.api_client - 轮询 batch=e6d67bd1-7bca-44ae-947e-811a3a73104e: done=0/10 failed=0
+2026-02-09 22:28:21 [INFO] pipeline.api_client - 轮询 batch=e6d67bd1-7bca-44ae-947e-811a3a73104e: done=10/10 failed=0
+2026-02-09 22:28:26 [INFO] pipeline.processor - 处理批次 59/102 (10 个文件)
+2026-02-09 22:28:27 [INFO] pipeline.api_client - 轮询 batch=fe9b0b5b-29fe-4e6c-8156-60401bbe56f4: done=0/10 failed=0
+2026-02-09 22:28:57 [INFO] pipeline.api_client - 轮询 batch=fe9b0b5b-29fe-4e6c-8156-60401bbe56f4: done=1/10 failed=0
+2026-02-09 22:29:28 [INFO] pipeline.api_client - 轮询 batch=fe9b0b5b-29fe-4e6c-8156-60401bbe56f4: done=10/10 failed=0
+2026-02-09 22:29:32 [INFO] pipeline.processor - 处理批次 60/102 (10 个文件)
+2026-02-09 22:29:33 [INFO] pipeline.api_client - 轮询 batch=39c6f91e-3463-4807-88e4-8e1859211e21: done=0/10 failed=0
+2026-02-09 22:30:04 [INFO] pipeline.api_client - 轮询 batch=39c6f91e-3463-4807-88e4-8e1859211e21: done=10/10 failed=0
+2026-02-09 22:30:08 [INFO] pipeline.processor - 处理批次 61/102 (10 个文件)
+2026-02-09 22:30:10 [INFO] pipeline.api_client - 轮询 batch=375499c8-4fac-49d5-8ea3-6e021bf7d01f: done=0/10 failed=0
+2026-02-09 22:30:40 [INFO] pipeline.api_client - 轮询 batch=375499c8-4fac-49d5-8ea3-6e021bf7d01f: done=10/10 failed=0
+2026-02-09 22:30:45 [INFO] pipeline.processor - 处理批次 62/102 (10 个文件)
+2026-02-09 22:30:46 [INFO] pipeline.api_client - 轮询 batch=eea39b21-a8f4-426d-bb64-356ed260c89a: done=0/10 failed=0
+2026-02-09 22:31:16 [INFO] pipeline.api_client - 轮询 batch=eea39b21-a8f4-426d-bb64-356ed260c89a: done=10/10 failed=0
+2026-02-09 22:31:20 [INFO] pipeline.processor - 处理批次 63/102 (10 个文件)
+2026-02-09 22:31:22 [INFO] pipeline.api_client - 轮询 batch=f8aa6e60-1e6d-4f42-a797-60b6494772d9: done=0/10 failed=0
+2026-02-09 22:31:52 [INFO] pipeline.api_client - 轮询 batch=f8aa6e60-1e6d-4f42-a797-60b6494772d9: done=10/10 failed=0
+2026-02-09 22:31:56 [INFO] pipeline.processor - 处理批次 64/102 (10 个文件)
+2026-02-09 22:31:58 [INFO] pipeline.api_client - 轮询 batch=971294b0-302f-48e5-ab88-7330f6d3fdd3: done=0/10 failed=0
+2026-02-09 22:32:28 [INFO] pipeline.api_client - 轮询 batch=971294b0-302f-48e5-ab88-7330f6d3fdd3: done=10/10 failed=0
+2026-02-09 22:32:32 [INFO] pipeline.processor - 处理批次 65/102 (10 个文件)
+2026-02-09 22:32:35 [INFO] pipeline.api_client - 轮询 batch=96a404f0-889f-4fc9-8837-0592a09fbd9f: done=0/10 failed=0
+2026-02-09 22:33:05 [INFO] pipeline.api_client - 轮询 batch=96a404f0-889f-4fc9-8837-0592a09fbd9f: done=9/10 failed=0
+2026-02-09 22:33:36 [INFO] pipeline.api_client - 轮询 batch=96a404f0-889f-4fc9-8837-0592a09fbd9f: done=10/10 failed=0
+2026-02-09 22:33:41 [INFO] pipeline.processor - 处理批次 66/102 (10 个文件)
+2026-02-09 22:33:42 [INFO] pipeline.api_client - 轮询 batch=42f3a98b-24ce-428d-80c4-502a56a36241: done=0/10 failed=0
+2026-02-09 22:34:12 [INFO] pipeline.api_client - 轮询 batch=42f3a98b-24ce-428d-80c4-502a56a36241: done=10/10 failed=0
+2026-02-09 22:34:17 [INFO] pipeline.processor - 处理批次 67/102 (10 个文件)
+2026-02-09 22:34:18 [INFO] pipeline.api_client - 轮询 batch=2d0fab5d-4e53-4f0b-9407-6540ff727616: done=0/10 failed=0
+2026-02-09 22:34:48 [INFO] pipeline.api_client - 轮询 batch=2d0fab5d-4e53-4f0b-9407-6540ff727616: done=10/10 failed=0
+2026-02-09 22:34:52 [INFO] pipeline.processor - 处理批次 68/102 (10 个文件)
+2026-02-09 22:34:54 [INFO] pipeline.api_client - 轮询 batch=ce14526b-3253-441b-9eb5-59b17e1c856c: done=0/10 failed=0
+2026-02-09 22:35:24 [INFO] pipeline.api_client - 轮询 batch=ce14526b-3253-441b-9eb5-59b17e1c856c: done=9/10 failed=0
+2026-02-09 22:35:54 [INFO] pipeline.api_client - 轮询 batch=ce14526b-3253-441b-9eb5-59b17e1c856c: done=10/10 failed=0
+2026-02-09 22:35:59 [INFO] pipeline.processor - 处理批次 69/102 (10 个文件)
+2026-02-09 22:36:00 [INFO] pipeline.api_client - 轮询 batch=8aa382ea-87f2-4ffd-b0c4-2eabcc92a12b: done=0/10 failed=0
+2026-02-09 22:36:30 [INFO] pipeline.api_client - 轮询 batch=8aa382ea-87f2-4ffd-b0c4-2eabcc92a12b: done=10/10 failed=0
+2026-02-09 22:36:35 [INFO] pipeline.processor - 处理批次 70/102 (10 个文件)
+2026-02-09 22:36:37 [INFO] pipeline.api_client - 轮询 batch=d92748e6-42a9-4266-a4ad-33f800c90e7b: done=0/10 failed=0
+2026-02-09 22:37:07 [INFO] pipeline.api_client - 轮询 batch=d92748e6-42a9-4266-a4ad-33f800c90e7b: done=10/10 failed=0
+2026-02-09 22:37:12 [INFO] pipeline.processor - 处理批次 71/102 (10 个文件)
+2026-02-09 22:37:13 [INFO] pipeline.api_client - 轮询 batch=d19ca9e2-e762-41a2-a379-82aea9c8289f: done=0/10 failed=0
+2026-02-09 22:37:44 [INFO] pipeline.api_client - 轮询 batch=d19ca9e2-e762-41a2-a379-82aea9c8289f: done=10/10 failed=0
+2026-02-09 22:37:48 [INFO] pipeline.processor - 处理批次 72/102 (10 个文件)
+2026-02-09 22:37:50 [INFO] pipeline.api_client - 轮询 batch=1dc54cec-200c-4308-abad-d8eecfb8647e: done=0/10 failed=0
+2026-02-09 22:38:20 [INFO] pipeline.api_client - 轮询 batch=1dc54cec-200c-4308-abad-d8eecfb8647e: done=10/10 failed=0
+2026-02-09 22:38:26 [INFO] pipeline.processor - 处理批次 73/102 (10 个文件)
+2026-02-09 22:38:27 [INFO] pipeline.api_client - 轮询 batch=13c35356-8936-45b1-8532-9aea8487d70b: done=0/10 failed=0
+2026-02-09 22:38:57 [INFO] pipeline.api_client - 轮询 batch=13c35356-8936-45b1-8532-9aea8487d70b: done=10/10 failed=0
+2026-02-09 22:39:02 [INFO] pipeline.processor - 处理批次 74/102 (10 个文件)
+2026-02-09 22:39:03 [INFO] pipeline.api_client - 轮询 batch=b48761b9-4f81-40fd-9269-b1a7af3f2730: done=0/10 failed=0
+2026-02-09 22:39:33 [INFO] pipeline.api_client - 轮询 batch=b48761b9-4f81-40fd-9269-b1a7af3f2730: done=10/10 failed=0
+2026-02-09 22:39:38 [INFO] pipeline.processor - 处理批次 75/102 (10 个文件)
+2026-02-09 22:39:39 [INFO] pipeline.api_client - 轮询 batch=1ccb308d-9f52-4a57-9e2e-6210ca2f2b13: done=0/10 failed=0
+2026-02-09 22:40:09 [INFO] pipeline.api_client - 轮询 batch=1ccb308d-9f52-4a57-9e2e-6210ca2f2b13: done=10/10 failed=0
+2026-02-09 22:40:13 [INFO] pipeline.processor - 处理批次 76/102 (10 个文件)
+2026-02-09 22:40:15 [INFO] pipeline.api_client - 轮询 batch=2f0d7168-6da4-4e64-8255-807439b07176: done=0/10 failed=0
+2026-02-09 22:40:45 [INFO] pipeline.api_client - 轮询 batch=2f0d7168-6da4-4e64-8255-807439b07176: done=10/10 failed=0
+2026-02-09 22:40:49 [INFO] pipeline.processor - 处理批次 77/102 (10 个文件)
+2026-02-09 22:40:50 [INFO] pipeline.api_client - 轮询 batch=00c410a1-bb88-4d8d-9d3e-60c501d2678c: done=0/10 failed=0
+2026-02-09 22:41:20 [INFO] pipeline.api_client - 轮询 batch=00c410a1-bb88-4d8d-9d3e-60c501d2678c: done=10/10 failed=0
+2026-02-09 22:41:26 [INFO] pipeline.processor - 处理批次 78/102 (10 个文件)
+2026-02-09 22:41:27 [INFO] pipeline.api_client - 轮询 batch=bd07ef76-3026-42a8-b254-c4718b727e7d: done=0/10 failed=0
+2026-02-09 22:41:57 [INFO] pipeline.api_client - 轮询 batch=bd07ef76-3026-42a8-b254-c4718b727e7d: done=10/10 failed=0
+2026-02-09 22:42:03 [INFO] pipeline.processor - 处理批次 79/102 (10 个文件)
+2026-02-09 22:42:04 [INFO] pipeline.api_client - 轮询 batch=e18be9f3-67d1-4604-88c8-201fdf5d7865: done=0/10 failed=0
+2026-02-09 22:42:34 [INFO] pipeline.api_client - 轮询 batch=e18be9f3-67d1-4604-88c8-201fdf5d7865: done=10/10 failed=0
+2026-02-09 22:42:40 [INFO] pipeline.processor - 处理批次 80/102 (10 个文件)
+2026-02-09 22:42:43 [INFO] pipeline.api_client - 轮询 batch=4edce6af-529c-45aa-a4d0-25b5e0a58e52: done=0/10 failed=0
+2026-02-09 22:43:13 [INFO] pipeline.api_client - 轮询 batch=4edce6af-529c-45aa-a4d0-25b5e0a58e52: done=10/10 failed=0
+2026-02-09 22:43:19 [INFO] pipeline.processor - 处理批次 81/102 (10 个文件)
+2026-02-09 22:43:22 [INFO] pipeline.api_client - 轮询 batch=f02f49b4-5927-4f6c-ae1c-4b0fcfd872b8: done=0/10 failed=0
+2026-02-09 22:43:53 [INFO] pipeline.api_client - 轮询 batch=f02f49b4-5927-4f6c-ae1c-4b0fcfd872b8: done=10/10 failed=0
+2026-02-09 22:44:00 [INFO] pipeline.processor - 处理批次 82/102 (10 个文件)
+2026-02-09 22:44:05 [INFO] pipeline.api_client - 轮询 batch=a3835b57-f93c-44d5-8386-a0df4b23a651: done=1/10 failed=0
+2026-02-09 22:44:36 [INFO] pipeline.api_client - 轮询 batch=a3835b57-f93c-44d5-8386-a0df4b23a651: done=10/10 failed=0
+2026-02-09 22:44:42 [INFO] pipeline.processor - 处理批次 83/102 (10 个文件)
+2026-02-09 22:44:51 [INFO] pipeline.api_client - 轮询 batch=ba9fb497-c3d2-4515-8205-0ec62eb00250: done=0/10 failed=0
+2026-02-09 22:45:21 [INFO] pipeline.api_client - 轮询 batch=ba9fb497-c3d2-4515-8205-0ec62eb00250: done=10/10 failed=0
+2026-02-09 22:45:28 [INFO] pipeline.processor - 处理批次 84/102 (10 个文件)
+2026-02-09 22:45:37 [INFO] pipeline.api_client - 轮询 batch=0b3d6cfd-c8f9-4fa0-9c84-649e3e8b6238: done=1/10 failed=0
+2026-02-09 22:46:07 [INFO] pipeline.api_client - 轮询 batch=0b3d6cfd-c8f9-4fa0-9c84-649e3e8b6238: done=10/10 failed=0
+2026-02-09 22:46:15 [INFO] pipeline.processor - 处理批次 85/102 (10 个文件)
+2026-02-09 22:46:21 [INFO] pipeline.api_client - 轮询 batch=6fa043ee-a9c6-4862-bb5a-531dad76e876: done=0/10 failed=0
+2026-02-09 22:46:51 [INFO] pipeline.api_client - 轮询 batch=6fa043ee-a9c6-4862-bb5a-531dad76e876: done=10/10 failed=0
+2026-02-09 22:46:58 [INFO] pipeline.processor - 处理批次 86/102 (10 个文件)
+2026-02-09 22:47:03 [INFO] pipeline.api_client - 轮询 batch=1ee14d98-15a7-408e-a34b-bfd58fc11fe6: done=0/10 failed=0
+2026-02-09 22:47:33 [INFO] pipeline.api_client - 轮询 batch=1ee14d98-15a7-408e-a34b-bfd58fc11fe6: done=10/10 failed=0
+2026-02-09 22:47:40 [INFO] pipeline.processor - 处理批次 87/102 (10 个文件)
+2026-02-09 22:47:45 [INFO] pipeline.api_client - 轮询 batch=63fb867b-4a32-4dc3-8049-42742c85d26d: done=0/10 failed=0
+2026-02-09 22:48:15 [INFO] pipeline.api_client - 轮询 batch=63fb867b-4a32-4dc3-8049-42742c85d26d: done=10/10 failed=0
+2026-02-09 22:48:23 [INFO] pipeline.processor - 处理批次 88/102 (10 个文件)
+2026-02-09 22:48:25 [INFO] pipeline.api_client - 轮询 batch=e8d05d75-6fe5-4b5a-92e6-c8d8ebe83e28: done=0/10 failed=0
+2026-02-09 22:48:55 [INFO] pipeline.api_client - 轮询 batch=e8d05d75-6fe5-4b5a-92e6-c8d8ebe83e28: done=10/10 failed=0
+2026-02-09 22:49:01 [INFO] pipeline.processor - 处理批次 89/102 (10 个文件)
+2026-02-09 22:49:05 [INFO] pipeline.api_client - 轮询 batch=dae2d9c4-a254-4e9b-abc6-834b06805b6e: done=0/10 failed=0
+2026-02-09 22:49:35 [INFO] pipeline.api_client - 轮询 batch=dae2d9c4-a254-4e9b-abc6-834b06805b6e: done=10/10 failed=0
+2026-02-09 22:49:42 [INFO] pipeline.processor - 处理批次 90/102 (10 个文件)
+2026-02-09 22:49:48 [INFO] pipeline.api_client - 轮询 batch=b652e5e0-bb5c-4b22-8887-b2870adec687: done=0/10 failed=0
+2026-02-09 22:50:18 [INFO] pipeline.api_client - 轮询 batch=b652e5e0-bb5c-4b22-8887-b2870adec687: done=10/10 failed=0
+2026-02-09 22:50:24 [INFO] pipeline.processor - 处理批次 91/102 (10 个文件)
+2026-02-09 22:50:31 [INFO] pipeline.api_client - 轮询 batch=7ef08238-c1e7-4f46-a104-890a6bb7242f: done=0/10 failed=0
+2026-02-09 22:51:01 [INFO] pipeline.api_client - 轮询 batch=7ef08238-c1e7-4f46-a104-890a6bb7242f: done=10/10 failed=0
+2026-02-09 22:51:08 [INFO] pipeline.processor - 处理批次 92/102 (10 个文件)
+2026-02-09 22:51:18 [INFO] pipeline.api_client - 轮询 batch=233a342b-901d-435b-8473-5ed429ef49df: done=0/10 failed=0
+2026-02-09 22:51:48 [INFO] pipeline.api_client - 轮询 batch=233a342b-901d-435b-8473-5ed429ef49df: done=9/10 failed=0
+2026-02-09 22:52:18 [INFO] pipeline.api_client - 轮询 batch=233a342b-901d-435b-8473-5ed429ef49df: done=10/10 failed=0
+2026-02-09 22:52:35 [INFO] pipeline.processor - 处理批次 93/102 (10 个文件)
+2026-02-09 22:52:48 [INFO] pipeline.api_client - 轮询 batch=5ce8a03b-7b4f-4423-bddb-5f2f864f8e48: done=1/10 failed=0
+2026-02-09 22:53:18 [INFO] pipeline.api_client - 轮询 batch=5ce8a03b-7b4f-4423-bddb-5f2f864f8e48: done=9/10 failed=0
+2026-02-09 22:53:48 [INFO] pipeline.api_client - 轮询 batch=5ce8a03b-7b4f-4423-bddb-5f2f864f8e48: done=10/10 failed=0
+2026-02-09 22:54:06 [INFO] pipeline.processor - 处理批次 94/102 (10 个文件)
+2026-02-09 22:54:14 [INFO] pipeline.api_client - 轮询 batch=d5b5fc97-1b99-420e-825e-9893f95bda46: done=0/10 failed=0
+2026-02-09 22:54:44 [INFO] pipeline.api_client - 轮询 batch=d5b5fc97-1b99-420e-825e-9893f95bda46: done=9/10 failed=0
+2026-02-09 22:55:15 [INFO] pipeline.api_client - 轮询 batch=d5b5fc97-1b99-420e-825e-9893f95bda46: done=10/10 failed=0
+2026-02-09 22:55:28 [INFO] pipeline.processor - 处理批次 95/102 (10 个文件)
+2026-02-09 22:55:47 [INFO] pipeline.api_client - 轮询 batch=7c588f10-0e2e-4730-a7bb-7512f24d79e9: done=4/10 failed=0
+2026-02-09 22:56:17 [INFO] pipeline.api_client - 轮询 batch=7c588f10-0e2e-4730-a7bb-7512f24d79e9: done=9/10 failed=0
+2026-02-09 22:56:47 [INFO] pipeline.api_client - 轮询 batch=7c588f10-0e2e-4730-a7bb-7512f24d79e9: done=10/10 failed=0
+2026-02-09 22:57:06 [INFO] pipeline.processor - 处理批次 96/102 (10 个文件)
+2026-02-09 22:57:41 [INFO] pipeline.api_client - 轮询 batch=75f4c772-6dea-4683-a83a-eed5d4ca1e94: done=9/10 failed=0
+2026-02-09 22:58:11 [INFO] pipeline.api_client - 轮询 batch=75f4c772-6dea-4683-a83a-eed5d4ca1e94: done=9/10 failed=0
+2026-02-09 22:58:41 [INFO] pipeline.api_client - 轮询 batch=75f4c772-6dea-4683-a83a-eed5d4ca1e94: done=9/10 failed=0
+2026-02-09 22:59:12 [INFO] pipeline.api_client - 轮询 batch=75f4c772-6dea-4683-a83a-eed5d4ca1e94: done=10/10 failed=0
+2026-02-09 22:59:42 [INFO] pipeline.processor - 处理批次 97/102 (10 个文件)
+2026-02-09 23:00:06 [INFO] pipeline.api_client - 轮询 batch=a537bb14-0f57-436c-9c1f-95945972c29a: done=5/10 failed=0
+2026-02-09 23:00:36 [INFO] pipeline.api_client - 轮询 batch=a537bb14-0f57-436c-9c1f-95945972c29a: done=10/10 failed=0
+2026-02-09 23:00:58 [INFO] pipeline.processor - 处理批次 98/102 (10 个文件)
+2026-02-09 23:01:13 [INFO] pipeline.api_client - 轮询 batch=867ec5c8-ef15-47b9-bc63-cea21541d76e: done=2/10 failed=0
+2026-02-09 23:01:43 [INFO] pipeline.api_client - 轮询 batch=867ec5c8-ef15-47b9-bc63-cea21541d76e: done=9/10 failed=0
+2026-02-09 23:02:14 [INFO] pipeline.api_client - 轮询 batch=867ec5c8-ef15-47b9-bc63-cea21541d76e: done=10/10 failed=0
+2026-02-09 23:02:25 [INFO] pipeline.processor - 处理批次 99/102 (10 个文件)
+2026-02-09 23:02:38 [INFO] pipeline.api_client - 轮询 batch=650ca04c-cef0-4cc0-91a3-c08d2c8ff005: done=2/10 failed=0
+2026-02-09 23:03:08 [INFO] pipeline.api_client - 轮询 batch=650ca04c-cef0-4cc0-91a3-c08d2c8ff005: done=10/10 failed=0
+2026-02-09 23:03:15 [INFO] pipeline.processor - 处理批次 100/102 (10 个文件)
+2026-02-09 23:03:26 [INFO] pipeline.api_client - 轮询 batch=945b7d80-1cc4-4cad-94f9-e6c14ac1ac47: done=0/10 failed=0
+2026-02-09 23:03:56 [INFO] pipeline.api_client - 轮询 batch=945b7d80-1cc4-4cad-94f9-e6c14ac1ac47: done=9/10 failed=0
+2026-02-09 23:04:27 [INFO] pipeline.api_client - 轮询 batch=945b7d80-1cc4-4cad-94f9-e6c14ac1ac47: done=10/10 failed=0
+2026-02-09 23:04:34 [INFO] pipeline.processor - 处理批次 101/102 (10 个文件)
+2026-02-09 23:04:46 [INFO] pipeline.api_client - 轮询 batch=cb9a6ada-502d-4aff-8aa1-36a8fa718032: done=0/10 failed=0
+2026-02-09 23:05:16 [INFO] pipeline.api_client - 轮询 batch=cb9a6ada-502d-4aff-8aa1-36a8fa718032: done=9/10 failed=0
+2026-02-09 23:05:46 [INFO] pipeline.api_client - 轮询 batch=cb9a6ada-502d-4aff-8aa1-36a8fa718032: done=10/10 failed=0
+2026-02-09 23:05:54 [INFO] pipeline.processor - 处理批次 102/102 (2 个文件)
+2026-02-09 23:05:59 [INFO] pipeline.api_client - 轮询 batch=d9a1b4e7-d4bf-4429-b36d-375b60923666: done=0/2 failed=0
+2026-02-09 23:06:30 [INFO] pipeline.api_client - 轮询 batch=d9a1b4e7-d4bf-4429-b36d-375b60923666: done=2/2 failed=0
+2026-02-09 23:06:32 [INFO] pipeline.processor - 
+处理完成! 总计=17100, 已完成=1111, 失败=1, 待处理=15988
+2026-02-10 02:28:22 [INFO] pipeline.checkpoint - 数据库迁移: 添加 year 列
+2026-02-10 02:28:22 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:29:24 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:29:24 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-10 02:29:26 [INFO] pipeline.scanner - 扫描完成: 发现 100 个新PDF, 跳过 17011 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-10 02:29:26 [INFO] pipeline.checkpoint - 注册 100 个文件，新增约 5050 个
+2026-02-10 02:29:26 [INFO] pipeline.processor - 新注册 100 个PDF文件
+2026-02-10 02:29:41 [DEBUG] asyncio - Using selector: SelectSelector
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing <function connect.<locals>.connector at 0x00000231C60728E0>
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation <function connect.<locals>.connector at 0x00000231C60728E0> completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method executescript of sqlite3.Connection object at 0x00000231C600B5B0>, "\nCREATE TABLE IF NOT EXISTS files (\n    data_id      TEXT PRIMARY KEY,\n    pdf_path     TEXT NOT NULL,\n    journal      TEXT DEFAULT '',\n    year         TEXT DEFAULT '',\n    batch_id     TEXT DEFAULT '',\n    state        TEXT NOT NULL DEFAULT 'pending',\n    error_msg    TEXT DEFAULT '',\n    attempts     INTEGER DEFAULT 0,\n    created_at   TEXT,\n    updated_at   TEXT\n);\n\nCREATE INDEX IF NOT EXISTS idx_files_state ON files(state);\nCREATE INDEX IF NOT EXISTS idx_files_batch ON files(batch_id);\n")
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method executescript of sqlite3.Connection object at 0x00000231C600B5B0>, "\nCREATE TABLE IF NOT EXISTS files (\n    data_id      TEXT PRIMARY KEY,\n    pdf_path     TEXT NOT NULL,\n    journal      TEXT DEFAULT '',\n    year         TEXT DEFAULT '',\n    batch_id     TEXT DEFAULT '',\n    state        TEXT NOT NULL DEFAULT 'pending',\n    error_msg    TEXT DEFAULT '',\n    attempts     INTEGER DEFAULT 0,\n    created_at   TEXT,\n    updated_at   TEXT\n);\n\nCREATE INDEX IF NOT EXISTS idx_files_state ON files(state);\nCREATE INDEX IF NOT EXISTS idx_files_batch ON files(batch_id);\n") completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'PRAGMA table_info(files)', [])
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'PRAGMA table_info(files)', []) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D32C0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D32C0>) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000231C600B5B0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000231C600B5B0>) completed
+2026-02-10 02:29:41 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?)', ('pending', '2026-02-10T02:29:41.659167', 'uploading', 'polling'))
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?)', ('pending', '2026-02-10T02:29:41.659167', 'uploading', 'polling')) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000231C600B5B0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method commit of sqlite3.Connection object at 0x00000231C600B5B0>) completed
+2026-02-10 02:29:41 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT state, COUNT(*) FROM files GROUP BY state', [])
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT state, COUNT(*) FROM files GROUP BY state', []) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D2FC0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D2FC0>) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT COUNT(*) FROM files', [])
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT COUNT(*) FROM files', []) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000231C60D32C0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000231C60D32C0>) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT data_id FROM files', [])
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT data_id FROM files', []) completed
+2026-02-10 02:29:41 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D32C0>)
+2026-02-10 02:29:41 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C60D32C0>) completed
+2026-02-10 02:29:43 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17111 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT state, COUNT(*) FROM files GROUP BY state', [])
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT state, COUNT(*) FROM files GROUP BY state', []) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C603E240>)
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C603E240>) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT COUNT(*) FROM files', [])
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT COUNT(*) FROM files', []) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000231C603E2C0>)
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchone of sqlite3.Cursor object at 0x00000231C603E2C0>) completed
+2026-02-10 02:29:43 [INFO] pipeline.processor - 检查点状态: 总计=17100, 待处理=15988, 已完成=1111, 失败=1
+2026-02-10 02:29:43 [INFO] pipeline.processor - 期刊过滤: 仅处理 ['生物工程学报']
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT * FROM files WHERE state = ? AND journal IN (?) ORDER BY created_at LIMIT ?', ['pending', '生物工程学报', 100])
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method execute of sqlite3.Connection object at 0x00000231C600B5B0>, 'SELECT * FROM files WHERE state = ? AND journal IN (?) ORDER BY created_at LIMIT ?', ['pending', '生物工程学报', 100]) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C603E2C0>)
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method fetchall of sqlite3.Cursor object at 0x00000231C603E2C0>) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing functools.partial(<built-in method close of sqlite3.Connection object at 0x00000231C600B5B0>)
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation functools.partial(<built-in method close of sqlite3.Connection object at 0x00000231C600B5B0>) completed
+2026-02-10 02:29:43 [DEBUG] aiosqlite - executing <function Connection.stop.<locals>.close_and_stop at 0x00000231C605DD00>
+2026-02-10 02:29:43 [DEBUG] aiosqlite - operation <function Connection.stop.<locals>.close_and_stop at 0x00000231C605DD00> completed
+2026-02-10 02:31:22 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:31:22 [INFO] pipeline.processor - 扫描PDF目录: E:\Crawler\data\pdf
+2026-02-10 02:31:24 [INFO] pipeline.scanner - 扫描完成: 发现 0 个新PDF, 跳过 17111 个已注册, 跳过 0 个超大文件, 跳过 713 个英文版(排除前缀)
+2026-02-10 02:31:24 [INFO] pipeline.processor - 检查点状态: 总计=17100, 待处理=15988, 已完成=1111, 失败=1
+2026-02-10 02:31:24 [INFO] pipeline.processor - 期刊过滤: 仅处理 ['生物工程学报']
+2026-02-10 02:31:24 [INFO] pipeline.processor - 开始处理 100 个文件...
+2026-02-10 02:31:24 [INFO] pipeline.processor - 处理批次 1/10 (10 个文件)
+2026-02-10 02:31:29 [INFO] pipeline.api_client - 轮询 batch=e8730bba-7593-463e-8c9e-b8fef29e01f4: done=0/10 failed=0
+2026-02-10 02:31:59 [INFO] pipeline.api_client - 轮询 batch=e8730bba-7593-463e-8c9e-b8fef29e01f4: done=10/10 failed=0
+2026-02-10 02:32:08 [INFO] pipeline.processor - 处理批次 2/10 (10 个文件)
+2026-02-10 02:32:12 [INFO] pipeline.api_client - 轮询 batch=11db396c-0a3a-40d1-9630-1a580cafd630: done=0/10 failed=0
+2026-02-10 02:32:42 [INFO] pipeline.api_client - 轮询 batch=11db396c-0a3a-40d1-9630-1a580cafd630: done=10/10 failed=0
+2026-02-10 02:32:51 [INFO] pipeline.processor - 处理批次 3/10 (10 个文件)
+2026-02-10 02:32:52 [INFO] pipeline.api_client - 轮询 batch=df7178f7-8f57-4e82-82be-f2ad4f5342e1: done=0/10 failed=0
+2026-02-10 02:33:23 [INFO] pipeline.api_client - 轮询 batch=df7178f7-8f57-4e82-82be-f2ad4f5342e1: done=10/10 failed=0
+2026-02-10 02:33:30 [INFO] pipeline.processor - 处理批次 4/10 (10 个文件)
+2026-02-10 02:33:31 [INFO] pipeline.api_client - 轮询 batch=e92a765d-78cd-4b4c-9158-54e0bb47c7ba: done=0/10 failed=0
+2026-02-10 02:34:01 [INFO] pipeline.api_client - 轮询 batch=e92a765d-78cd-4b4c-9158-54e0bb47c7ba: done=10/10 failed=0
+2026-02-10 02:34:08 [INFO] pipeline.processor - 处理批次 5/10 (10 个文件)
+2026-02-10 02:34:11 [INFO] pipeline.api_client - 轮询 batch=1ec590aa-70c5-4660-8fae-a20c8d0d159a: done=0/10 failed=0
+2026-02-10 02:34:41 [INFO] pipeline.api_client - 轮询 batch=1ec590aa-70c5-4660-8fae-a20c8d0d159a: done=10/10 failed=0
+2026-02-10 02:34:50 [INFO] pipeline.processor - 处理批次 6/10 (10 个文件)
+2026-02-10 02:34:52 [INFO] pipeline.api_client - 轮询 batch=24ca1b4b-fbba-4dae-b8f8-c787e73ece8a: done=0/10 failed=0
+2026-02-10 02:35:22 [INFO] pipeline.api_client - 轮询 batch=24ca1b4b-fbba-4dae-b8f8-c787e73ece8a: done=10/10 failed=0
+2026-02-10 02:35:30 [INFO] pipeline.processor - 处理批次 7/10 (10 个文件)
+2026-02-10 02:35:31 [INFO] pipeline.api_client - 轮询 batch=4b939947-a825-467c-9faa-dc158f965677: done=0/10 failed=0
+2026-02-10 02:36:02 [INFO] pipeline.api_client - 轮询 batch=4b939947-a825-467c-9faa-dc158f965677: done=10/10 failed=0
+2026-02-10 02:36:10 [INFO] pipeline.processor - 处理批次 8/10 (10 个文件)
+2026-02-10 02:36:12 [INFO] pipeline.api_client - 轮询 batch=dbe07a6d-28af-48bc-838e-61316a76ab56: done=0/10 failed=0
+2026-02-10 02:36:42 [INFO] pipeline.api_client - 轮询 batch=dbe07a6d-28af-48bc-838e-61316a76ab56: done=10/10 failed=0
+2026-02-10 02:36:51 [INFO] pipeline.processor - 处理批次 9/10 (10 个文件)
+2026-02-10 02:36:53 [INFO] pipeline.api_client - 轮询 batch=e44327ec-d1e7-4373-ab66-47e056c52bfd: done=0/10 failed=0
+2026-02-10 02:37:24 [INFO] pipeline.api_client - 轮询 batch=e44327ec-d1e7-4373-ab66-47e056c52bfd: done=10/10 failed=0
+2026-02-10 02:37:33 [INFO] pipeline.processor - 处理批次 10/10 (10 个文件)
+2026-02-10 02:37:35 [INFO] pipeline.api_client - 轮询 batch=8a33ca8d-da81-40c1-8cec-79442d2044c9: done=0/10 failed=0
+2026-02-10 02:38:05 [INFO] pipeline.api_client - 轮询 batch=8a33ca8d-da81-40c1-8cec-79442d2044c9: done=10/10 failed=0
+2026-02-10 02:38:14 [INFO] pipeline.processor - 
+处理完成! 总计=17100, 已完成=1211, 失败=1, 待处理=15888
+2026-02-10 02:42:41 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:42:41 [INFO] pipeline.processor - 没有需要转换的文件
+2026-02-10 02:43:01 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:43:01 [INFO] pipeline.processor - 开始转换 100 个已下载的文件...
+2026-02-10 02:43:02 [INFO] pipeline.processor - 转换完成: 成功=100, 失败=0
+2026-02-10 02:44:37 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:44:37 [INFO] pipeline.processor - 开始转换 100 个已下载的文件...
+2026-02-10 02:44:38 [INFO] pipeline.processor - 转换完成: 成功=100, 失败=0
+2026-02-10 02:46:26 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:46:26 [INFO] pipeline.processor - 开始转换 100 个已下载的文件...
+2026-02-10 02:46:27 [INFO] pipeline.processor - 转换完成: 成功=100, 失败=0
+2026-02-10 02:48:48 [INFO] pipeline.checkpoint - 检查点数据库已初始化: E:\MinerU\data\checkpoint.db
+2026-02-10 02:48:48 [INFO] pipeline.processor - 开始转换 100 个已下载的文件...
+2026-02-10 02:48:49 [INFO] pipeline.processor - 转换完成: 成功=100, 失败=0
