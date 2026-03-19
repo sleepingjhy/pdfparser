@@ -91,31 +91,24 @@ def _infer_heading_level(text: str) -> int:
     return 0
 
 
-def convert_content_list(
-    content_list_path: str,
+def convert_content_blocks(
+    raw_blocks: list[dict[str, Any]],
     data_id: str,
     journal: str = "",
 ) -> Optional[PaperDocument]:
     """
-    将 content_list.json 转换为目标 PaperDocument。
+    将 content_list 内容块转换为目标 PaperDocument。
 
     Args:
-        content_list_path: content_list.json 文件路径
+        raw_blocks: content_list.json 顶层数组
         data_id: 文件唯一标识
         journal: 期刊名称
 
     Returns:
         PaperDocument 或 None（如果解析失败）
     """
-    try:
-        with open(content_list_path, "r", encoding="utf-8") as f:
-            raw_blocks = json.load(f)
-    except Exception as e:
-        logger.error(f"读取 content_list.json 失败 ({data_id}): {e}")
-        return None
-
     if not isinstance(raw_blocks, list):
-        logger.error(f"content_list.json 格式无效 ({data_id}): 顶层不是数组")
+        logger.error(f"content_list 内容无效 ({data_id}): 顶层不是数组")
         return None
 
     # 解析内容块
@@ -141,6 +134,24 @@ def convert_content_list(
     doc.fulltext = sections
 
     return doc
+
+
+def convert_content_list(
+    content_list_path: str,
+    data_id: str,
+    journal: str = "",
+) -> Optional[PaperDocument]:
+    """
+    从 content_list.json 文件路径读取并转换为目标 PaperDocument。
+    """
+    try:
+        with open(content_list_path, "r", encoding="utf-8") as f:
+            raw_blocks = json.load(f)
+    except Exception as e:
+        logger.error(f"读取 content_list.json 失败 ({data_id}): {e}")
+        return None
+
+    return convert_content_blocks(raw_blocks, data_id=data_id, journal=journal)
 
 
 def _parse_blocks(raw_blocks: list[dict[str, Any]]) -> list[ContentBlock]:

@@ -6,7 +6,7 @@
 2. 注册到检查点
 3. 分批上传到 MinerU API
 4. 轮询处理结果
-5. 下载并解压结果
+5. 下载结果包并读取 content_list
 6. 转换为目标JSON格式
 """
 
@@ -21,10 +21,10 @@ from typing import Any, Optional
 
 from tqdm import tqdm
 
-from .api_client import MinerUAPIClient
+from .api_client import AllAPIKeysExhaustedError, MinerUAPIClient
 from .checkpoint import Checkpoint
 from .config import AppConfig
-from .converter import convert_content_list, save_paper_json
+from .converter import convert_content_blocks, save_paper_json
 from .models import FileRecord, FileState
 from .scanner import scan_pdfs
 
@@ -48,13 +48,18 @@ class Processor:
             self._api_client = MinerUAPIClient(self.config)
         return self._api_client
 
-    async def initialize(self) -> None:
-        """初始化组件"""
+    async def initialize(self, reset_stale: bool = False) -> None:
+        """初始化组件。
+
+        Args:
+            reset_stale: 是否将中间态文件回退到 pending。
+                只应在真正开始执行 run 前启用，避免 status 等只读命令产生副作用。
+        """
         await self.checkpoint.initialize()
-        # 重置卡在中间状态的文件
-        stale_count = await self.checkpoint.reset_stale()
-        if stale_count > 0:
-            logger.info(f"已重置 {stale_count} 个中间状态文件为待处理")
+        if reset_stale:
+            stale_count = await self.checkpoint.reset_stale()
+            if stale_count > 0:
+                logger.info(f"已重置 {stale_count} 个中间状态文件为待处理")
 
     async def close(self) -> None:
         if self._api_client is not None:
@@ -80,8 +85,6 @@ class Processor:
         """扫描新PDF并注册到检查点"""
         logger.info(f"扫描PDF目录: {self.config.paths.pdf_input}")
 
-        # 获取已有记录
-        stats = await self.checkpoint.get_stats()
         existing_records = set()
 
         # 查询所有已注册的 data_id
@@ -155,6 +158,9 @@ class Processor:
                     try:
                         done_count = await self._process_batch(batch)
                         pbar.update(len(batch))
+                    except AllAPIKeysExhaustedError as e:
+                        logger.warning(f"所有 API Key 都不可继续提交新任务，停止处理: {e}")
+                        break
                     except Exception as e:
                         logger.error(f"批次 {batch_idx + 1} 处理失败: {e}")
                         # 标记整个批次为失败
@@ -184,7 +190,7 @@ class Processor:
         """
         处理一个批次的文件。
 
-        流程: 申请上传URL → 上传文件 → 轮询结果 → 下载 → 转换
+        流程: 申请上传URL → 上传文件 → 轮询结果 → 下载结果包 → 转换
 
         Returns:
             成功处理的文件数
@@ -206,6 +212,9 @@ class Processor:
 
         try:
             upload_resp = await self.api_client.request_upload_urls(files_payload)
+        except AllAPIKeysExhaustedError:
+            await self.checkpoint.bulk_update_state(data_ids, FileState.PENDING)
+            raise
         except Exception as e:
             logger.error(f"申请上传URL失败: {e}")
             for rec in batch:
@@ -335,34 +344,28 @@ class Processor:
         zip_url: str,
         batch_id: str,
     ) -> bool:
-        """下载结果并转换为目标JSON"""
-        # 标记为已下载
-        raw_dir = str(Path(self.config.paths.raw_output) / rec.data_id)
-        await self.checkpoint.update_state(
-            rec.data_id, FileState.DOWNLOADED, batch_id=batch_id
-        )
-
-        # 下载并解压
-        content_list_path = await self.api_client.download_result(zip_url, raw_dir)
-
-        if not content_list_path:
-            await self.checkpoint.update_state(
-                rec.data_id,
-                FileState.FAILED,
-                batch_id=batch_id,
-                error_msg="未找到 content_list.json",
-                increment_attempts=True,
-            )
-            return False
-
+        """下载结果并直接转换为目标JSON，不保留 raw 文件"""
         # 标记为转换中
         await self.checkpoint.update_state(
             rec.data_id, FileState.CONVERTING, batch_id=batch_id
         )
 
+        # 下载并读取 content_list 内容
+        content_blocks = await self.api_client.download_result(zip_url)
+
+        if not content_blocks:
+            await self.checkpoint.update_state(
+                rec.data_id,
+                FileState.FAILED,
+                batch_id=batch_id,
+                error_msg="未找到有效的 content_list.json",
+                increment_attempts=True,
+            )
+            return False
+
         # 转换格式
-        doc = convert_content_list(
-            content_list_path,
+        doc = convert_content_blocks(
+            content_blocks,
             data_id=rec.data_id,
             journal=rec.journal,
         )
@@ -391,59 +394,8 @@ class Processor:
         return True
 
     async def convert_only(self) -> None:
-        """仅对已下载的原始数据重新执行格式转换"""
-        downloaded = await self.checkpoint.get_by_state(FileState.DOWNLOADED)
-        converting = await self.checkpoint.get_by_state(FileState.CONVERTING)
-        records = downloaded + converting
-
-        if not records:
-            logger.info("没有需要转换的文件")
-            return
-
-        logger.info(f"开始转换 {len(records)} 个已下载的文件...")
-
-        success = 0
-        for rec in tqdm(records, desc="转换进度"):
-            raw_dir = Path(self.config.paths.raw_output) / rec.data_id
-
-            # 查找 content_list.json
-            content_list_path = None
-            if raw_dir.exists():
-                for f in raw_dir.iterdir():
-                    if f.name.endswith("_content_list.json"):
-                        content_list_path = str(f)
-                        break
-
-            if not content_list_path:
-                await self.checkpoint.update_state(
-                    rec.data_id,
-                    FileState.FAILED,
-                    error_msg="未找到 content_list.json",
-                )
-                continue
-
-            doc = convert_content_list(
-                content_list_path,
-                data_id=rec.data_id,
-                journal=rec.journal,
-            )
-
-            if doc is None:
-                await self.checkpoint.update_state(
-                    rec.data_id,
-                    FileState.FAILED,
-                    error_msg="格式转换失败",
-                )
-                continue
-
-            output_dir = Path(self.config.paths.final_output)
-            output_path = _build_output_path(output_dir, rec, f"{rec.data_id}.json")
-
-            save_paper_json(doc, str(output_path))
-            await self.checkpoint.update_state(rec.data_id, FileState.DONE)
-            success += 1
-
-        logger.info(f"转换完成: 成功={success}, 失败={len(records) - success}")
+        """raw 不落盘时，convert-only 不可用。"""
+        logger.warning("当前配置不保留 raw 文件，convert-only 不可用")
 
     async def retry_failed(self) -> int:
         """重置所有失败文件为待处理"""

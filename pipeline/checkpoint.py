@@ -72,6 +72,7 @@ class Checkpoint:
         now = datetime.now().isoformat()
         for rec in records:
             try:
+                before_changes = self._db.total_changes
                 await self._db.execute(
                     """INSERT OR IGNORE INTO files
                        (data_id, pdf_path, journal, year, state, created_at, updated_at)
@@ -86,9 +87,9 @@ class Checkpoint:
                         now,
                     ),
                 )
-                added += self._db.total_changes  # 粗略计数
-            except Exception:
-                pass
+                added += self._db.total_changes - before_changes
+            except Exception as e:
+                logger.warning(f"注册文件失败，已跳过 {rec.data_id}: {e}")
         await self._db.commit()
         logger.info(f"注册 {len(records)} 个文件，新增约 {added} 个")
         return added
@@ -189,12 +190,21 @@ class Checkpoint:
         return cursor.rowcount
 
     async def reset_stale(self) -> int:
-        """将卡在中间状态(uploading/polling)的文件重置为待处理"""
+        """将卡在中间状态的文件重置为待处理。
+
+        在不保留 raw 文件的模式下，downloaded / converting 也不可恢复，
+        因此启动时一并回退到 pending 重新跑整条链路。
+        """
         assert self._db is not None
         now = datetime.now().isoformat()
-        stale_states = (FileState.UPLOADING.value, FileState.POLLING.value)
+        stale_states = (
+            FileState.UPLOADING.value,
+            FileState.POLLING.value,
+            FileState.DOWNLOADED.value,
+            FileState.CONVERTING.value,
+        )
         cursor = await self._db.execute(
-            f"UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?)",
+            f"UPDATE files SET state=?, updated_at=? WHERE state IN (?, ?, ?, ?)",
             (FileState.PENDING.value, now, *stale_states),
         )
         await self._db.commit()

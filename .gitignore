@@ -1,3 +1,6 @@
 data/
 .claude/
 AGENTS.md
+config.local.yaml
+__pycache__/
+*.pyc

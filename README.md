@@ -4,6 +4,8 @@
 
 它通过调用 [MinerU 云端 API](https://mineru.net) 来识别 PDF 中的文字和公式，自动去掉表格、图片、参考文献和附录，只保留论文的核心内容（标题、摘要、正文），并按章节层级整理好。
 
+当前版本只落地最终 JSON，不再保存 `raw` 原始结果目录。
+
 ---
 
 ## 项目结构
@@ -24,7 +26,6 @@ E:\MinerU\
 │   └── processor.py     # 把上面的模块串起来，编排整个流程
 └── data/
     ├── checkpoint.db    # 进度数据库（自动生成，不用管）
-    ├── raw/             # API 返回的原始结果（自动生成）
     └── output/          # 最终输出的 JSON 文件
 ```
 
@@ -66,7 +67,31 @@ pip install -r requirements.txt
 
 ## 配置 API Key
 
-每次打开新的命令行窗口，都需要先设置 API Key：
+**请勿将 API Key 直接写入 `config.yaml`**。当前程序会自动读取同目录下的 `config.local.yaml`，且环境变量 `MINERU_API_KEY` 仍然具有最高优先级。
+
+推荐的两种方式：
+
+**方式 1：写入本机 `config.local.yaml`（自动加载，不进仓库）**
+
+```yaml
+api:
+  api_key: "你的Key粘贴在这里"
+```
+
+项目里已经放了一个 [config.local.yaml](/e:/MinerU/config.local.yaml) 模板，程序会自动叠加它。
+
+如果你有多个账号，也可以直接写成：
+
+```yaml
+api:
+  api_keys:
+    - "第一个Key"
+    - "第二个Key"
+```
+
+程序会优先使用第一个 key；当提交任务时遇到额度/鉴权不可用，会自动切换到下一个 key。
+
+**方式 2：每次打开新的命令行窗口设置环境变量**
 
 **Windows（命令提示符）：**
 ```bash
@@ -83,43 +108,77 @@ $env:MINERU_API_KEY="你的Key粘贴在这里"
 export MINERU_API_KEY=你的Key粘贴在这里
 ```
 
-设置完后可以在同一个窗口里运行程序。关掉窗口后需要重新设置。
+如果用环境变量，关掉窗口后需要重新设置。
 
 ---
 
 ## 配置文件说明
 
-项目根目录有一个 `config.yaml`，里面可以调整各种参数。大部分情况下不需要改，但有几个你可能会用到：
+项目根目录有一个 `config.yaml`，里面可以调整各种参数：
 
 ```yaml
-paths:
-  pdf_input: "E:\\Crawler\\data\\pdf"    # PDF文件放在哪里
-  final_output: "E:\\MinerU\\data\\output" # JSON输出到哪里
-
 api:
-  concurrency: 5      # 同时上传几个文件（默认5，比较保守）
-  batch_size: 10       # 每批处理几个文件
+  base_url: "https://mineru.net/api/v4"
+  api_key: ""                    # 主配置不要放真实 key；本机请写到 config.local.yaml
+  concurrency: 5                 # 并发上传数（增大可加速，过大可能触发限流）
+  batch_size: 10                 # 每批处理文件数
+  poll_interval_sec: 30          # 轮询结果的间隔（秒）
+  max_poll_minutes: 60           # 单批超时时间（分钟）
+  retry_max: 3                   # 每个文件最大重试次数
+  retry_backoff_sec: 60          # 初始退避时间（秒），失败后指数增长
+
+paths:
+  pdf_input: "E:\\Files\\pdf"                # PDF 源文件目录
+  final_output: "E:\\MinerU\\data\\output"   # 最终 JSON 输出目录
+  checkpoint_db: "E:\\MinerU\\data\\checkpoint.db"
+  log_file: "E:\\MinerU\\pipeline.log"
 
 extraction:
-  is_ocr: true         # 是否启用OCR（扫描版PDF需要开启）
+  is_ocr: true             # 启用 OCR（扫描版 PDF 需要开启）
+  enable_formula: true     # 启用公式识别（输出 LaTeX 格式）
+  enable_table: false      # 禁用表格提取（当前不需要）
+  language: "ch"           # 语言：中文
+  model_version: "vlm"     # 模型版本：pipeline 或 vlm
+
+# 跳过英文版论文（按文件名前缀过滤）
+exclude_prefixes:
+  - "JLSC"    # Journal of Library Science in China（中国图书馆学报英文版）
+  - "SHEK"    # Social Sciences in China（中国社会科学英文版）
+  - "DZXE"    # Acta Geologica Sinica English Edition（地质学报英文版）
+  - "GUDL"    # Journal of Geographical Sciences（地理学报英文版）
+  - "ZGDE"    # Journal of Geographical Sciences（地理学报英文版另一代码）
 ```
 
 ### PDF 文件怎么放？
 
 把 PDF 文件放到 `pdf_input` 指定的目录下就行。支持嵌套子目录，程序会自动递归扫描所有 `.pdf` 文件。
 
-**第一级子目录的名称会自动作为期刊名**，写入 JSON 的 `forum` 字段。例如：
+目录层级有特殊含义：
+
+- **第一级子目录名** → 自动作为期刊名，写入 JSON 的 `forum` 字段
+- **第二级子目录名** → 若匹配 `19xx` 或 `20xx` 格式，自动识别为年份，写入 `year` 字段
 
 ```
-E:\Crawler\data\pdf\
+E:\Files\pdf\
 ├── 计算机学报\
-│   ├── 论文A.pdf      → forum = "计算机学报"
-│   └── 论文B.pdf      → forum = "计算机学报"
-├── 软件学报\
+│   ├── 论文A.pdf          → forum="计算机学报", year=""
 │   └── 2023\
-│       └── 论文C.pdf  → forum = "软件学报"
-└── 论文D.pdf          → forum = ""（没有子目录，期刊名为空）
+│       └── 论文B.pdf      → forum="计算机学报", year="2023"
+├── 软件学报\
+│   └── 1999\
+│       └── 论文C.pdf      → forum="软件学报", year="1999"
+└── 论文D.pdf              → forum="", year=""（放在根目录，无期刊信息）
 ```
+
+输出路径会根据 `forum` 和 `year` 自动组织：
+
+```
+data/output/{forum}/{year}/{data_id}.json    # 有期刊名和年份
+data/output/{forum}/{data_id}.json           # 只有期刊名
+data/output/{data_id}.json                   # 无期刊信息
+```
+
+> ⚠️ 程序用文件名（不含 `.pdf` 后缀）作为唯一标识（`data_id`）。不同目录下若有同名文件，只会处理第一个，后面的会被跳过。请确保 PDF 文件名全局唯一。
 
 ---
 
@@ -162,7 +221,7 @@ python run.py run --limit 10
 python run.py run
 ```
 
-处理 10 万篇论文需要较长时间，可以随时按 `Ctrl + C` 中断，下次继续。
+处理大量论文需要较长时间，可以随时按 `Ctrl + C` 中断，下次继续。
 
 ---
 
@@ -172,10 +231,11 @@ python run.py run
 |------|------|
 | `python run.py run` | 运行完整管道（扫描 → 上传 → 等待结果 → 下载 → 转换） |
 | `python run.py run --limit 10` | 只处理 10 个文件（数字可以改） |
+| `python run.py run --journals 心理学报 物理学报` | 只处理指定期刊的文件 |
 | `python run.py scan` | 仅扫描并注册新 PDF（不上传，不消耗额度） |
 | `python run.py status` | 查看当前处理进度（多少完成、多少失败等） |
 | `python run.py retry-failed` | 把所有失败的文件重置为待处理，下次 run 时会重新处理 |
-| `python run.py convert-only` | 仅重新转换已下载的数据（不重新上传，不消耗额度） |
+| `python run.py convert-only` | 当前模式下不可用（raw 文件不落盘） |
 
 额外选项：
 
@@ -245,11 +305,14 @@ python run.py run
 
 程序会把每个文件的处理进度记录在 `data\checkpoint.db`（一个小型数据库文件）里。
 
+文件状态流转：`pending → uploading → polling → converting → done / failed`
+
 这意味着：
 
 - **随时可以中断**：按 `Ctrl + C` 停止程序，已完成的文件不会重复处理
 - **随时可以继续**：再次运行 `python run.py run`，会自动跳过已完成的文件
 - **查看进度**：运行 `python run.py status` 可以看到总数、已完成、失败等统计
+- **启动时自动恢复**：`uploading`、`polling`、`converting` 等中间态会在 `run` 启动时自动重置，避免卡死
 
 ---
 
@@ -290,6 +353,14 @@ python run.py run
 python run.py run --limit 20
 ```
 
+### Q: 我只想处理某几个期刊？
+
+用 `--journals` 参数（空格分隔多个期刊名）：
+
+```bash
+python run.py run --journals 心理学报 物理学报
+```
+
 ### Q: API 额度用完了怎么办？
 
 按 `Ctrl + C` 停止程序。去 MinerU 充值后，直接运行 `python run.py run` 继续，已处理的不会重复扣费。
@@ -306,7 +377,9 @@ python run.py run --limit 20
 
 ## 注意事项
 
-- ⚠️ MinerU API **按页数计费**，处理 10 万篇论文会产生费用，请务必先用 `--limit 10` 小批量测试
+- ⚠️ MinerU API **按页数计费**，处理大量论文会产生费用，请务必先用 `--limit 10` 小批量测试
+- ⚠️ 请勿将 API Key 明文写入 `config.yaml` 或提交到代码仓库，应始终通过环境变量注入
+- 超过 200MB 的 PDF 文件会被自动跳过
 - 处理速度取决于 MinerU 服务端，通常每批 10 个文件需要 1-5 分钟
 - 日志文件保存在 `pipeline.log`，遇到问题可以查看详细信息
 - 加 `-v` 参数可以看到更详细的日志输出

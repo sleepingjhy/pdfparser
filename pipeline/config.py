@@ -14,6 +14,7 @@ import yaml
 class ApiConfig:
     base_url: str = "https://mineru.net/api/v4"
     api_key: str = ""
+    api_keys: list[str] = field(default_factory=list)
     concurrency: int = 5
     batch_size: int = 10
     poll_interval_sec: int = 30
@@ -24,7 +25,8 @@ class ApiConfig:
 
 @dataclass
 class PathsConfig:
-    pdf_input: str = r"E:\Crawler\data\pdf"
+    pdf_input: str = r"E:\Files\pdf"
+    # 兼容旧配置保留；当前流程不再落地 raw 文件。
     raw_output: str = r"E:\MinerU\data\raw"
     final_output: str = r"E:\MinerU\data\output"
     checkpoint_db: str = r"E:\MinerU\data\checkpoint.db"
@@ -48,63 +50,86 @@ class AppConfig:
     exclude_prefixes: list[str] = field(default_factory=list)
 
 
+def _merge_config(cfg: AppConfig, raw: dict) -> None:
+    """将单个 YAML 配置块合并到当前配置对象。"""
+    api_raw = raw.get("api", {})
+    cfg.api.base_url = api_raw.get("base_url", cfg.api.base_url)
+    cfg.api.api_key = api_raw.get("api_key", cfg.api.api_key)
+    if "api_keys" in api_raw:
+        cfg.api.api_keys = [
+            key.strip()
+            for key in api_raw.get("api_keys", [])
+            if isinstance(key, str) and key.strip()
+        ]
+    cfg.api.concurrency = api_raw.get("concurrency", cfg.api.concurrency)
+    cfg.api.batch_size = api_raw.get("batch_size", cfg.api.batch_size)
+    cfg.api.poll_interval_sec = api_raw.get(
+        "poll_interval_sec", cfg.api.poll_interval_sec
+    )
+    cfg.api.max_poll_minutes = api_raw.get(
+        "max_poll_minutes", cfg.api.max_poll_minutes
+    )
+    cfg.api.retry_max = api_raw.get("retry_max", cfg.api.retry_max)
+    cfg.api.retry_backoff_sec = api_raw.get(
+        "retry_backoff_sec", cfg.api.retry_backoff_sec
+    )
+
+    paths_raw = raw.get("paths", {})
+    cfg.paths.pdf_input = paths_raw.get("pdf_input", cfg.paths.pdf_input)
+    cfg.paths.raw_output = paths_raw.get("raw_output", cfg.paths.raw_output)
+    cfg.paths.final_output = paths_raw.get("final_output", cfg.paths.final_output)
+    cfg.paths.checkpoint_db = paths_raw.get("checkpoint_db", cfg.paths.checkpoint_db)
+    cfg.paths.log_file = paths_raw.get("log_file", cfg.paths.log_file)
+
+    ext_raw = raw.get("extraction", {})
+    cfg.extraction.is_ocr = ext_raw.get("is_ocr", cfg.extraction.is_ocr)
+    cfg.extraction.enable_formula = ext_raw.get(
+        "enable_formula", cfg.extraction.enable_formula
+    )
+    cfg.extraction.enable_table = ext_raw.get(
+        "enable_table", cfg.extraction.enable_table
+    )
+    cfg.extraction.language = ext_raw.get("language", cfg.extraction.language)
+    cfg.extraction.model_version = ext_raw.get(
+        "model_version", cfg.extraction.model_version
+    )
+
+    if "exclude_prefixes" in raw:
+        cfg.exclude_prefixes = raw.get("exclude_prefixes", [])
+
+
 def load_config(config_path: Optional[str] = None) -> AppConfig:
-    """加载配置文件，合并环境变量"""
+    """加载配置文件，自动叠加 config.local.yaml，并合并环境变量。"""
     if config_path is None:
         config_path = str(Path(__file__).parent.parent / "config.yaml")
 
     cfg = AppConfig()
+    config_file = Path(config_path)
 
-    if os.path.exists(config_path):
-        with open(config_path, "r", encoding="utf-8") as f:
-            raw = yaml.safe_load(f) or {}
+    if config_file.exists():
+        with open(config_file, "r", encoding="utf-8") as f:
+            _merge_config(cfg, yaml.safe_load(f) or {})
 
-        # API 配置
-        api_raw = raw.get("api", {})
-        cfg.api.base_url = api_raw.get("base_url", cfg.api.base_url)
-        cfg.api.api_key = api_raw.get("api_key", cfg.api.api_key)
-        cfg.api.concurrency = api_raw.get("concurrency", cfg.api.concurrency)
-        cfg.api.batch_size = api_raw.get("batch_size", cfg.api.batch_size)
-        cfg.api.poll_interval_sec = api_raw.get(
-            "poll_interval_sec", cfg.api.poll_interval_sec
-        )
-        cfg.api.max_poll_minutes = api_raw.get(
-            "max_poll_minutes", cfg.api.max_poll_minutes
-        )
-        cfg.api.retry_max = api_raw.get("retry_max", cfg.api.retry_max)
-        cfg.api.retry_backoff_sec = api_raw.get(
-            "retry_backoff_sec", cfg.api.retry_backoff_sec
-        )
-
-        # 路径配置
-        paths_raw = raw.get("paths", {})
-        cfg.paths.pdf_input = paths_raw.get("pdf_input", cfg.paths.pdf_input)
-        cfg.paths.raw_output = paths_raw.get("raw_output", cfg.paths.raw_output)
-        cfg.paths.final_output = paths_raw.get("final_output", cfg.paths.final_output)
-        cfg.paths.checkpoint_db = paths_raw.get(
-            "checkpoint_db", cfg.paths.checkpoint_db
-        )
-        cfg.paths.log_file = paths_raw.get("log_file", cfg.paths.log_file)
-
-        # 提取配置
-        ext_raw = raw.get("extraction", {})
-        cfg.extraction.is_ocr = ext_raw.get("is_ocr", cfg.extraction.is_ocr)
-        cfg.extraction.enable_formula = ext_raw.get(
-            "enable_formula", cfg.extraction.enable_formula
-        )
-        cfg.extraction.enable_table = ext_raw.get(
-            "enable_table", cfg.extraction.enable_table
-        )
-        cfg.extraction.language = ext_raw.get("language", cfg.extraction.language)
-        cfg.extraction.model_version = ext_raw.get(
-            "model_version", cfg.extraction.model_version
-        )
-
-        cfg.exclude_prefixes = raw.get("exclude_prefixes", [])
+    local_config_path = config_file.with_name("config.local.yaml")
+    if local_config_path.exists():
+        with open(local_config_path, "r", encoding="utf-8") as f:
+            _merge_config(cfg, yaml.safe_load(f) or {})
 
     # API Key: 环境变量优先，否则从配置文件读取
-    env_key = os.environ.get("MINERU_API_KEY", "").strip()
-    if env_key:
-        cfg.api.api_key = env_key
+    env_keys_raw = os.environ.get("MINERU_API_KEYS", "").strip()
+    if env_keys_raw:
+        parsed_keys = [
+            key.strip()
+            for key in env_keys_raw.replace(";", ",").split(",")
+            if key.strip()
+        ]
+        if parsed_keys:
+            cfg.api.api_keys = parsed_keys
+            cfg.api.api_key = parsed_keys[0]
+    else:
+        env_key = os.environ.get("MINERU_API_KEY", "").strip()
+        if env_key:
+            cfg.api.api_key = env_key
+            cfg.api.api_keys = [env_key]
 
     return cfg

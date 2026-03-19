@@ -6,7 +6,7 @@ MinerU PDF 提取管道 - CLI 入口
   python run.py scan                  仅扫描并注册新PDF
   python run.py status                显示处理状态统计
   python run.py retry-failed          重置所有失败文件为待处理
-  python run.py convert-only          仅对已下载的原始数据重新转换
+  python run.py convert-only          当前模式下不可用（raw 文件不落盘）
 """
 
 from __future__ import annotations
@@ -47,7 +47,7 @@ def setup_logging(log_file: str, verbose: bool = False) -> None:
 
 async def cmd_run(processor: Processor, args: argparse.Namespace) -> None:
     """运行完整管道"""
-    await processor.initialize()
+    await processor.initialize(reset_stale=True)
     try:
         journals = args.journals if args.journals else None
         await processor.run(limit=args.limit, journals=journals)
@@ -88,7 +88,7 @@ async def cmd_retry_failed(processor: Processor, _args: argparse.Namespace) -> N
 
 
 async def cmd_convert_only(processor: Processor, _args: argparse.Namespace) -> None:
-    """仅重新转换"""
+    """仅重新转换（当前模式下不可用）"""
     await processor.initialize()
     try:
         await processor.convert_only()
@@ -99,6 +99,7 @@ async def cmd_convert_only(processor: Processor, _args: argparse.Namespace) -> N
 def _print_stats(stats: dict[str, int]) -> None:
     """格式化打印统计信息"""
     total = stats.get("total", 0)
+    downloaded = stats.get("downloaded", 0)
     print("\n" + "=" * 40)
     print("  处理状态统计")
     print("=" * 40)
@@ -106,8 +107,9 @@ def _print_stats(stats: dict[str, int]) -> None:
     print(f"  待处理:     {stats.get('pending', 0)}")
     print(f"  上传中:     {stats.get('uploading', 0)}")
     print(f"  轮询中:     {stats.get('polling', 0)}")
-    print(f"  已下载:     {stats.get('downloaded', 0)}")
     print(f"  转换中:     {stats.get('converting', 0)}")
+    if downloaded:
+        print(f"  已下载:     {downloaded} (旧状态)")
     print(f"  已完成:     {stats.get('done', 0)}")
     print(f"  失败:       {stats.get('failed', 0)}")
     print("=" * 40)
@@ -166,7 +168,10 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("retry-failed", help="重置所有失败文件为待处理")
 
     # convert-only
-    subparsers.add_parser("convert-only", help="仅对已下载数据重新转换")
+    subparsers.add_parser(
+        "convert-only",
+        help="当前模式下不可用（raw 文件不落盘）",
+    )
 
     return parser
 

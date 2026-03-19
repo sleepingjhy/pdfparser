@@ -1,15 +1,15 @@
 api:
   base_url: "https://mineru.net/api/v4"
-  api_key: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiI0NjcwMDE1MCIsInJvbCI6IlJPTEVfUkVHSVNURVIiLCJpc3MiOiJPcGVuWExhYiIsImlhdCI6MTc3MDYzODEzMSwiY2xpZW50SWQiOiJsa3pkeDU3bnZ5MjJqa3BxOXgydyIsInBob25lIjoiIiwib3BlbklkIjpudWxsLCJ1dWlkIjoiZTc2NjhlM2YtYjlkOC00YTNmLTgzZWMtMTc2YjI0MTViZDBmIiwiZW1haWwiOiIiLCJleHAiOjE3NzE4NDc3MzF9.NBA-rDqE4RPQ8Cen3lfjrfwfbi5tOAeu606UyMl_fb4pBe6JVnbNHs2WoZGQfWY--CgU-x4eQot54BeOn5Pb2w"
-  concurrency: 5                    # 并发上传数
-  batch_size: 10                    # 每批文件数
+  api_key: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiI0NjcwMDE1MCIsInJvbCI6IlJPTEVfUkVHSVNURVIiLCJpc3MiOiJPcGVuWExhYiIsImlhdCI6MTc3MjEwODExMSwiY2xpZW50SWQiOiJsa3pkeDU3bnZ5MjJqa3BxOXgydyIsInBob25lIjoiIiwib3BlbklkIjpudWxsLCJ1dWlkIjoiMTRhOTk5MDItYmVjZi00ZjQyLTkzNmEtOGY1OTRlOWFmNDY5IiwiZW1haWwiOiIiLCJleHAiOjE3Nzk4ODQxMTF9.baOu_1LsH72GH8bgozo3bNll-_te89C5lWDBmda19SYnzmTe3iXc9vKCsZ8X-6m1R8F067VEL_e8tBc-17h0Xw"
+  concurrency: 50                    # 并发上传数
+  batch_size: 50                    # 每批文件数
   poll_interval_sec: 30             # 轮询间隔(秒)
   max_poll_minutes: 60              # 单批超时(分钟)
   retry_max: 3                      # 每个文件最大重试次数
   retry_backoff_sec: 60             # 初始退避时间(秒)
 
 paths:
-  pdf_input: "E:\\Crawler\\data\\pdf"
+  pdf_input: "E:\\Files\\pdf"
   raw_output: "E:\\MinerU\\data\\raw"
   final_output: "E:\\MinerU\\data\\output"
   checkpoint_db: "E:\\MinerU\\data\\checkpoint.db"
@@ -20,7 +20,8 @@ extraction:
   enable_formula: true              # 启用公式识别
   enable_table: false               # 禁用表格识别(不需要)
   language: "ch"                    # 中文
-  model_version: "pipeline"         # pipeline 或 vlm
+  model_version: "pipeline"
+         # pipeline 或 vlm
 
 # 跳过英文版论文(CNKI英文版期刊的文件名前缀)
 # 这些是中文期刊附带的英文扩展摘要/英文版，不是中文正文
