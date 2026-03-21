@@ -54,13 +54,29 @@ class MinerUAPIClient:
             logger.info(f"已加载 {len(self._api_keys)} 个 API Key，支持自动切换")
 
     def _build_api_keys(self) -> list[str]:
-        """构建去重后的 API Key 池，顺序即优先级。"""
-        candidates = [self.config.api.api_key, *self.config.api.api_keys]
+        """构建去重后的 API Key 池，顺序即优先级。
+
+        当前设置的 api_key 会排在第一位，确保重新创建客户端时使用正确的 key。
+        """
         result: list[str] = []
-        for key in candidates:
+
+        # 当前设置的 api_key 排在最前面
+        current_key = self.config.api.api_key.strip()
+        if current_key:
+            result.append(current_key)
+
+        # 然后从 api_configs 提取其他 key
+        for api_cfg in self.config.api.api_configs:
+            key = api_cfg.api_key.strip()
+            if key and key not in result:
+                result.append(key)
+
+        # 兼容旧配置方式：从 api_keys 提取
+        for key in self.config.api.api_keys:
             cleaned = key.strip()
             if cleaned and cleaned not in result:
                 result.append(cleaned)
+
         return result
 
     def _mask_key(self, key: str) -> str:

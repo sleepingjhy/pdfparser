@@ -3,10 +3,17 @@ MinerU PDF 提取管道 - CLI 入口
 
 用法:
   python run.py run [--limit N]       运行完整管道（扫描→上传→轮询→下载→转换）
+  python run.py run --terminal 0      终端0模式：固定使用API-0，排除其他终端正在处理的文件
+  python run.py run --terminal 1      终端1模式：固定使用API-1，排除其他终端正在处理的文件
   python run.py scan                  仅扫描并注册新PDF
   python run.py status                显示处理状态统计
   python run.py retry-failed          重置所有失败文件为待处理
   python run.py convert-only          当前模式下不可用（raw 文件不落盘）
+
+多终端并行:
+  终端0: python run.py run --terminal 0
+  终端1: python run.py run --terminal 1
+  两个终端会各自使用不同的API并行处理，互不干扰。
 """
 
 from __future__ import annotations
@@ -47,10 +54,16 @@ def setup_logging(log_file: str, verbose: bool = False) -> None:
 
 async def cmd_run(processor: Processor, args: argparse.Namespace) -> None:
     """运行完整管道"""
-    await processor.initialize(reset_stale=True)
+    # 多终端模式下不重置中间状态，避免干扰其他终端
+    reset_stale = args.terminal < 0
+    await processor.initialize(reset_stale=reset_stale)
     try:
         journals = args.journals if args.journals else None
-        await processor.run(limit=args.limit, journals=journals)
+        # 如果指定了 --retry，优先从 failed.db 重试
+        if args.retry:
+            await processor.run_retry(limit=args.limit)
+        else:
+            await processor.run(limit=args.limit, journals=journals)
     finally:
         await processor.close()
 
@@ -157,6 +170,19 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="仅处理指定期刊 (空格分隔，如: --journals 心理学报 物理学报)",
     )
+    p_run.add_argument(
+        "--retry",
+        type=int,
+        default=0,
+        choices=[0, 1],
+        help="是否从 failed.db 重试失败文件 (0=否, 1=是)",
+    )
+    p_run.add_argument(
+        "--terminal",
+        type=int,
+        default=-1,
+        help="终端编号，用于多终端并行模式 (如: --terminal 0 使用API-0, --terminal 1 使用API-1)",
+    )
 
     # scan
     subparsers.add_parser("scan", help="仅扫描并注册新PDF")
@@ -187,8 +213,11 @@ def main() -> None:
     config = load_config(args.config)
     setup_logging(config.paths.log_file, verbose=args.verbose)
 
+    # 获取终端编号（仅 run 命令有此参数）
+    terminal_index = getattr(args, "terminal", -1)
+
     # 创建处理器
-    processor = Processor(config)
+    processor = Processor(config, terminal_index=terminal_index)
 
     # 命令分发
     commands = {

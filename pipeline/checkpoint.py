@@ -115,16 +115,35 @@ class Checkpoint:
         return added
 
     async def get_pending(
-        self, limit: int = 0, journals: Optional[list[str]] = None
+        self, limit: int = 0, journals: Optional[list[str]] = None, exclude_processing: bool = False
     ) -> list[FileRecord]:
-        """获取待处理的文件列表，可按期刊名过滤"""
+        """获取待处理的文件列表，可按期刊名过滤
+
+        Args:
+            limit: 最大返回数量，0表示不限制
+            journals: 期刊名列表过滤
+            exclude_processing: 是否排除正在处理中的文件（多终端并行时使用）
+        """
         assert self._db is not None
         query = "SELECT * FROM files WHERE state = ?"
         params: list = [FileState.PENDING.value]
+
         if journals:
             placeholders = ",".join("?" for _ in journals)
             query += f" AND journal IN ({placeholders})"
             params.extend(journals)
+
+        # 多终端并行时，排除正在处理中的文件，避免竞争
+        if exclude_processing:
+            processing_states = (
+                FileState.UPLOADING.value,
+                FileState.POLLING.value,
+                FileState.CONVERTING.value,
+            )
+            placeholders = ",".join("?" for _ in processing_states)
+            query += f" AND data_id NOT IN (SELECT data_id FROM files WHERE state IN ({placeholders}))"
+            params.extend(processing_states)
+
         query += " ORDER BY created_at"
         if limit > 0:
             query += " LIMIT ?"

@@ -27,6 +27,15 @@ api:
   # 多API并发策略
   multi_api_strategy: "round_robin" # round_robin: 轮询分配 | quota_first: 优先用配额多的
 
+  # 多终端并行配置
+  # 每个终端启动时通过 --terminal N 指定终端编号
+  # 默认映射：终端0 → API-0, 终端1 → API-1, 以此类推
+  # 可在此自定义映射关系
+  terminal_api_mapping:
+    0: 0  # 终端0 使用 API-0 (第一个API)
+    1: 1  # 终端1 使用 API-1 (第二个API)
+    # 2: 0  # 终端2 也使用 API-0 (如果需要)
+
 paths:
   pdf_input: "E:\\data\\pdf"
   raw_output: "E:\\data\\json\\raw"
@@ -36,6 +45,7 @@ paths:
     - "D:\\data\\json\\final"
   min_free_gb: 0.1                  # 小于该阈值时切到下一输出目录
   checkpoint_db: "C:\\Users\\10517\\Desktop\\minerU\\checkpoint.db"
+  failed_db: "C:\\Users\\10517\\Desktop\\minerU\\failed.db"  # 失败文件记录数据库
   log_file: "C:\\Users\\10517\\Desktop\\miner\\pipeline.log"
 
 extraction:

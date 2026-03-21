@@ -33,6 +33,7 @@ from .api_client import AllAPIKeysExhaustedError, MinerUAPIClient
 from .checkpoint import Checkpoint
 from .config import AppConfig, SingleApiConfig
 from .converter import convert_content_blocks, save_paper_json
+from .failed_db import FailedDB
 from .models import FileRecord, FileState
 from .scanner import scan_pdfs
 
@@ -41,13 +42,12 @@ logger = logging.getLogger(__name__)
 
 class MultiAPIManager:
     """多API管理器 - 管理多个API的分配和切换"""
-    
+
     def __init__(self, api_configs: list[SingleApiConfig], checkpoint: Checkpoint):
         self.api_configs = api_configs
         self.checkpoint = checkpoint
         self._api_clients: dict[int, MinerUAPIClient] = {}
-        self._api_usage_today: dict[int, int] = {}  # 缓存今日使用量
-        
+
     async def get_api_client(self, index: int, config: AppConfig) -> MinerUAPIClient:
         """获取指定索引的API客户端"""
         if index not in self._api_clients:
@@ -57,33 +57,26 @@ class MultiAPIManager:
             client = MinerUAPIClient(config)
             self._api_clients[index] = client
         return self._api_clients[index]
-    
+
     async def get_today_usage(self, index: int) -> int:
-        """获取指定API今日使用量"""
-        if index not in self._api_usage_today:
-            self._api_usage_today[index] = await self.checkpoint.get_today_done_count(index)
-        return self._api_usage_today[index]
-    
-    async def increment_usage(self, index: int) -> None:
-        """增加API使用计数"""
-        if index in self._api_usage_today:
-            self._api_usage_today[index] += 1
-    
+        """获取指定API今日使用量（每次都从数据库获取最新值）"""
+        return await self.checkpoint.get_today_done_count(index)
+
     def get_api_name(self, index: int) -> str:
         """获取API名称"""
         if 0 <= index < len(self.api_configs):
             name = self.api_configs[index].name
             return name if name else f"API-{index + 1}"
         return f"API-{index + 1}"
-    
+
     async def select_api_index(self, strategy: str = "round_robin", last_index: int = -1) -> tuple[int, int]:
         """
         根据策略选择下一个可用的API索引
-        
+
         Args:
             strategy: 选择策略 - round_robin: 轮询 | quota_first: 配额优先
             last_index: 上一次使用的API索引
-            
+
         Returns:
             (api_index, remaining_quota) - API索引和剩余配额（0表示无限制）
         """
@@ -91,41 +84,55 @@ class MultiAPIManager:
             # 配额优先：选择剩余配额最多的API
             best_index = -1
             best_remaining = -1
-            
+
             for idx, cfg in enumerate(self.api_configs):
                 if cfg.daily_limit <= 0:
                     # 无限制，直接返回
                     return idx, 0
-                    
+
                 today_usage = await self.get_today_usage(idx)
                 remaining = cfg.daily_limit - today_usage
-                
+
                 if remaining > 0 and remaining > best_remaining:
                     best_index = idx
                     best_remaining = remaining
-            
+
             if best_index >= 0:
                 return best_index, best_remaining
-                
+
         else:  # round_robin
-            # 轮询：按顺序选择下一个有配额的API
+            # 轮询：优先使用当前API直到配额用完，再切换到下一个
+            # 如果有上次使用的API，先检查它是否还有配额
+            if last_index >= 0:
+                cfg = self.api_configs[last_index]
+                if cfg.daily_limit <= 0:
+                    return last_index, 0
+
+                today_usage = await self.get_today_usage(last_index)
+                remaining = cfg.daily_limit - today_usage
+
+                if remaining > 0:
+                    # 当前API还有配额，继续使用
+                    return last_index, remaining
+
+            # 当前API配额用完，从下一个开始查找
             start_idx = (last_index + 1) % len(self.api_configs) if last_index >= 0 else 0
-            
+
             for i in range(len(self.api_configs)):
                 idx = (start_idx + i) % len(self.api_configs)
                 cfg = self.api_configs[idx]
-                
+
                 if cfg.daily_limit <= 0:
                     return idx, 0
-                    
+
                 today_usage = await self.get_today_usage(idx)
                 remaining = cfg.daily_limit - today_usage
-                
+
                 if remaining > 0:
                     return idx, remaining
-        
+
         return -1, 0  # 所有API配额用完
-    
+
     async def close_all(self) -> None:
         """关闭所有API客户端"""
         for client in self._api_clients.values():
@@ -136,15 +143,17 @@ class MultiAPIManager:
 class Processor:
     """PDF 处理管道编排器"""
 
-    def __init__(self, config: AppConfig) -> None:
+    def __init__(self, config: AppConfig, terminal_index: int = -1) -> None:
         self.config = config
         self.checkpoint = Checkpoint(config.paths.checkpoint_db)
+        self.failed_db = FailedDB(config.paths.failed_db)
         self._api_client: Optional[MinerUAPIClient] = None
         self._shutdown_event = asyncio.Event()
         self._active_batches: list[str] = []
         self._current_output_root: Optional[Path] = None
         self._multi_api_manager: Optional[MultiAPIManager] = None
         self._current_api_index: int = 0
+        self._terminal_index: int = terminal_index  # 终端编号，-1表示未指定（自动模式）
 
     @property
     def api_client(self) -> MinerUAPIClient:
@@ -161,6 +170,7 @@ class Processor:
                 只应在真正开始执行 run 前启用，避免 status 等只读命令产生副作用。
         """
         await self.checkpoint.initialize()
+        await self.failed_db.initialize()
         if reset_stale:
             stale_count = await self.checkpoint.reset_stale()
             if stale_count > 0:
@@ -172,6 +182,7 @@ class Processor:
         if self._multi_api_manager is not None:
             await self._multi_api_manager.close_all()
         await self.checkpoint.close()
+        await self.failed_db.close()
 
     def _setup_signal_handlers(self) -> None:
         """设置优雅关闭信号处理"""
@@ -223,6 +234,9 @@ class Processor:
         """
         self._setup_signal_handlers()
 
+        # 判断是否为多终端并行模式
+        multi_terminal_mode = self._terminal_index >= 0
+
         try:
             # Step 1: 扫描并注册新文件
             new_count = await self.scan_and_register()
@@ -242,17 +256,17 @@ class Processor:
             # Step 1.5: 初始化多API管理器
             api_configs = self.config.api.api_configs
             total_remaining_quota = 0
-            
+
             if api_configs:
                 # 多API模式：初始化管理器并显示状态
                 self._multi_api_manager = MultiAPIManager(api_configs, self.checkpoint)
-                
+
                 # 显示所有API状态
                 for idx, api_cfg in enumerate(api_configs):
                     today_done = await self.checkpoint.get_today_done_count(idx)
                     api_name = self._multi_api_manager.get_api_name(idx)
                     api_limit = api_cfg.daily_limit
-                    
+
                     if api_limit <= 0:
                         logger.info(f"{api_name}: 今日已处理 {today_done} 个, 无限制")
                         total_remaining_quota = 0  # 有一个无限制就足够
@@ -261,20 +275,56 @@ class Processor:
                         logger.info(f"{api_name}: 今日已处理 {today_done} 个, 每日上限 {api_limit}, 剩余 {api_remaining}")
                         if total_remaining_quota >= 0:  # 只有在没有无限制API时才累加
                             total_remaining_quota += api_remaining
-                
-                # 选择初始API
-                strategy = self.config.api.multi_api_strategy
-                self._current_api_index, remaining = await self._multi_api_manager.select_api_index(strategy, -1)
-                
-                if self._current_api_index < 0:
-                    logger.warning("所有API今日配额已用完，停止处理")
-                    return
-                
-                # 设置当前API
-                self._set_current_api_key(self._current_api_index)
-                api_name = self._multi_api_manager.get_api_name(self._current_api_index)
-                logger.info(f"使用 {api_name} 开始处理（策略: {strategy}）")
-                
+
+                # 确定使用的API索引
+                if multi_terminal_mode:
+                    # 多终端模式：根据终端编号确定API索引
+                    terminal_mapping = self.config.api.terminal_api_mapping
+                    if self._terminal_index in terminal_mapping:
+                        self._current_api_index = terminal_mapping[self._terminal_index]
+                    else:
+                        # 默认：终端N 使用 API-N
+                        self._current_api_index = self._terminal_index
+
+                    # 检查API索引是否有效
+                    if self._current_api_index >= len(api_configs):
+                        logger.error(
+                            f"终端 {self._terminal_index} 映射到 API-{self._current_api_index + 1}, "
+                            f"但只配置了 {len(api_configs)} 个API"
+                        )
+                        return
+
+                    # 检查该API配额
+                    api_cfg = api_configs[self._current_api_index]
+                    if api_cfg.daily_limit > 0:
+                        today_done = await self.checkpoint.get_today_done_count(self._current_api_index)
+                        remaining = api_cfg.daily_limit - today_done
+                        if remaining <= 0:
+                            api_name = self._multi_api_manager.get_api_name(self._current_api_index)
+                            logger.warning(f"{api_name} 今日配额已用完，停止处理")
+                            return
+                        total_remaining_quota = remaining
+                    else:
+                        total_remaining_quota = 0  # 无限制
+
+                    # 设置当前API
+                    self._set_current_api_key(self._current_api_index)
+                    api_name = self._multi_api_manager.get_api_name(self._current_api_index)
+                    logger.info(f"终端 {self._terminal_index} 固定使用 {api_name}（多终端并行模式）")
+                else:
+                    # 单终端自动模式：根据策略选择API
+                    strategy = self.config.api.multi_api_strategy
+                    self._current_api_index, remaining = await self._multi_api_manager.select_api_index(strategy, -1)
+
+                    if self._current_api_index < 0:
+                        logger.warning("所有API今日配额已用完，停止处理")
+                        return
+
+                    # 设置当前API
+                    self._set_current_api_key(self._current_api_index)
+                    api_name = self._multi_api_manager.get_api_name(self._current_api_index)
+                    logger.info(f"使用 {api_name} 开始处理（策略: {strategy}）")
+
             else:
                 # 单API模式（兼容旧配置）
                 daily_limit = self.config.api.daily_limit
@@ -282,7 +332,7 @@ class Processor:
                     today_done = await self.checkpoint.get_today_done_count()
                     total_remaining_quota = daily_limit - today_done
                     logger.info(f"今日已处理: {today_done} 个文件, 每日上限: {daily_limit}, 剩余配额: {total_remaining_quota}")
-                    
+
                     if total_remaining_quota <= 0:
                         logger.info("今日处理配额已用完，停止处理")
                         return
@@ -290,19 +340,24 @@ class Processor:
                     total_remaining_quota = 0  # 无限制
 
             # Step 2: 获取待处理文件
-            pending = await self.checkpoint.get_pending(limit=limit, journals=journals)
+            # 多终端模式：排除正在处理中的文件，避免竞争
+            pending = await self.checkpoint.get_pending(
+                limit=limit,
+                journals=journals,
+                exclude_processing=multi_terminal_mode
+            )
             if not pending:
                 logger.info("没有待处理的文件")
                 return
 
             total = len(pending)
-            
-            # 根据配额调整处理数量（仅单API模式需要）
-            if not api_configs and total_remaining_quota > 0 and total > total_remaining_quota:
+
+            # 根据配额调整处理数量
+            if total_remaining_quota > 0 and total > total_remaining_quota:
                 total = total_remaining_quota
                 pending = pending[:total]
                 logger.info(f"根据剩余配额，本次处理 {total} 个文件")
-            
+
             logger.info(f"开始处理 {total} 个文件...")
 
             # Step 3: 分批处理
@@ -315,22 +370,33 @@ class Processor:
                         logger.info("收到停止信号，停止处理新批次")
                         break
 
-                    # 多API模式：检查是否需要切换API
-                    if api_configs and self._multi_api_manager:
+                    # 多终端模式：固定使用指定API，不自动切换
+                    # 单终端自动模式：检查是否需要切换API
+                    if api_configs and self._multi_api_manager and not multi_terminal_mode:
                         strategy = self.config.api.multi_api_strategy
                         new_index, remaining = await self._multi_api_manager.select_api_index(
                             strategy, self._current_api_index
                         )
-                        
+
                         if new_index < 0:
                             logger.warning("所有API今日配额已用完，停止处理")
                             break
-                        
+
                         if new_index != self._current_api_index:
                             self._current_api_index = new_index
                             self._set_current_api_key(new_index)
                             api_name = self._multi_api_manager.get_api_name(new_index)
                             logger.info(f"切换到 {api_name} 继续处理")
+
+                    # 多终端模式：检查当前API配额
+                    if multi_terminal_mode and api_configs:
+                        api_cfg = api_configs[self._current_api_index]
+                        if api_cfg.daily_limit > 0:
+                            today_done = await self.checkpoint.get_today_done_count(self._current_api_index)
+                            if today_done >= api_cfg.daily_limit:
+                                api_name = self._multi_api_manager.get_api_name(self._current_api_index)
+                                logger.warning(f"{api_name} 今日配额已用完，停止处理")
+                                break
 
                     logger.info(
                         f"处理批次 {batch_idx + 1}/{len(batches)} ({len(batch)} 个文件)"
@@ -339,11 +405,7 @@ class Processor:
                     try:
                         done_count = await self._process_batch(batch, self._current_api_index if api_configs else -1)
                         pbar.update(len(batch))
-                        
-                        # 更新API使用计数
-                        if api_configs and self._multi_api_manager:
-                            await self._multi_api_manager.increment_usage(self._current_api_index)
-                            
+
                     except AllAPIKeysExhaustedError as e:
                         logger.warning(f"所有 API Key 都不可继续提交新任务，停止处理: {e}")
                         break
@@ -368,7 +430,7 @@ class Processor:
                 f"失败={final_stats.get('failed', 0)}, "
                 f"待处理={final_stats.get('pending', 0)}"
             )
-            
+
             # 显示各API使用统计
             if api_configs and self._multi_api_manager:
                 logger.info("\n各API今日处理统计:")
@@ -630,6 +692,131 @@ class Processor:
         count = await self.checkpoint.reset_failed()
         logger.info(f"已重置 {count} 个失败文件为待处理")
         return count
+
+    async def run_retry(self, limit: int = 0) -> None:
+        """
+        根据 failed.db 中的记录重新尝试处理。
+
+        Args:
+            limit: 最多处理的文件数，0 表示处理所有
+        """
+        self._setup_signal_handlers()
+
+        try:
+            # 获取失败记录
+            failed_records = await self.failed_db.get_failures_for_retry(limit=limit)
+            if not failed_records:
+                logger.info("没有失败记录需要重试")
+                return
+
+            total = len(failed_records)
+            logger.info(f"从失败记录中获取 {total} 个文件准备重试")
+
+            # 检查文件是否存在
+            valid_records = []
+            for rec in failed_records:
+                if Path(rec.pdf_path).exists():
+                    valid_records.append(rec)
+                else:
+                    logger.warning(f"文件不存在，跳过: {rec.pdf_path}")
+
+            if not valid_records:
+                logger.warning("所有失败记录的文件都不存在")
+                return
+
+            total = len(valid_records)
+            logger.info(f"有效文件 {total} 个，开始重试...")
+
+            # 初始化多API管理器
+            api_configs = self.config.api.api_configs
+            if api_configs:
+                self._multi_api_manager = MultiAPIManager(api_configs, self.checkpoint)
+                strategy = self.config.api.multi_api_strategy
+                self._current_api_index, _ = await self._multi_api_manager.select_api_index(strategy, -1)
+                if self._current_api_index < 0:
+                    logger.warning("所有API今日配额已用完，停止处理")
+                    return
+                self._set_current_api_key(self._current_api_index)
+
+            # 分批处理
+            batch_size = self.config.api.batch_size
+            batches = [valid_records[i : i + batch_size] for i in range(0, total, batch_size)]
+
+            success_count = 0
+            with tqdm(total=total, desc="重试进度", unit="文件") as pbar:
+                for batch_idx, batch in enumerate(batches):
+                    if self._shutdown_event.is_set():
+                        logger.info("收到停止信号，停止处理")
+                        break
+
+                    # 多API模式：检查是否需要切换API
+                    if api_configs and self._multi_api_manager:
+                        strategy = self.config.api.multi_api_strategy
+                        new_index, _ = await self._multi_api_manager.select_api_index(
+                            strategy, self._current_api_index
+                        )
+                        if new_index < 0:
+                            logger.warning("所有API今日配额已用完，停止处理")
+                            break
+                        if new_index != self._current_api_index:
+                            self._current_api_index = new_index
+                            self._set_current_api_key(new_index)
+
+                    logger.info(f"重试批次 {batch_idx + 1}/{len(batches)} ({len(batch)} 个文件)")
+
+                    try:
+                        # 重新注册到checkpoint（如果不存在）
+                        for rec in batch:
+                            existing = await self.checkpoint.get_record(rec.data_id)
+                            if existing is None:
+                                await self.checkpoint.register_files([rec])
+                            else:
+                                # 重置为pending
+                                await self.checkpoint.update_state(rec.data_id, FileState.PENDING)
+
+                        # 处理批次
+                        done_count = await self._process_batch(
+                            batch, self._current_api_index if api_configs else -1
+                        )
+                        success_count += done_count
+                        pbar.update(len(batch))
+
+                        # 从failed_db移除成功的记录
+                        for rec in batch:
+                            if await self.checkpoint.is_done(rec.data_id):
+                                await self.failed_db.remove_failure(rec.data_id)
+
+                    except Exception as e:
+                        logger.error(f"重试批次 {batch_idx + 1} 失败: {e}")
+                        pbar.update(len(batch))
+
+            logger.info(f"\n重试完成! 成功: {success_count}/{total}")
+
+        finally:
+            pass
+
+    async def _record_failure(
+        self,
+        rec: FileRecord,
+        error_msg: str,
+        batch_id: str = "",
+        api_key_index: int = -1,
+    ) -> None:
+        """记录失败到checkpoint和failed_db"""
+        await self.checkpoint.update_state(
+            rec.data_id,
+            FileState.FAILED,
+            batch_id=batch_id,
+            error_msg=error_msg,
+            increment_attempts=True,
+            api_key_index=api_key_index,
+        )
+        await self.failed_db.record_failure(
+            rec,
+            error_msg=error_msg,
+            batch_id=batch_id,
+            api_key_index=api_key_index,
+        )
 
     async def show_status(self) -> dict[str, int]:
         """显示处理状态"""
