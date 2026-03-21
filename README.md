@@ -120,16 +120,42 @@ export MINERU_API_KEY=你的Key粘贴在这里
 api:
   base_url: "https://mineru.net/api/v4"
   api_key: ""                    # 主配置不要放真实 key；本机请写到 config.local.yaml
-  concurrency: 5                 # 并发上传数（增大可加速，过大可能触发限流）
-  batch_size: 10                 # 每批处理文件数
+
+  # ===== 多API配置 =====
+  # 支持多个API密钥并发处理，每个API可设置独立的每日限额
+  api_configs:
+    - api_key: "第一个Key"
+      daily_limit: 10000         # 该API每日处理上限（0表示不限制）
+      name: "API-1"              # 可选：API名称，便于日志识别
+    - api_key: "第二个Key"
+      daily_limit: 10000
+      name: "API-2"
+  
+  # ===== 并发控制 =====
+  enable_concurrent: true        # 是否启用并发处理（false则串行，更稳定但较慢）
+  concurrency: 50                # 并发上传数（enable_concurrent=true时生效）
+  batch_size: 50                 # 每批处理文件数
+  
+  # ===== 其他参数 =====
   poll_interval_sec: 30          # 轮询结果的间隔（秒）
   max_poll_minutes: 60           # 单批超时时间（分钟）
   retry_max: 3                   # 每个文件最大重试次数
   retry_backoff_sec: 60          # 初始退避时间（秒），失败后指数增长
+  
+  # ===== 多API策略 =====
+  multi_api_strategy: "round_robin"  # round_robin: 轮询分配 | quota_first: 优先用配额多的
 
 paths:
   pdf_input: "E:\\Files\\pdf"                # PDF 源文件目录
-  final_output: "E:\\MinerU\\data\\output"   # 最终 JSON 输出目录
+  raw_output: "E:\\data\\json\\raw"          # 原始结果目录
+  final_output: "E:\\data\\json\\final"      # 主输出目录
+  
+  # ===== 多存储路径（自动切换）=====
+  fallback_final_outputs:                    # 备用输出目录列表
+    - "G:\\data\\json\\final"
+    - "D:\\data\\json\\final"
+  min_free_gb: 0.1                           # 磁盘剩余空间阈值(GB)，低于此值自动切换到下一目录
+  
   checkpoint_db: "E:\\MinerU\\data\\checkpoint.db"
   log_file: "E:\\MinerU\\pipeline.log"
 
@@ -148,6 +174,80 @@ exclude_prefixes:
   - "GUDL"    # Journal of Geographical Sciences（地理学报英文版）
   - "ZGDE"    # Journal of Geographical Sciences（地理学报英文版另一代码）
 ```
+
+---
+
+### 并发控制
+
+通过 `enable_concurrent` 参数控制是否启用并发处理：
+
+| 参数 | 说明 |
+|------|------|
+| `enable_concurrent: true` | 启用并发处理，多个文件同时上传，处理速度快 |
+| `enable_concurrent: false` | 串行处理，一个文件完成后再处理下一个，更稳定但较慢 |
+| `concurrency` | 并发数量，建议 10-100 之间，过大可能触发 API 限流 |
+
+**使用建议**：
+- 网络稳定、API 配额充足时，启用并发可显著提高处理速度
+- 网络不稳定或遇到频繁超时时，可关闭并发改为串行处理
+
+---
+
+### 每日限额（多API支持）
+
+支持配置多个 API 密钥，每个密钥可设置独立的每日处理上限：
+
+```yaml
+api_configs:
+  - api_key: "第一个Key"
+    daily_limit: 10000      # 每日最多处理 10000 个文件
+    name: "API-1"
+  - api_key: "第二个Key"
+    daily_limit: 5000       # 每日最多处理 5000 个文件
+    name: "API-2"
+```
+
+**工作机制**：
+- 程序自动读取系统日期，统计每个 API 当天已处理的文件数
+- 当某个 API 达到每日限额时，自动切换到下一个有剩余配额的 API
+- 所有 API 都达到限额时，程序会等待第二天自动重置
+
+**多API分配策略**（`multi_api_strategy`）：
+
+| 策略 | 说明 |
+|------|------|
+| `round_robin` | 轮询分配，按顺序依次使用各个 API |
+| `quota_first` | 配额优先，优先使用剩余配额最多的 API |
+
+---
+
+### 多存储路径与自动切换
+
+支持配置多个输出目录，当主目录磁盘空间不足时自动切换到备用目录：
+
+```yaml
+paths:
+  final_output: "E:\\data\\json\\final"      # 主输出目录
+  fallback_final_outputs:                    # 备用目录列表（按优先级排序）
+    - "G:\\data\\json\\final"
+    - "D:\\data\\json\\final"
+  min_free_gb: 0.1                           # 磁盘剩余空间阈值
+```
+
+**工作机制**：
+- 程序在写入文件前检查当前输出目录的剩余空间
+- 当剩余空间低于 `min_free_gb`（单位：GB）时，自动切换到下一个备用目录
+- 所有目录空间都不足时，程序会报错并停止
+
+**参数说明**：
+
+| 参数 | 说明 |
+|------|------|
+| `final_output` | 主输出目录，优先使用 |
+| `fallback_final_outputs` | 备用目录列表，按列表顺序依次尝试 |
+| `min_free_gb` | 磁盘空间阈值，默认 0.1GB（100MB），可根据需要调整 |
+
+---
 
 ### PDF 文件怎么放？
 

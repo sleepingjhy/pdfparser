@@ -1,19 +1,42 @@
+# MinerU PDF 提取管道配置
+# =========================
+
 api:
   base_url: "https://mineru.net/api/v4"
-  api_key: "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiI0NjcwMDE1MCIsInJvbCI6IlJPTEVfUkVHSVNURVIiLCJpc3MiOiJPcGVuWExhYiIsImlhdCI6MTc3MjEwODExMSwiY2xpZW50SWQiOiJsa3pkeDU3bnZ5MjJqa3BxOXgydyIsInBob25lIjoiIiwib3BlbklkIjpudWxsLCJ1dWlkIjoiMTRhOTk5MDItYmVjZi00ZjQyLTkzNmEtOGY1OTRlOWFmNDY5IiwiZW1haWwiOiIiLCJleHAiOjE3Nzk4ODQxMTF9.baOu_1LsH72GH8bgozo3bNll-_te89C5lWDBmda19SYnzmTe3iXc9vKCsZ8X-6m1R8F067VEL_e8tBc-17h0Xw"
-  concurrency: 50                    # 并发上传数
+  
+  # 多API配置：每个API有自己的key和每日限额
+  # 当一个API达到限额时，会自动切换到下一个
+  # 支持多个API并发处理，提高处理效率
+  api_configs:
+    - api_key: "YOUR_API_KEY_1_HERE"
+      daily_limit: 10000  # 第一个API每日限额（0表示不限制）
+      name: "API-1"       # 可选：API名称标识，便于日志识别
+    - api_key: "YOUR_API_KEY_2_HERE"
+      daily_limit: 10000  # 第二个API每日限额
+      name: "API-2"       # 可选：API名称标识
+  
+  # 并发控制
+  enable_concurrent: true            # 是否启用并发处理（false则串行处理，更稳定但较慢）
+  concurrency: 50                    # 并发上传数（每个API的并发数，enable_concurrent=true时生效）
   batch_size: 50                    # 每批文件数
   poll_interval_sec: 30             # 轮询间隔(秒)
   max_poll_minutes: 60              # 单批超时(分钟)
   retry_max: 3                      # 每个文件最大重试次数
   retry_backoff_sec: 60             # 初始退避时间(秒)
+  
+  # 多API并发策略
+  multi_api_strategy: "round_robin" # round_robin: 轮询分配 | quota_first: 优先用配额多的
 
 paths:
-  pdf_input: "E:\\Files\\pdf"
-  raw_output: "E:\\MinerU\\data\\raw"
-  final_output: "E:\\MinerU\\data\\output"
-  checkpoint_db: "E:\\MinerU\\data\\checkpoint.db"
-  log_file: "E:\\MinerU\\pipeline.log"
+  pdf_input: "E:\\data\\pdf"
+  raw_output: "E:\\data\\json\\raw"
+  final_output: "E:\\data\\json\\final"
+  fallback_final_outputs:
+    - "G:\\data\\json\\final"
+    - "D:\\data\\json\\final"
+  min_free_gb: 0.1                  # 小于该阈值时切到下一输出目录
+  checkpoint_db: "C:\\Users\\10517\\Desktop\\minerU\\checkpoint.db"
+  log_file: "C:\\Users\\10517\\Desktop\\miner\\pipeline.log"
 
 extraction:
   is_ocr: true                      # 启用OCR(扫描版PDF需要)

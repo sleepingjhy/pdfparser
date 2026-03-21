@@ -122,6 +122,7 @@ class FileRecord(BaseModel):
     state: FileState = FileState.PENDING
     error_msg: str = ""
     attempts: int = 0
+    api_key_index: int = -1  # 使用的API索引，-1表示未设置
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
