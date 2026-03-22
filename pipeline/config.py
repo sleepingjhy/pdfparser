@@ -32,8 +32,6 @@ class ApiConfig:
     retry_max: int = 3
     retry_backoff_sec: int = 60
     daily_limit: int = 0  # 兼容旧配置：每日处理文件数上限，0表示不限制
-    multi_api_strategy: str = "round_robin"  # 多API并发策略: round_robin | quota_first
-    terminal_api_mapping: dict[int, int] = field(default_factory=dict)  # 终端到API的映射
 
 
 @dataclass
@@ -106,18 +104,6 @@ def _merge_config(cfg: AppConfig, raw: dict) -> None:
         "retry_backoff_sec", cfg.api.retry_backoff_sec
     )
     cfg.api.daily_limit = api_raw.get("daily_limit", cfg.api.daily_limit)
-    cfg.api.multi_api_strategy = api_raw.get("multi_api_strategy", cfg.api.multi_api_strategy)
-
-    # 读取终端到API的映射
-    if "terminal_api_mapping" in api_raw:
-        cfg.api.terminal_api_mapping = {}
-        for terminal_str, api_idx in api_raw.get("terminal_api_mapping", {}).items():
-            try:
-                terminal_num = int(terminal_str)
-                api_index = int(api_idx)
-                cfg.api.terminal_api_mapping[terminal_num] = api_index
-            except (ValueError, TypeError):
-                pass
 
     paths_raw = raw.get("paths", {})
     cfg.paths.pdf_input = paths_raw.get("pdf_input", cfg.paths.pdf_input)

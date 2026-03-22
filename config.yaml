@@ -3,10 +3,14 @@
 
 api:
   base_url: "https://mineru.net/api/v4"
-  
-  # 多API配置：每个API有自己的key和每日限额
-  # 当一个API达到限额时，会自动切换到下一个
-  # 支持多个API并发处理，提高处理效率
+
+  # 多API并发配置
+  # ==============
+  # 配置多个API时，会自动并发处理：
+  # - API-1 处理文件 1-50
+  # - API-2 处理文件 51-100
+  # - 完成后自动获取下一批任务
+  # - 达到配额后自动停止，其他API继续
   api_configs:
     - api_key: "YOUR_API_KEY_1_HERE"
       daily_limit: 10000  # 第一个API每日限额（0表示不限制）
@@ -14,7 +18,7 @@ api:
     - api_key: "YOUR_API_KEY_2_HERE"
       daily_limit: 10000  # 第二个API每日限额
       name: "API-2"       # 可选：API名称标识
-  
+
   # 并发控制
   enable_concurrent: true            # 是否启用并发处理（false则串行处理，更稳定但较慢）
   concurrency: 50                    # 并发上传数（每个API的并发数，enable_concurrent=true时生效）
@@ -23,18 +27,6 @@ api:
   max_poll_minutes: 60              # 单批超时(分钟)
   retry_max: 3                      # 每个文件最大重试次数
   retry_backoff_sec: 60             # 初始退避时间(秒)
-  
-  # 多API并发策略
-  multi_api_strategy: "round_robin" # round_robin: 轮询分配 | quota_first: 优先用配额多的
-
-  # 多终端并行配置
-  # 每个终端启动时通过 --terminal N 指定终端编号
-  # 默认映射：终端0 → API-0, 终端1 → API-1, 以此类推
-  # 可在此自定义映射关系
-  terminal_api_mapping:
-    0: 0  # 终端0 使用 API-0 (第一个API)
-    1: 1  # 终端1 使用 API-1 (第二个API)
-    # 2: 0  # 终端2 也使用 API-0 (如果需要)
 
 paths:
   pdf_input: "E:\\data\\pdf"

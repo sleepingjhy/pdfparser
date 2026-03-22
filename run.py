@@ -2,18 +2,18 @@
 MinerU PDF 提取管道 - CLI 入口
 
 用法:
-  python run.py run [--limit N]       运行完整管道（扫描→上传→轮询→下载→转换）
-  python run.py run --terminal 0      终端0模式：固定使用API-0，排除其他终端正在处理的文件
-  python run.py run --terminal 1      终端1模式：固定使用API-1，排除其他终端正在处理的文件
+  python run.py run [--limit N]       运行完整管道（多API并发处理）
   python run.py scan                  仅扫描并注册新PDF
   python run.py status                显示处理状态统计
   python run.py retry-failed          重置所有失败文件为待处理
   python run.py convert-only          当前模式下不可用（raw 文件不落盘）
 
-多终端并行:
-  终端0: python run.py run --terminal 0
-  终端1: python run.py run --terminal 1
-  两个终端会各自使用不同的API并行处理，互不干扰。
+多API并发模式:
+  配置多个API时，会自动并发处理：
+  - API-1 处理文件 1-50
+  - API-2 处理文件 51-100
+  - 完成后自动获取下一批任务
+  - 达到配额后自动停止，其他API继续
 """
 
 from __future__ import annotations
@@ -54,9 +54,7 @@ def setup_logging(log_file: str, verbose: bool = False) -> None:
 
 async def cmd_run(processor: Processor, args: argparse.Namespace) -> None:
     """运行完整管道"""
-    # 多终端模式下不重置中间状态，避免干扰其他终端
-    reset_stale = args.terminal < 0
-    await processor.initialize(reset_stale=reset_stale)
+    await processor.initialize(reset_stale=True)
     try:
         journals = args.journals if args.journals else None
         # 如果指定了 --retry，优先从 failed.db 重试
@@ -80,14 +78,55 @@ async def cmd_scan(processor: Processor, _args: argparse.Namespace) -> None:
         await processor.close()
 
 
-async def cmd_status(processor: Processor, _args: argparse.Namespace) -> None:
+async def cmd_status(processor: Processor, args: argparse.Namespace) -> None:
     """显示处理状态"""
     await processor.initialize()
     try:
         stats = await processor.show_status()
         _print_stats(stats)
+        
+        # 显示各API使用情况
+        config = load_config(args.config)
+        api_configs = config.api.api_configs
+        if api_configs:
+            await _print_api_usage(processor.checkpoint, api_configs)
     finally:
         await processor.close()
+
+
+async def _print_api_usage(checkpoint, api_configs: list) -> None:
+    """打印各API使用情况"""
+    from datetime import datetime
+    today = datetime.now().strftime('%Y-%m-%d')
+    
+    print("\n" + "=" * 40)
+    print("  各API今日使用统计")
+    print("=" * 40)
+    
+    total_today = 0
+    total_limit = 0
+    
+    for idx, api_cfg in enumerate(api_configs):
+        today_done = await checkpoint.get_today_done_count(idx)
+        name = api_cfg.name if api_cfg.name else f"API-{idx + 1}"
+        limit = api_cfg.daily_limit
+        
+        if limit > 0:
+            remaining = limit - today_done
+            usage_rate = today_done / limit * 100
+            print(f"  {name}: {today_done} / {limit} (剩余 {remaining}, {usage_rate:.1f}%)")
+            total_limit += limit
+        else:
+            print(f"  {name}: {today_done} (无限制)")
+        
+        total_today += today_done
+    
+    print("-" * 40)
+    if total_limit > 0:
+        print(f"  总计: {total_today} / {total_limit} ({total_today / total_limit * 100:.1f}%)")
+    else:
+        print(f"  总计: {total_today}")
+    print("=" * 40)
 
 
 async def cmd_retry_failed(processor: Processor, _args: argparse.Namespace) -> None:
@@ -177,12 +216,6 @@ def build_parser() -> argparse.ArgumentParser:
         choices=[0, 1],
         help="是否从 failed.db 重试失败文件 (0=否, 1=是)",
     )
-    p_run.add_argument(
-        "--terminal",
-        type=int,
-        default=-1,
-        help="终端编号，用于多终端并行模式 (如: --terminal 0 使用API-0, --terminal 1 使用API-1)",
-    )
 
     # scan
     subparsers.add_parser("scan", help="仅扫描并注册新PDF")
@@ -213,11 +246,8 @@ def main() -> None:
     config = load_config(args.config)
     setup_logging(config.paths.log_file, verbose=args.verbose)
 
-    # 获取终端编号（仅 run 命令有此参数）
-    terminal_index = getattr(args, "terminal", -1)
-
     # 创建处理器
-    processor = Processor(config, terminal_index=terminal_index)
+    processor = Processor(config)
 
     # 命令分发
     commands = {
