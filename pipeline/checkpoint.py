@@ -274,7 +274,7 @@ class Checkpoint:
         return stats
 
     async def get_today_done_count(self, api_key_index: int = -1) -> int:
-        """获取今天已完成的文件数量
+        """获取今天已处理的文件数量（只要上传了就算，不管成功失败）
         
         Args:
             api_key_index: API索引，-1表示统计所有API
@@ -282,22 +282,23 @@ class Checkpoint:
         assert self._db is not None
         today = datetime.now().date().isoformat()
         if api_key_index >= 0:
+            # 统计今天该API处理的所有文件（只要设置了api_key_index就算消耗额度）
             cursor = await self._db.execute(
                 """SELECT COUNT(*) FROM files 
-                   WHERE state = ? AND DATE(updated_at) = ? AND api_key_index = ?""",
-                (FileState.DONE.value, today, api_key_index),
+                   WHERE DATE(updated_at) = ? AND api_key_index = ?""",
+                (today, api_key_index),
             )
         else:
             cursor = await self._db.execute(
                 """SELECT COUNT(*) FROM files 
-                   WHERE state = ? AND DATE(updated_at) = ?""",
-                (FileState.DONE.value, today),
+                   WHERE DATE(updated_at) = ?""",
+                (today,),
             )
         row = await cursor.fetchone()
         return row[0] if row else 0
 
     async def get_all_api_today_stats(self, num_apis: int) -> dict[int, int]:
-        """获取所有API今日完成统计
+        """获取所有API今日处理统计（只要上传了就算，不管成功失败）
         
         Args:
             num_apis: API数量
@@ -307,11 +308,12 @@ class Checkpoint:
         """
         assert self._db is not None
         today = datetime.now().date().isoformat()
+        # 统计今天每个API处理的所有文件（只要设置了api_key_index就算消耗额度）
         cursor = await self._db.execute(
             """SELECT api_key_index, COUNT(*) as cnt FROM files 
-               WHERE state = ? AND DATE(updated_at) = ? AND api_key_index >= 0
+               WHERE DATE(updated_at) = ? AND api_key_index >= 0
                GROUP BY api_key_index""",
-            (FileState.DONE.value, today),
+            (today,),
         )
         rows = await cursor.fetchall()
         result = {idx: 0 for idx in range(num_apis)}
@@ -330,6 +332,17 @@ class Checkpoint:
             return False
         state = row[0]
         return state not in (FileState.PENDING.value, FileState.DONE.value, FileState.FAILED.value)
+
+    async def get_state(self, data_id: str) -> Optional[FileState]:
+        """获取文件状态"""
+        assert self._db is not None
+        cursor = await self._db.execute(
+            "SELECT state FROM files WHERE data_id=?", (data_id,)
+        )
+        row = await cursor.fetchone()
+        if row is None:
+            return None
+        return FileState(row[0])
 
     async def get_record(self, data_id: str) -> Optional[FileRecord]:
         """获取单个文件记录"""

@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# Qoder
+.qoder/
+
+# Claude
+.claude/
+
+# 项目特定
+data/
+AGENTS.md
+config.local.yaml
+pipeline.log
+checkpoint.db
+failed.db
+nul
+resume_project.tex

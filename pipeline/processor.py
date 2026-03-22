@@ -40,47 +40,14 @@ from .scanner import scan_pdfs
 logger = logging.getLogger(__name__)
 
 
-class BatchAllocator:
-    """批次分配器 - 管理多个API的批次分配
-
-    每个API从公共批次池中获取完整的批次进行处理：
-    - API-1 获取批次1（文件1-50）
-    - API-2 获取批次2（文件51-100）
-    - 完成后自动获取下一批
-    """
-
-    def __init__(self, batches: list[list[FileRecord]]):
-        self.batches = batches
-        self.current_index = 0
-        self._lock = asyncio.Lock()
-
-    async def get_batch(self, worker_id: int, remaining_quota: int) -> Optional[list[FileRecord]]:
-        """获取一个完整批次"""
-        async with self._lock:
-            if self.current_index >= len(self.batches):
-                return None
-
-            batch = self.batches[self.current_index]
-            self.current_index += 1
-
-            # 如果配额有限且批次大小超过配额，截取
-            if remaining_quota > 0 and len(batch) > remaining_quota:
-                truncated = batch[:remaining_quota]
-                remaining_batch = batch[remaining_quota:]
-                self.batches.insert(self.current_index, remaining_batch)
-                batch = truncated
-
-            logger.info(f"API-{worker_id + 1} 获取批次 {self.current_index}/{len(self.batches)} ({len(batch)} 个文件)")
-            return batch
-
-    def return_batch(self, batch: list[FileRecord], worker_id: int) -> None:
-        """将未处理的批次放回队列"""
-        self.batches.insert(self.current_index, batch)
-        logger.info(f"API-{worker_id + 1} 退回批次 ({len(batch)} 个文件)")
-
-
 class APIWorker:
-    """API工作器 - 独立处理分配给它的任务"""
+    """API工作器 - 独立处理分配给它的任务
+    
+    每个API独立从共享文件列表获取批次：
+    - 使用共享索引，每个API获取连续的batch_size个文件
+    - API-1 和 API-2 同时处理不同的文件批次
+    - 完成后继续获取下一批
+    """
 
     def __init__(
         self,
@@ -91,7 +58,8 @@ class APIWorker:
         progress_bar: tqdm,
         shutdown_event: asyncio.Event,
         output_dir_selector,
-        batch_allocator: BatchAllocator,
+        pending_files: list[FileRecord],
+        file_index: list,  # 使用list包装int，实现引用传递
     ):
         self.worker_id = worker_id
         self.api_config = api_config
@@ -100,7 +68,9 @@ class APIWorker:
         self.progress_bar = progress_bar
         self.shutdown_event = shutdown_event
         self.output_dir_selector = output_dir_selector
-        self.batch_allocator = batch_allocator
+        self.pending_files = pending_files
+        self.file_index = file_index  # 共享索引 [int]
+        self._index_lock = asyncio.Lock()  # 索引锁
 
         # 创建独立的API客户端
         self._api_client: Optional[MinerUAPIClient] = None
@@ -129,8 +99,9 @@ class APIWorker:
         return max(0, remaining)
 
     async def run(self) -> int:
-        """运行worker，从分配器获取批次并处理"""
+        """运行worker，独立获取批次并处理"""
         logger.info(f"{self.name} 开始工作")
+        batch_size = self.config.api.batch_size
 
         while not self.shutdown_event.is_set() and not self._stopped:
             # 检查配额
@@ -139,10 +110,10 @@ class APIWorker:
                 logger.info(f"{self.name} 配额已用完，停止处理")
                 break
 
-            # 从分配器获取一个批次
-            batch = await self.batch_allocator.get_batch(self.worker_id, remaining)
+            # 从共享索引获取一个批次
+            batch = await self._get_next_batch(batch_size, remaining)
 
-            if batch is None:
+            if not batch:
                 # 没有更多任务
                 logger.info(f"{self.name} 没有更多任务，退出")
                 break
@@ -155,8 +126,6 @@ class APIWorker:
             except AllAPIKeysExhaustedError:
                 logger.warning(f"{self.name} API Key 不可用，停止处理")
                 self._stopped = True
-                # 将未处理的批次放回公共池
-                self.batch_allocator.return_batch(batch, self.worker_id)
             except Exception as e:
                 logger.error(f"{self.name} 批次处理失败: {e}")
                 for rec in batch:
@@ -171,6 +140,24 @@ class APIWorker:
 
         logger.info(f"{self.name} 完成，共处理 {self._processed_count} 个文件")
         return self._processed_count
+
+    async def _get_next_batch(self, batch_size: int, remaining_quota: int) -> list[FileRecord]:
+        """从共享索引获取下一批次"""
+        async with self._index_lock:
+            start = self.file_index[0]
+            total = len(self.pending_files)
+            
+            if start >= total:
+                return []
+            
+            size = min(batch_size, remaining_quota) if remaining_quota > 0 else batch_size
+            end = min(start + size, total)
+            
+            batch = self.pending_files[start:end]
+            self.file_index[0] = end  # 更新共享索引
+            
+            logger.info(f"{self.name} 获取批次 [{start}:{end}] ({len(batch)} 个文件)")
+            return batch
 
     async def _process_batch(self, batch: list[FileRecord]) -> int:
         """处理一个批次的文件"""
@@ -514,7 +501,13 @@ class Processor:
             pass
 
     async def _run_concurrent(self, api_configs: list[SingleApiConfig], pending: list[FileRecord]) -> None:
-        """多API并发处理模式"""
+        """多API并发处理模式
+        
+        每个API独立处理相同的待处理文件列表：
+        - API-1 获取前50个待处理文件
+        - API-2 也获取前50个待处理文件
+        - 通过状态检查避免重复处理
+        """
         # 显示所有API状态
         total_quota = 0
         for idx, api_cfg in enumerate(api_configs):
@@ -529,22 +522,20 @@ class Processor:
                 total_quota = -1  # 有一个无限制就足够
                 break
 
-        # 根据配额调整处理数量
+        # 根据配额调整处理数量（取所有API配额之和）
         if total_quota > 0 and len(pending) > total_quota:
             pending = pending[:total_quota]
             logger.info(f"根据剩余配额，本次处理 {len(pending)} 个文件")
 
-        # 创建批次（每个批次 batch_size 个文件）
         batch_size = self.config.api.batch_size
-        batches = [pending[i:i + batch_size] for i in range(0, len(pending), batch_size)]
-        logger.info(f"共 {len(pending)} 个文件，分 {len(batches)} 个批次（每批次 {batch_size} 个文件），{len(api_configs)} 个API并发处理")
+        logger.info(f"共 {len(pending)} 个待处理文件，{len(api_configs)} 个API并发处理（每个API每批 {batch_size} 个文件）")
 
-        # 创建批次分配器
-        allocator = BatchAllocator(batches)
+        # 共享文件索引（使用list包装实现引用传递）
+        file_index = [0]
 
         # 创建进度条
         with tqdm(total=len(pending), desc="处理进度", unit="文件") as pbar:
-            # 创建workers
+            # 创建workers，每个worker共享pending列表和索引
             workers = [
                 APIWorker(
                     worker_id=idx,
@@ -554,7 +545,8 @@ class Processor:
                     progress_bar=pbar,
                     shutdown_event=self._shutdown_event,
                     output_dir_selector=self._select_output_dir,
-                    batch_allocator=allocator,
+                    pending_files=pending,
+                    file_index=file_index,
                 )
                 for idx, cfg in enumerate(api_configs)
             ]

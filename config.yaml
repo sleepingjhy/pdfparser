@@ -38,7 +38,7 @@ paths:
   min_free_gb: 0.1                  # 小于该阈值时切到下一输出目录
   checkpoint_db: "C:\\Users\\10517\\Desktop\\minerU\\checkpoint.db"
   failed_db: "C:\\Users\\10517\\Desktop\\minerU\\failed.db"  # 失败文件记录数据库
-  log_file: "C:\\Users\\10517\\Desktop\\miner\\pipeline.log"
+  log_file: "C:\\Users\\10517\\Desktop\\minerU\\pipeline.log"
 
 extraction:
   is_ocr: true                      # 启用OCR(扫描版PDF需要)
