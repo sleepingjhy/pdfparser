@@ -32,6 +32,7 @@ class ApiConfig:
     retry_max: int = 3
     retry_backoff_sec: int = 60
     daily_limit: int = 0  # 兼容旧配置：每日处理文件数上限，0表示不限制
+    first_upload_delay_sec: int = 10  # 首次上传时，多个API之间的间隔时间（秒）
 
 
 @dataclass
@@ -104,6 +105,9 @@ def _merge_config(cfg: AppConfig, raw: dict) -> None:
         "retry_backoff_sec", cfg.api.retry_backoff_sec
     )
     cfg.api.daily_limit = api_raw.get("daily_limit", cfg.api.daily_limit)
+    cfg.api.first_upload_delay_sec = api_raw.get(
+        "first_upload_delay_sec", cfg.api.first_upload_delay_sec
+    )
 
     paths_raw = raw.get("paths", {})
     cfg.paths.pdf_input = paths_raw.get("pdf_input", cfg.paths.pdf_input)

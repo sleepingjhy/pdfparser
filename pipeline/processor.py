@@ -60,6 +60,7 @@ class APIWorker:
         output_dir_selector,
         pending_files: list[FileRecord],
         file_index: list,  # 使用list包装int，实现引用传递
+        first_upload_events: list[asyncio.Event],  # 每个API的首次上传完成事件
     ):
         self.worker_id = worker_id
         self.api_config = api_config
@@ -71,11 +72,13 @@ class APIWorker:
         self.pending_files = pending_files
         self.file_index = file_index  # 共享索引 [int]
         self._index_lock = asyncio.Lock()  # 索引锁
+        self._first_upload_events = first_upload_events  # 共享的首次上传事件列表
 
         # 创建独立的API客户端
         self._api_client: Optional[MinerUAPIClient] = None
         self._processed_count = 0
         self._stopped = False
+        self._first_batch_done = False  # 标记本worker是否完成了首次上传
 
     @property
     def api_client(self) -> MinerUAPIClient:
@@ -110,6 +113,16 @@ class APIWorker:
                 logger.info(f"{self.name} 配额已用完，停止处理")
                 break
 
+            # 首次上传前等待前一个API完成（除第一个worker外）
+            if not self._first_batch_done and self.worker_id > 0:
+                prev_event = self._first_upload_events[self.worker_id - 1]
+                logger.info(f"{self.name} 等待前一个API完成首次上传...")
+                await prev_event.wait()
+                # 前一个API完成后，等待配置的延迟时间
+                delay = self.config.api.first_upload_delay_sec
+                logger.info(f"{self.name} 前一个API已完成，等待 {delay} 秒后开始...")
+                await asyncio.sleep(delay)
+
             # 从共享索引获取一个批次
             batch = await self._get_next_batch(batch_size, remaining)
 
@@ -123,6 +136,13 @@ class APIWorker:
                 done_count = await self._process_batch(batch)
                 self._processed_count += done_count
                 self.progress_bar.update(len(batch))
+                
+                # 首次上传完成后设置事件，让下一个API可以开始
+                if not self._first_batch_done:
+                    self._first_batch_done = True
+                    self._first_upload_events[self.worker_id].set()
+                    logger.info(f"{self.name} 首次上传完成")
+                    
             except AllAPIKeysExhaustedError:
                 logger.warning(f"{self.name} API Key 不可用，停止处理")
                 self._stopped = True
@@ -137,6 +157,11 @@ class APIWorker:
                         api_key_index=self.worker_id,
                     )
                 self.progress_bar.update(len(batch))
+                
+                # 即使失败也要设置事件，避免后续API永久等待
+                if not self._first_batch_done:
+                    self._first_batch_done = True
+                    self._first_upload_events[self.worker_id].set()
 
         logger.info(f"{self.name} 完成，共处理 {self._processed_count} 个文件")
         return self._processed_count
@@ -532,6 +557,10 @@ class Processor:
 
         # 共享文件索引（使用list包装实现引用传递）
         file_index = [0]
+        # 创建首次上传完成事件列表（每个API一个）
+        first_upload_events = [asyncio.Event() for _ in api_configs]
+        # 第一个API不需要等待，直接设置事件
+        first_upload_events[0].set()
 
         # 创建进度条
         with tqdm(total=len(pending), desc="处理进度", unit="文件") as pbar:
@@ -547,6 +576,7 @@ class Processor:
                     output_dir_selector=self._select_output_dir,
                     pending_files=pending,
                     file_index=file_index,
+                    first_upload_events=first_upload_events,
                 )
                 for idx, cfg in enumerate(api_configs)
             ]

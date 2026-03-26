@@ -323,6 +323,7 @@ class MinerUAPIClient:
                 async with session.get(url) as resp:
                     resp.raise_for_status()
                     result = await resp.json()
+                    logger.debug(f"轮询API响应: {result}")
             except aiohttp.ClientError as e:
                 logger.warning(f"轮询请求失败: {e}，将继续重试")
                 await asyncio.sleep(poll_interval)
@@ -335,6 +336,7 @@ class MinerUAPIClient:
 
             extract_results = (result.get("data") or {}).get("extract_result", [])
             if not extract_results:
+                logger.warning(f"轮询返回空结果，batch={batch_id}, data keys: {list((result.get('data') or {}).keys())}")
                 await asyncio.sleep(poll_interval)
                 continue
 
@@ -352,13 +354,14 @@ class MinerUAPIClient:
 
             # 检查是否所有文件都已完成或失败
             states = [item.state.lower() for item in items]
+            unique_states = set(states)
             done_count = sum(1 for s in states if s == "done")
             failed_count = sum(1 for s in states if s == "failed")
             total = len(states)
 
             logger.info(
                 f"轮询 batch={batch_id}: "
-                f"done={done_count}/{total} failed={failed_count}"
+                f"done={done_count}/{total} failed={failed_count}, 所有状态: {unique_states}"
             )
 
             if all(s in ("done", "failed") for s in states):
