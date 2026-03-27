@@ -135,7 +135,7 @@ api:
   enable_concurrent: true        # 是否启用并发处理（false则串行，更稳定但较慢）
   concurrency: 50                # 并发上传数（enable_concurrent=true时生效）
   batch_size: 50                 # 每批处理文件数
-  
+
   # ===== 其他参数 =====
   poll_interval_sec: 30          # 轮询结果的间隔（秒）
   max_poll_minutes: 60           # 单批超时时间（分钟）
@@ -143,9 +143,8 @@ api:
   retry_backoff_sec: 60          # 初始退避时间（秒），失败后指数增长
   batch_delay_sec: 5             # 等待其他API上传完成后，再等待的时间（秒）
 
-  # ===== 批次暂停策略 =====
-  batch_limit: 2000              # 每处理多少个文件后暂停
-  batch_pause_minutes: 10        # 达到 batch_limit 后暂停的分钟数
+  # ===== 轮询超时暂停策略 =====
+  poll_timeout_pause_minutes: 20 # 轮询超时后暂停的分钟数
 
 paths:
   pdf_input: "E:\\Files\\pdf"                # PDF 源文件目录
@@ -242,32 +241,34 @@ API-2: [==批次2==][====批次3====].......完成
 
 ---
 
-### 批次暂停策略
+### 轮询超时暂停策略
 
-支持在处理一定数量文件后自动暂停，避免持续高频请求：
+当 API 轮询超时时自动暂停，避免持续请求导致限流：
 
 ```yaml
 api:
-  batch_limit: 2000              # 每处理多少个文件后暂停
-  batch_pause_minutes: 10        # 暂停的分钟数
+  poll_timeout_pause_minutes: 20    # 轮询超时后暂停的分钟数
 ```
 
 **工作机制**：
 
-每个 API 独立计数，达到 `batch_limit` 后暂停 `batch_pause_minutes` 分钟，然后重置计数继续处理：
+当某个 API 的批次轮询超时（等待结果超过 `max_poll_minutes`）时：
+1. 将该批次文件标记为失败
+2. 暂停 `poll_timeout_pause_minutes` 分钟
+3. 继续处理下一批文件
 
 ```
 时间轴 →
 
-API-1: [处理2000个文件] --暂停10分钟-- [处理2000个文件] --暂停10分钟-- ...
-        ↑                              ↑
-        达到batch_limit               继续处理
+API-1: [上传批次1] [轮询超时!] --暂停20分钟-- [上传批次2] ...
+                              ↑
+                        检测到超时，暂停
 ```
 
 **使用场景**：
+- 服务器繁忙时自动降速
 - 避免 API 频繁限流
-- 分散请求压力
-- 配合服务器负载策略
+- 等待服务端恢复后再继续
 
 ---
 

@@ -92,7 +92,6 @@ class APIWorker:
         self._api_client: Optional[MinerUAPIClient] = None
         self._processed_count = 0
         self._stopped = False
-        self._cycle_processed_count = 0  # 当前周期处理的文件数（用于批次暂停）
 
     @property
     def api_client(self) -> MinerUAPIClient:
@@ -221,26 +220,19 @@ class APIWorker:
 
             # 轮询和下载（不需要等待其他API）
             if upload_result:
+                poll_timeout = False
                 try:
                     done_count = await self._poll_and_download(batch, upload_result)
                     self._processed_count += done_count
-                    self._cycle_processed_count += done_count  # 更新周期计数
                     self.progress_bar.update(len(batch))
-
-                    # 检查是否达到批次限制，需要暂停
-                    batch_limit = self.config.api.batch_limit
-                    if batch_limit > 0 and self._cycle_processed_count >= batch_limit:
-                        pause_minutes = self.config.api.batch_pause_minutes
-                        logger.info(
-                            f"{self.name} 已处理 {self._cycle_processed_count} 个文件，"
-                            f"达到批次限制 {batch_limit}，暂停 {pause_minutes} 分钟..."
-                        )
-                        await asyncio.sleep(pause_minutes * 60)
-                        self._cycle_processed_count = 0  # 重置周期计数
-                        logger.info(f"{self.name} 暂停结束，继续处理")
-
                 except Exception as e:
-                    logger.error(f"{self.name} 轮询/下载失败: {e}")
+                    # 检查是否是轮询超时
+                    if isinstance(e, TimeoutError) or "超时" in str(e):
+                        poll_timeout = True
+                        logger.error(f"{self.name} 轮询超时: {e}")
+                    else:
+                        logger.error(f"{self.name} 轮询/下载失败: {e}")
+                    
                     for rec in batch:
                         await self.checkpoint.update_state(
                             rec.data_id,
@@ -251,6 +243,15 @@ class APIWorker:
                             api_key_index=self.worker_id,
                         )
                     self.progress_bar.update(len(batch))
+
+                # 轮询超时后暂停
+                if poll_timeout:
+                    pause_minutes = self.config.api.poll_timeout_pause_minutes
+                    logger.info(
+                        f"{self.name} 轮询超时，暂停 {pause_minutes} 分钟后继续..."
+                    )
+                    await asyncio.sleep(pause_minutes * 60)
+                    logger.info(f"{self.name} 暂停结束，继续处理")
 
         logger.info(f"{self.name} 完成，共处理 {self._processed_count} 个文件")
         return self._processed_count
@@ -357,25 +358,16 @@ class APIWorker:
         return UploadResult(batch_id=batch_id, uploaded_recs=uploaded_recs)
 
     async def _poll_and_download(self, batch: list[FileRecord], upload_result: UploadResult) -> int:
-        """轮询结果并下载"""
+        """轮询结果并下载
+
+        Raises:
+            TimeoutError: 轮询超时时抛出，由调用方处理暂停逻辑
+        """
         batch_id = upload_result.batch_id
         uploaded_recs = upload_result.uploaded_recs
 
-        # Step 5: 轮询结果
-        try:
-            results = await self.api_client.poll_batch_results(batch_id)
-        except TimeoutError as e:
-            logger.error(f"{self.name} 轮询超时: {e}")
-            for rec in uploaded_recs:
-                await self.checkpoint.update_state(
-                    rec.data_id,
-                    FileState.FAILED,
-                    batch_id=batch_id,
-                    error_msg=f"轮询超时: {e}",
-                    increment_attempts=True,
-                    api_key_index=self.worker_id,
-                )
-            return 0
+        # Step 5: 轮询结果（超时异常向上抛出）
+        results = await self.api_client.poll_batch_results(batch_id)
 
         # Step 6: 处理结果
         done_count = 0

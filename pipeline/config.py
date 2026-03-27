@@ -33,8 +33,7 @@ class ApiConfig:
     retry_backoff_sec: int = 60
     daily_limit: int = 0  # 兼容旧配置：每日处理文件数上限，0表示不限制
     batch_delay_sec: int = 5  # 等待其他API上传完成后，再等待的时间（秒）
-    batch_limit: int = 2000  # 每处理多少个文件后暂停
-    batch_pause_minutes: int = 15  # 达到 batch_limit 后暂停的分钟数
+    poll_timeout_pause_minutes: int = 20  # 轮询超时后暂停的分钟数
 
 
 @dataclass
@@ -110,9 +109,8 @@ def _merge_config(cfg: AppConfig, raw: dict) -> None:
     cfg.api.batch_delay_sec = api_raw.get(
         "batch_delay_sec", cfg.api.batch_delay_sec
     )
-    cfg.api.batch_limit = api_raw.get("batch_limit", cfg.api.batch_limit)
-    cfg.api.batch_pause_minutes = api_raw.get(
-        "batch_pause_minutes", cfg.api.batch_pause_minutes
+    cfg.api.poll_timeout_pause_minutes = api_raw.get(
+        "poll_timeout_pause_minutes", cfg.api.poll_timeout_pause_minutes
     )
 
     paths_raw = raw.get("paths", {})

@@ -28,8 +28,7 @@ api:
   retry_max: 3                      # 每个文件最大重试次数
   retry_backoff_sec: 60             # 初始退避时间(秒)
   batch_delay_sec: 5                # 等待其他API上传完成后，再等待的时间（秒）
-  batch_limit: 2000                 # 每处理多少个文件后暂停
-  batch_pause_minutes: 10           # 达到 batch_limit 后暂停的分钟数
+  poll_timeout_pause_minutes: 20    # 轮询超时后暂停的分钟数
 
 paths:
   pdf_input: "E:\\data\\pdf"
