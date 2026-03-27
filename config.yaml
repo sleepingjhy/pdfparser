@@ -22,11 +22,14 @@ api:
   # 并发控制
   enable_concurrent: true            # 是否启用并发处理（false则串行处理，更稳定但较慢）
   concurrency: 50                    # 并发上传数（每个API的并发数，enable_concurrent=true时生效）
-  batch_size: 50                    # 每批文件数
+  batch_size: 25                    # 每批文件数
   poll_interval_sec: 30             # 轮询间隔(秒)
   max_poll_minutes: 60              # 单批超时(分钟)
   retry_max: 3                      # 每个文件最大重试次数
   retry_backoff_sec: 60             # 初始退避时间(秒)
+  batch_delay_sec: 5                # 等待其他API上传完成后，再等待的时间（秒）
+  batch_limit: 2000                 # 每处理多少个文件后暂停
+  batch_pause_minutes: 10           # 达到 batch_limit 后暂停的分钟数
 
 paths:
   pdf_input: "E:\\data\\pdf"

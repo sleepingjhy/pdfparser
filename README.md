@@ -141,9 +141,11 @@ api:
   max_poll_minutes: 60           # 单批超时时间（分钟）
   retry_max: 3                   # 每个文件最大重试次数
   retry_backoff_sec: 60          # 初始退避时间（秒），失败后指数增长
-  
-  # ===== 多API策略 =====
-  multi_api_strategy: "round_robin"  # round_robin: 轮询分配 | quota_first: 优先用配额多的
+  batch_delay_sec: 5             # 等待其他API上传完成后，再等待的时间（秒）
+
+  # ===== 批次暂停策略 =====
+  batch_limit: 2000              # 每处理多少个文件后暂停
+  batch_pause_minutes: 10        # 达到 batch_limit 后暂停的分钟数
 
 paths:
   pdf_input: "E:\\Files\\pdf"                # PDF 源文件目录
@@ -237,6 +239,35 @@ API-2: [==批次2==][====批次3====].......完成
 - 程序自动读取系统日期，统计每个 API 当天已处理的文件数
 - 当某个 API 达到每日限额时，自动停止，其他 API 继续处理
 - 所有 API 都达到限额时，程序会等待第二天自动重置
+
+---
+
+### 批次暂停策略
+
+支持在处理一定数量文件后自动暂停，避免持续高频请求：
+
+```yaml
+api:
+  batch_limit: 2000              # 每处理多少个文件后暂停
+  batch_pause_minutes: 10        # 暂停的分钟数
+```
+
+**工作机制**：
+
+每个 API 独立计数，达到 `batch_limit` 后暂停 `batch_pause_minutes` 分钟，然后重置计数继续处理：
+
+```
+时间轴 →
+
+API-1: [处理2000个文件] --暂停10分钟-- [处理2000个文件] --暂停10分钟-- ...
+        ↑                              ↑
+        达到batch_limit               继续处理
+```
+
+**使用场景**：
+- 避免 API 频繁限流
+- 分散请求压力
+- 配合服务器负载策略
 
 ---
 

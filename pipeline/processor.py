@@ -23,6 +23,7 @@ import logging
 import shutil
 import signal
 import sys
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Optional
@@ -38,6 +39,13 @@ from .models import FileRecord, FileState
 from .scanner import scan_pdfs
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class UploadResult:
+    """上传结果"""
+    batch_id: str
+    uploaded_recs: list[FileRecord]  # 上传成功的文件列表
 
 
 class APIWorker:
@@ -60,7 +68,10 @@ class APIWorker:
         output_dir_selector,
         pending_files: list[FileRecord],
         file_index: list,  # 使用list包装int，实现引用传递
-        first_upload_events: list[asyncio.Event],  # 每个API的首次上传完成事件
+        uploading_flags: list,  # 共享的上传状态标志列表 [bool, bool, ...]
+        uploading_lock: asyncio.Lock,  # 上传状态锁
+        turn_index: list,  # 当前轮到的API索引，[0]=第一轮顺序索引，[-1]=抢占模式
+        num_workers: int,  # API总数
     ):
         self.worker_id = worker_id
         self.api_config = api_config
@@ -72,13 +83,16 @@ class APIWorker:
         self.pending_files = pending_files
         self.file_index = file_index  # 共享索引 [int]
         self._index_lock = asyncio.Lock()  # 索引锁
-        self._first_upload_events = first_upload_events  # 共享的首次上传事件列表
+        self._uploading_flags = uploading_flags  # 共享的上传状态标志
+        self._uploading_lock = uploading_lock  # 上传状态锁
+        self._turn_index = turn_index  # 轮次索引
+        self._num_workers = num_workers  # API总数
 
         # 创建独立的API客户端
         self._api_client: Optional[MinerUAPIClient] = None
         self._processed_count = 0
         self._stopped = False
-        self._first_batch_done = False  # 标记本worker是否完成了首次上传
+        self._cycle_processed_count = 0  # 当前周期处理的文件数（用于批次暂停）
 
     @property
     def api_client(self) -> MinerUAPIClient:
@@ -92,6 +106,23 @@ class APIWorker:
     @property
     def name(self) -> str:
         return self.api_config.name if self.api_config.name else f"API-{self.worker_id + 1}"
+
+    def _is_other_uploading(self) -> bool:
+        """检查是否有其他API正在上传"""
+        for i, flag in enumerate(self._uploading_flags):
+            if i != self.worker_id and flag:
+                return True
+        return False
+
+    async def _set_uploading(self, uploading: bool) -> None:
+        """设置当前API的上传状态"""
+        async with self._uploading_lock:
+            self._uploading_flags[self.worker_id] = uploading
+
+    async def _wait_for_other_uploads(self) -> None:
+        """等待其他所有API上传完成"""
+        while self._is_other_uploading():
+            await asyncio.sleep(0.5)
 
     async def get_remaining_quota(self) -> int:
         """获取剩余配额，-1表示无限制"""
@@ -113,41 +144,59 @@ class APIWorker:
                 logger.info(f"{self.name} 配额已用完，停止处理")
                 break
 
-            # 首次上传前等待前一个API完成（除第一个worker外）
-            if not self._first_batch_done and self.worker_id > 0:
-                prev_event = self._first_upload_events[self.worker_id - 1]
-                logger.info(f"{self.name} 等待前一个API完成首次上传...")
-                await prev_event.wait()
-                # 前一个API完成后，等待配置的延迟时间
-                delay = self.config.api.first_upload_delay_sec
-                logger.info(f"{self.name} 前一个API已完成，等待 {delay} 秒后开始...")
-                await asyncio.sleep(delay)
-
-            # 从共享索引获取一个批次
-            batch = await self._get_next_batch(batch_size, remaining)
-
-            if not batch:
-                # 没有更多任务
-                logger.info(f"{self.name} 没有更多任务，退出")
-                break
-
-            # 处理批次
-            try:
-                done_count = await self._process_batch(batch)
-                self._processed_count += done_count
-                self.progress_bar.update(len(batch))
-                
-                # 首次上传完成后设置事件，让下一个API可以开始
-                if not self._first_batch_done:
-                    self._first_batch_done = True
-                    self._first_upload_events[self.worker_id].set()
-                    logger.info(f"{self.name} 首次上传完成")
+            # 原子操作：等待轮次、获取批次、设置上传状态
+            async with self._uploading_lock:
+                # 等待轮次（第一轮：按 turn_index 顺序，后续：等待其他API完成）
+                while True:
+                    should_wait = False
                     
+                    # 第一轮：还没轮到自己
+                    if self._turn_index[0] >= 0 and self._turn_index[0] != self.worker_id:
+                        should_wait = True
+                        logger.debug(f"{self.name} 等待轮次 (turn_index={self._turn_index[0]})")
+                    
+                    # 有其他API正在上传
+                    if self._is_other_uploading():
+                        should_wait = True
+                        logger.debug(f"{self.name} 等待其他API上传完成")
+                    
+                    if not should_wait:
+                        break
+                    
+                    self._uploading_lock.release()
+                    await asyncio.sleep(0.3)
+                    await self._uploading_lock.acquire()
+                
+                # 获取批次
+                batch = await self._get_next_batch(batch_size, remaining)
+                
+                if not batch:
+                    # 没有更多任务
+                    logger.info(f"{self.name} 没有更多任务，退出")
+                    break
+                
+                # 设置上传状态为正在上传
+                self._uploading_flags[self.worker_id] = True
+                
+                # 第一轮：轮次+1
+                if self._turn_index[0] >= 0:
+                    self._turn_index[0] += 1
+                    if self._turn_index[0] >= self._num_workers:
+                        self._turn_index[0] = -1  # 进入抢占模式
+                        logger.info("第一轮完成，进入抢占模式")
+
+            # 上传文件（上传完成后立即释放锁）
+            upload_result = None
+            try:
+                upload_result = await self._upload_batch(batch)
             except AllAPIKeysExhaustedError:
                 logger.warning(f"{self.name} API Key 不可用，停止处理")
                 self._stopped = True
+                async with self._uploading_lock:
+                    self._uploading_flags[self.worker_id] = False
+                continue
             except Exception as e:
-                logger.error(f"{self.name} 批次处理失败: {e}")
+                logger.error(f"{self.name} 上传失败: {e}")
                 for rec in batch:
                     await self.checkpoint.update_state(
                         rec.data_id,
@@ -157,11 +206,51 @@ class APIWorker:
                         api_key_index=self.worker_id,
                     )
                 self.progress_bar.update(len(batch))
-                
-                # 即使失败也要设置事件，避免后续API永久等待
-                if not self._first_batch_done:
-                    self._first_batch_done = True
-                    self._first_upload_events[self.worker_id].set()
+                async with self._uploading_lock:
+                    self._uploading_flags[self.worker_id] = False
+                continue
+            finally:
+                # 上传完成后立即清除上传状态
+                async with self._uploading_lock:
+                    self._uploading_flags[self.worker_id] = False
+
+            # 等待一段时间，让其他API开始上传
+            delay = self.config.api.batch_delay_sec
+            logger.info(f"{self.name} 上传完成，等待 {delay} 秒...")
+            await asyncio.sleep(delay)
+
+            # 轮询和下载（不需要等待其他API）
+            if upload_result:
+                try:
+                    done_count = await self._poll_and_download(batch, upload_result)
+                    self._processed_count += done_count
+                    self._cycle_processed_count += done_count  # 更新周期计数
+                    self.progress_bar.update(len(batch))
+
+                    # 检查是否达到批次限制，需要暂停
+                    batch_limit = self.config.api.batch_limit
+                    if batch_limit > 0 and self._cycle_processed_count >= batch_limit:
+                        pause_minutes = self.config.api.batch_pause_minutes
+                        logger.info(
+                            f"{self.name} 已处理 {self._cycle_processed_count} 个文件，"
+                            f"达到批次限制 {batch_limit}，暂停 {pause_minutes} 分钟..."
+                        )
+                        await asyncio.sleep(pause_minutes * 60)
+                        self._cycle_processed_count = 0  # 重置周期计数
+                        logger.info(f"{self.name} 暂停结束，继续处理")
+
+                except Exception as e:
+                    logger.error(f"{self.name} 轮询/下载失败: {e}")
+                    for rec in batch:
+                        await self.checkpoint.update_state(
+                            rec.data_id,
+                            FileState.FAILED,
+                            batch_id=upload_result.batch_id,
+                            error_msg=str(e),
+                            increment_attempts=True,
+                            api_key_index=self.worker_id,
+                        )
+                    self.progress_bar.update(len(batch))
 
         logger.info(f"{self.name} 完成，共处理 {self._processed_count} 个文件")
         return self._processed_count
@@ -184,8 +273,8 @@ class APIWorker:
             logger.info(f"{self.name} 获取批次 [{start}:{end}] ({len(batch)} 个文件)")
             return batch
 
-    async def _process_batch(self, batch: list[FileRecord]) -> int:
-        """处理一个批次的文件"""
+    async def _upload_batch(self, batch: list[FileRecord]) -> Optional[UploadResult]:
+        """上传一个批次的文件（不包括轮询和下载）"""
         data_ids = [rec.data_id for rec in batch]
 
         # Step 1: 标记为上传中
@@ -255,7 +344,7 @@ class APIWorker:
 
         if not uploaded_recs:
             logger.error(f"{self.name} 批次中所有文件上传失败")
-            return 0
+            return None
 
         uploaded_ids = [rec.data_id for rec in uploaded_recs]
 
@@ -263,6 +352,14 @@ class APIWorker:
         await self.checkpoint.bulk_update_state(
             uploaded_ids, FileState.POLLING, batch_id=batch_id, api_key_index=self.worker_id
         )
+
+        logger.info(f"{self.name} 上传完成 {len(uploaded_recs)} 个文件，batch_id={batch_id}")
+        return UploadResult(batch_id=batch_id, uploaded_recs=uploaded_recs)
+
+    async def _poll_and_download(self, batch: list[FileRecord], upload_result: UploadResult) -> int:
+        """轮询结果并下载"""
+        batch_id = upload_result.batch_id
+        uploaded_recs = upload_result.uploaded_recs
 
         # Step 5: 轮询结果
         try:
@@ -557,10 +654,13 @@ class Processor:
 
         # 共享文件索引（使用list包装实现引用传递）
         file_index = [0]
-        # 创建首次上传完成事件列表（每个API一个）
-        first_upload_events = [asyncio.Event() for _ in api_configs]
-        # 第一个API不需要等待，直接设置事件
-        first_upload_events[0].set()
+        # 共享的上传状态标志列表（每个API一个）
+        uploading_flags = [False for _ in api_configs]
+        # 上传状态锁
+        uploading_lock = asyncio.Lock()
+        # 轮次索引：>=0 表示第一轮顺序，-1 表示抢占模式
+        turn_index = [0]
+        num_workers = len(api_configs)
 
         # 创建进度条
         with tqdm(total=len(pending), desc="处理进度", unit="文件") as pbar:
@@ -576,7 +676,10 @@ class Processor:
                     output_dir_selector=self._select_output_dir,
                     pending_files=pending,
                     file_index=file_index,
-                    first_upload_events=first_upload_events,
+                    uploading_flags=uploading_flags,
+                    uploading_lock=uploading_lock,
+                    turn_index=turn_index,
+                    num_workers=num_workers,
                 )
                 for idx, cfg in enumerate(api_configs)
             ]
