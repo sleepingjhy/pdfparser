@@ -141,10 +141,10 @@ api:
   max_poll_minutes: 60           # 单批超时时间（分钟）
   retry_max: 3                   # 每个文件最大重试次数
   retry_backoff_sec: 60          # 初始退避时间（秒），失败后指数增长
-  batch_delay_sec: 5             # 等待其他API上传完成后，再等待的时间（秒）
+  batch_delay_sec: 10             # 等待其他API上传完成后，再等待的时间（秒）
 
   # ===== 轮询超时暂停策略 =====
-  poll_timeout_pause_minutes: 20 # 轮询超时后暂停的分钟数
+  poll_timeout_pause_minutes: 60 # 轮询超时后暂停的分钟数
 
 paths:
   pdf_input: "E:\\Files\\pdf"                # PDF 源文件目录
@@ -247,7 +247,7 @@ API-2: [==批次2==][====批次3====].......完成
 
 ```yaml
 api:
-  poll_timeout_pause_minutes: 20    # 轮询超时后暂停的分钟数
+  poll_timeout_pause_minutes: 60    # 轮询超时后暂停的分钟数
 ```
 
 **工作机制**：
@@ -260,7 +260,7 @@ api:
 ```
 时间轴 →
 
-API-1: [上传批次1] [轮询超时!] --暂停20分钟-- [上传批次2] ...
+API-1: [上传批次1] [轮询超时!] --暂停60分钟-- [上传批次2] ...
                               ↑
                         检测到超时，暂停
 ```

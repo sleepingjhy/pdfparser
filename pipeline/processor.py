@@ -141,6 +141,13 @@ class APIWorker:
             remaining = await self.get_remaining_quota()
             if remaining == 0:
                 logger.info(f"{self.name} 配额已用完，停止处理")
+                # 如果当前轮次是自己，推进轮次避免死锁
+                async with self._uploading_lock:
+                    if self._turn_index[0] == self.worker_id:
+                        self._turn_index[0] += 1
+                        if self._turn_index[0] >= self._num_workers:
+                            self._turn_index[0] = -1  # 进入抢占模式
+                            logger.info("第一轮完成，进入抢占模式")
                 break
 
             # 原子操作：等待轮次、获取批次、设置上传状态
