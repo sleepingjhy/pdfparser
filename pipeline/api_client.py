@@ -102,6 +102,18 @@ class MinerUAPIClient:
         )
         return True
 
+    def get_current_key_config_index(self) -> int:
+        """获取当前使用的 key 在 api_configs 中的索引。
+
+        Returns:
+            api_configs 中的索引，如果找不到返回 0
+        """
+        current_key = self.api_key
+        for idx, api_cfg in enumerate(self.config.api.api_configs):
+            if api_cfg.api_key.strip() == current_key:
+                return idx
+        return 0  # 默认返回第一个
+
     def _should_switch_key(self, code: Any, message: str) -> bool:
         """判断是否应切换到下一个 API Key。"""
         normalized_code = str(code).strip().lower()

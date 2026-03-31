@@ -106,6 +106,16 @@ class APIWorker:
     def name(self) -> str:
         return self.api_config.name if self.api_config.name else f"API-{self.worker_id + 1}"
 
+    @property
+    def effective_key_index(self) -> int:
+        """获取当前实际使用的 key 在 api_configs 中的索引。
+
+        如果 API Key 发生切换，返回新 key 的索引；否则返回原始 worker_id。
+        """
+        if self._api_client is not None:
+            return self._api_client.get_current_key_config_index()
+        return self.worker_id
+
     def _is_other_uploading(self) -> bool:
         """检查是否有其他API正在上传"""
         for i, flag in enumerate(self._uploading_flags):
@@ -209,7 +219,7 @@ class APIWorker:
                         FileState.FAILED,
                         error_msg=str(e),
                         increment_attempts=True,
-                        api_key_index=self.worker_id,
+                        api_key_index=self.effective_key_index,
                     )
                 self.progress_bar.update(len(batch))
                 async with self._uploading_lock:
@@ -227,7 +237,6 @@ class APIWorker:
 
             # 轮询和下载（不需要等待其他API）
             if upload_result:
-                poll_timeout = False
                 try:
                     done_count = await self._poll_and_download(batch, upload_result)
                     self._processed_count += done_count
@@ -235,30 +244,42 @@ class APIWorker:
                 except Exception as e:
                     # 检查是否是轮询超时
                     if isinstance(e, TimeoutError) or "超时" in str(e):
-                        poll_timeout = True
                         logger.error(f"{self.name} 轮询超时: {e}")
+                        
+                        # 暂停后重新上传当前批次
+                        pause_minutes = self.config.api.poll_timeout_pause_minutes
+                        logger.info(
+                            f"{self.name} 轮询超时，暂停 {pause_minutes} 分钟后重新上传当前批次..."
+                        )
+                        await asyncio.sleep(pause_minutes * 60)
+                        logger.info(f"{self.name} 暂停结束，重新上传当前批次")
+                        
+                        # 将当前批次文件状态重置为PENDING，以便重新处理
+                        for rec in batch:
+                            await self.checkpoint.update_state(
+                                rec.data_id,
+                                FileState.PENDING,
+                                batch_id=None,
+                                error_msg=None,
+                                api_key_index=self.effective_key_index,
+                            )
+                        
+                        # 将批次索引回退，让下一轮循环重新获取这批文件
+                        async with self._index_lock:
+                            self.file_index[0] -= len(batch)
+                            logger.info(f"{self.name} 已回退 {len(batch)} 个文件索引，将重新上传")
                     else:
                         logger.error(f"{self.name} 轮询/下载失败: {e}")
-                    
-                    for rec in batch:
-                        await self.checkpoint.update_state(
-                            rec.data_id,
-                            FileState.FAILED,
-                            batch_id=upload_result.batch_id,
-                            error_msg=str(e),
-                            increment_attempts=True,
-                            api_key_index=self.worker_id,
-                        )
-                    self.progress_bar.update(len(batch))
-
-                # 轮询超时后暂停
-                if poll_timeout:
-                    pause_minutes = self.config.api.poll_timeout_pause_minutes
-                    logger.info(
-                        f"{self.name} 轮询超时，暂停 {pause_minutes} 分钟后继续..."
-                    )
-                    await asyncio.sleep(pause_minutes * 60)
-                    logger.info(f"{self.name} 暂停结束，继续处理")
+                        for rec in batch:
+                            await self.checkpoint.update_state(
+                                rec.data_id,
+                                FileState.FAILED,
+                                batch_id=upload_result.batch_id,
+                                error_msg=str(e),
+                                increment_attempts=True,
+                                api_key_index=self.effective_key_index,
+                            )
+                        self.progress_bar.update(len(batch))
 
         logger.info(f"{self.name} 完成，共处理 {self._processed_count} 个文件")
         return self._processed_count
@@ -286,7 +307,7 @@ class APIWorker:
         data_ids = [rec.data_id for rec in batch]
 
         # Step 1: 标记为上传中
-        await self.checkpoint.bulk_update_state(data_ids, FileState.UPLOADING, api_key_index=self.worker_id)
+        await self.checkpoint.bulk_update_state(data_ids, FileState.UPLOADING, api_key_index=self.effective_key_index)
 
         # Step 2: 申请上传URL
         files_payload = [
@@ -301,7 +322,7 @@ class APIWorker:
         try:
             upload_resp = await self.api_client.request_upload_urls(files_payload)
         except AllAPIKeysExhaustedError:
-            await self.checkpoint.bulk_update_state(data_ids, FileState.PENDING, api_key_index=self.worker_id)
+            await self.checkpoint.bulk_update_state(data_ids, FileState.PENDING, api_key_index=self.effective_key_index)
             raise
         except Exception as e:
             logger.error(f"{self.name} 申请上传URL失败: {e}")
@@ -311,7 +332,7 @@ class APIWorker:
                     FileState.FAILED,
                     error_msg=f"申请上传URL失败: {e}",
                     increment_attempts=True,
-                    api_key_index=self.worker_id,
+                    api_key_index=self.effective_key_index,
                 )
             raise
 
@@ -345,7 +366,7 @@ class APIWorker:
                     batch_id=batch_id,
                     error_msg=f"上传失败: {result}",
                     increment_attempts=True,
-                    api_key_index=self.worker_id,
+                    api_key_index=self.effective_key_index,
                 )
             else:
                 uploaded_recs.append(rec)
@@ -358,7 +379,7 @@ class APIWorker:
 
         # Step 4: 标记为轮询中
         await self.checkpoint.bulk_update_state(
-            uploaded_ids, FileState.POLLING, batch_id=batch_id, api_key_index=self.worker_id
+            uploaded_ids, FileState.POLLING, batch_id=batch_id, api_key_index=self.effective_key_index
         )
 
         logger.info(f"{self.name} 上传完成 {len(uploaded_recs)} 个文件，batch_id={batch_id}")
@@ -392,7 +413,7 @@ class APIWorker:
                     batch_id=batch_id,
                     error_msg="未在结果中找到对应文件",
                     increment_attempts=True,
-                    api_key_index=self.worker_id,
+                    api_key_index=self.effective_key_index,
                 )
                 continue
 
@@ -403,7 +424,7 @@ class APIWorker:
                     batch_id=batch_id,
                     error_msg=result.err_msg or "MinerU处理失败",
                     increment_attempts=True,
-                    api_key_index=self.worker_id,
+                    api_key_index=self.effective_key_index,
                 )
                 continue
 
@@ -420,7 +441,7 @@ class APIWorker:
                         batch_id=batch_id,
                         error_msg=str(e),
                         increment_attempts=True,
-                        api_key_index=self.worker_id,
+                        api_key_index=self.effective_key_index,
                     )
 
         return done_count
@@ -436,7 +457,7 @@ class APIWorker:
     ) -> bool:
         """下载结果并转换"""
         await self.checkpoint.update_state(
-            rec.data_id, FileState.CONVERTING, batch_id=batch_id, api_key_index=self.worker_id
+            rec.data_id, FileState.CONVERTING, batch_id=batch_id, api_key_index=self.effective_key_index
         )
 
         content_blocks = await self.api_client.download_result(zip_url)
@@ -448,7 +469,7 @@ class APIWorker:
                 batch_id=batch_id,
                 error_msg="未找到有效的 content_list.json",
                 increment_attempts=True,
-                api_key_index=self.worker_id,
+                api_key_index=self.effective_key_index,
             )
             return False
 
@@ -465,7 +486,7 @@ class APIWorker:
                 batch_id=batch_id,
                 error_msg="格式转换失败",
                 increment_attempts=True,
-                api_key_index=self.worker_id,
+                api_key_index=self.effective_key_index,
             )
             return False
 
@@ -474,7 +495,7 @@ class APIWorker:
         save_paper_json(doc, str(output_path))
 
         await self.checkpoint.update_state(
-            rec.data_id, FileState.DONE, batch_id=batch_id, api_key_index=self.worker_id
+            rec.data_id, FileState.DONE, batch_id=batch_id, api_key_index=self.effective_key_index
         )
 
         return True
