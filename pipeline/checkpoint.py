@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS files (
     error_msg    TEXT DEFAULT '',
     attempts     INTEGER DEFAULT 0,
     api_key_index INTEGER DEFAULT -1,
+    upload_count INTEGER DEFAULT 0,
     created_at   TEXT,
     updated_at   TEXT
 );
@@ -211,21 +212,42 @@ class Checkpoint:
         state: FileState,
         batch_id: str = "",
         api_key_index: int = -1,
+        increment_upload: bool = False,
     ) -> None:
-        """批量更新文件状态"""
+        """批量更新文件状态
+
+        Args:
+            data_ids: 文件ID列表
+            state: 新状态
+            batch_id: 批次ID
+            api_key_index: API索引
+            increment_upload: 是否增加上传计数（用于统计上传次数）
+        """
         assert self._db is not None
         now = datetime.now().isoformat()
         for data_id in data_ids:
             if api_key_index >= 0:
-                await self._db.execute(
-                    "UPDATE files SET state=?, batch_id=?, api_key_index=?, updated_at=? WHERE data_id=?",
-                    (state.value, batch_id, api_key_index, now, data_id),
-                )
+                if increment_upload:
+                    await self._db.execute(
+                        "UPDATE files SET state=?, batch_id=?, api_key_index=?, updated_at=?, upload_count=upload_count+1 WHERE data_id=?",
+                        (state.value, batch_id, api_key_index, now, data_id),
+                    )
+                else:
+                    await self._db.execute(
+                        "UPDATE files SET state=?, batch_id=?, api_key_index=?, updated_at=? WHERE data_id=?",
+                        (state.value, batch_id, api_key_index, now, data_id),
+                    )
             else:
-                await self._db.execute(
-                    "UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?",
-                    (state.value, batch_id, now, data_id),
-                )
+                if increment_upload:
+                    await self._db.execute(
+                        "UPDATE files SET state=?, batch_id=?, updated_at=?, upload_count=upload_count+1 WHERE data_id=?",
+                        (state.value, batch_id, now, data_id),
+                    )
+                else:
+                    await self._db.execute(
+                        "UPDATE files SET state=?, batch_id=?, updated_at=? WHERE data_id=?",
+                        (state.value, batch_id, now, data_id),
+                    )
         await self._db.commit()
 
     async def reset_failed(self) -> int:
@@ -274,23 +296,23 @@ class Checkpoint:
         return stats
 
     async def get_today_done_count(self, api_key_index: int = -1) -> int:
-        """获取今天已处理的文件数量（只要上传了就算，不管成功失败）
-        
+        """获取今天上传次数统计（每次上传都计数，包括重传）
+
         Args:
             api_key_index: API索引，-1表示统计所有API
         """
         assert self._db is not None
         today = datetime.now().date().isoformat()
         if api_key_index >= 0:
-            # 统计今天该API处理的所有文件（只要设置了api_key_index就算消耗额度）
+            # 统计今天该API的上传次数总和
             cursor = await self._db.execute(
-                """SELECT COUNT(*) FROM files 
+                """SELECT COALESCE(SUM(upload_count), 0) FROM files 
                    WHERE DATE(updated_at) = ? AND api_key_index = ?""",
                 (today, api_key_index),
             )
         else:
             cursor = await self._db.execute(
-                """SELECT COUNT(*) FROM files 
+                """SELECT COALESCE(SUM(upload_count), 0) FROM files 
                    WHERE DATE(updated_at) = ?""",
                 (today,),
             )
@@ -298,19 +320,19 @@ class Checkpoint:
         return row[0] if row else 0
 
     async def get_all_api_today_stats(self, num_apis: int) -> dict[int, int]:
-        """获取所有API今日处理统计（只要上传了就算，不管成功失败）
-        
+        """获取所有API今日上传次数统计（每次上传都计数，包括重传）
+
         Args:
             num_apis: API数量
-            
+
         Returns:
             {api_index: count} 字典
         """
         assert self._db is not None
         today = datetime.now().date().isoformat()
-        # 统计今天每个API处理的所有文件（只要设置了api_key_index就算消耗额度）
+        # 统计今天每个API的上传次数总和
         cursor = await self._db.execute(
-            """SELECT api_key_index, COUNT(*) as cnt FROM files 
+            """SELECT api_key_index, COALESCE(SUM(upload_count), 0) as cnt FROM files 
                WHERE DATE(updated_at) = ? AND api_key_index >= 0
                GROUP BY api_key_index""",
             (today,),

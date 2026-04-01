@@ -163,29 +163,32 @@ class APIWorker:
             # 原子操作：等待轮次、获取批次、设置上传状态
             async with self._uploading_lock:
                 # 等待轮次（第一轮：按 turn_index 顺序，后续：等待其他API完成）
+                wait_logged = False
                 while True:
                     should_wait = False
-                    
+
                     # 第一轮：还没轮到自己
                     if self._turn_index[0] >= 0 and self._turn_index[0] != self.worker_id:
                         should_wait = True
                         logger.debug(f"{self.name} 等待轮次 (turn_index={self._turn_index[0]})")
-                    
+
                     # 有其他API正在上传
                     if self._is_other_uploading():
                         should_wait = True
-                        logger.debug(f"{self.name} 等待其他API上传完成")
-                    
+                        if not wait_logged:
+                            logger.info(f"{self.name} 等待其他API上传完成...")
+                            wait_logged = True
+
                     if not should_wait:
                         break
-                    
+
                     self._uploading_lock.release()
                     await asyncio.sleep(0.3)
                     await self._uploading_lock.acquire()
-                
+
                 # 获取批次
                 batch = await self._get_next_batch(batch_size, remaining)
-                
+
                 if not batch:
                     # 没有更多任务
                     logger.info(f"{self.name} 没有更多任务，退出")
@@ -193,7 +196,8 @@ class APIWorker:
                 
                 # 设置上传状态为正在上传
                 self._uploading_flags[self.worker_id] = True
-                
+                logger.info(f"{self.name} 开始上传批次 ({len(batch)} 个文件)")
+
                 # 第一轮：轮次+1
                 if self._turn_index[0] >= 0:
                     self._turn_index[0] += 1
@@ -201,10 +205,16 @@ class APIWorker:
                         self._turn_index[0] = -1  # 进入抢占模式
                         logger.info("第一轮完成，进入抢占模式")
 
-            # 上传文件（上传完成后立即释放锁）
+            # 上传文件
             upload_result = None
             try:
                 upload_result = await self._upload_batch(batch)
+
+                # 上传完成后等待一段时间，让其他API在这期间不能开始上传
+                delay = self.config.api.batch_delay_sec
+                logger.info(f"{self.name} 上传完成，等待 {delay} 秒...")
+                await asyncio.sleep(delay)
+
             except AllAPIKeysExhaustedError:
                 logger.warning(f"{self.name} API Key 不可用，停止处理")
                 self._stopped = True
@@ -226,14 +236,9 @@ class APIWorker:
                     self._uploading_flags[self.worker_id] = False
                 continue
             finally:
-                # 上传完成后立即清除上传状态
+                # 等待结束后才清除上传状态
                 async with self._uploading_lock:
                     self._uploading_flags[self.worker_id] = False
-
-            # 等待一段时间，让其他API开始上传
-            delay = self.config.api.batch_delay_sec
-            logger.info(f"{self.name} 上传完成，等待 {delay} 秒...")
-            await asyncio.sleep(delay)
 
             # 轮询和下载（不需要等待其他API）
             if upload_result:
@@ -245,13 +250,21 @@ class APIWorker:
                     # 检查是否是轮询超时
                     if isinstance(e, TimeoutError) or "超时" in str(e):
                         logger.error(f"{self.name} 轮询超时: {e}")
-                        
+
                         # 暂停后重新上传当前批次
                         pause_minutes = self.config.api.poll_timeout_pause_minutes
                         logger.info(
                             f"{self.name} 轮询超时，暂停 {pause_minutes} 分钟后重新上传当前批次..."
                         )
-                        await asyncio.sleep(pause_minutes * 60)
+
+                        # 可中断的等待：每秒检查一次 shutdown_event
+                        pause_seconds = pause_minutes * 60
+                        for _ in range(pause_seconds):
+                            if self.shutdown_event.is_set():
+                                logger.info(f"{self.name} 收到停止信号，跳过暂停等待")
+                                return self._processed_count
+                            await asyncio.sleep(1)
+
                         logger.info(f"{self.name} 暂停结束，重新上传当前批次")
                         
                         # 将当前批次文件状态重置为PENDING，以便重新处理
@@ -306,8 +319,10 @@ class APIWorker:
         """上传一个批次的文件（不包括轮询和下载）"""
         data_ids = [rec.data_id for rec in batch]
 
-        # Step 1: 标记为上传中
-        await self.checkpoint.bulk_update_state(data_ids, FileState.UPLOADING, api_key_index=self.effective_key_index)
+        # Step 1: 标记为上传中，同时增加上传计数
+        await self.checkpoint.bulk_update_state(
+            data_ids, FileState.UPLOADING, api_key_index=self.effective_key_index, increment_upload=True
+        )
 
         # Step 2: 申请上传URL
         files_payload = [
@@ -382,7 +397,9 @@ class APIWorker:
             uploaded_ids, FileState.POLLING, batch_id=batch_id, api_key_index=self.effective_key_index
         )
 
-        logger.info(f"{self.name} 上传完成 {len(uploaded_recs)} 个文件，batch_id={batch_id}")
+        # 简化 batch_id 显示：只保留第一个 "-" 前的内容
+        short_batch_id = batch_id.split("-")[0] if "-" in batch_id else batch_id
+        logger.info(f"{self.name} 上传完成 {len(uploaded_recs)} 个文件，batch_id={short_batch_id}")
         return UploadResult(batch_id=batch_id, uploaded_recs=uploaded_recs)
 
     async def _poll_and_download(self, batch: list[FileRecord], upload_result: UploadResult) -> int:
@@ -682,8 +699,14 @@ class Processor:
         turn_index = [0]
         num_workers = len(api_configs)
 
-        # 创建进度条
-        with tqdm(total=len(pending), desc="处理进度", unit="文件") as pbar:
+        # 创建进度条（固定位置，始终显示）
+        with tqdm(
+            total=len(pending),
+            desc="处理进度",
+            unit="文件",
+            position=0,
+            leave=True,
+        ) as pbar:
             # 创建workers，每个worker共享pending列表和索引
             workers = [
                 APIWorker(
@@ -747,7 +770,13 @@ class Processor:
         batch_size = self.config.api.batch_size
         batches = [pending[i:i + batch_size] for i in range(0, len(pending), batch_size)]
 
-        with tqdm(total=len(pending), desc="处理进度", unit="文件") as pbar:
+        with tqdm(
+            total=len(pending),
+            desc="处理进度",
+            unit="文件",
+            position=0,
+            leave=True,
+        ) as pbar:
             for batch_idx, batch in enumerate(batches):
                 if self._shutdown_event.is_set():
                     logger.info("收到停止信号，停止处理")

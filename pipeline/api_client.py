@@ -322,15 +322,15 @@ class MinerUAPIClient:
         """
         session = await self._get_session()
         url = f"{self.base_url}/extract-results/batch/{batch_id}"
-        deadline = time.time() + self.config.api.max_poll_minutes * 60
         poll_interval = self.config.api.poll_interval_sec
+        max_poll_minutes = self.config.api.max_poll_minutes
+
+        # 记录上一次的 done 数量，用于检测是否卡住
+        last_done_count = 0
+        # 记录卡住状态的累计等待时间
+        stuck_wait_time = 0.0
 
         while True:
-            if time.time() > deadline:
-                raise TimeoutError(
-                    f"批次 {batch_id} 轮询超时 ({self.config.api.max_poll_minutes}分钟)"
-                )
-
             try:
                 async with session.get(url) as resp:
                     resp.raise_for_status()
@@ -371,14 +371,28 @@ class MinerUAPIClient:
             failed_count = sum(1 for s in states if s == "failed")
             total = len(states)
 
+            # 简化 batch_id 显示：只保留第一个 "-" 前的内容
+            short_batch_id = batch_id.split("-")[0] if "-" in batch_id else batch_id
             logger.info(
-                f"轮询 batch={batch_id}: "
+                f"轮询 batch={short_batch_id}: "
                 f"done={done_count}/{total} failed={failed_count}, 所有状态: {unique_states}"
             )
 
             if all(s in ("done", "failed") for s in states):
                 return items
 
+            # 检查是否卡住：状态只包含 done、pending、failed，且 done 数量没有增加
+            if unique_states <= {"done", "pending", "failed"} and done_count == last_done_count:
+                stuck_wait_time += poll_interval
+                if stuck_wait_time >= max_poll_minutes * 60:
+                    raise TimeoutError(
+                        f"批次 {short_batch_id} 轮询超时 ({max_poll_minutes}分钟无进展)"
+                    )
+            else:
+                # 有进展，重置卡住计时
+                stuck_wait_time = 0.0
+
+            last_done_count = done_count
             await asyncio.sleep(poll_interval)
 
     async def download_result(
